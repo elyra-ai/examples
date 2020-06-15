@@ -1,0 +1,21 @@
+{
+	"schema_name": "code-snippet",
+	"display_name": "inspect_dataframe",
+	"metadata": {
+		"description": "Display dataframe properties",
+		"language": "python",
+		"code": [
+			"def inspect_dataframe(dframe):",
+			"    if dframe is None or not isinstance(dframe, pd.DataFrame):",
+			"       print('Parameter is not a Pandas DataFrame')",
+			"       return",
+			"    print('DataFrame shape - rows: {} columns: {}'.format(dframe.shape[0],dframe.shape[1]))",
+			"    print('DataFrame info:')",
+			"    print(dframe.info())",
+			"    print(dframe.describe())",
+			"    print(DataFrame sample:",
+			"    print(dframe.head(5))"
+		]
+	}
+}
+

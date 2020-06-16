@@ -16,4 +16,8 @@ limitations under the License.
 {% endcomment %}
 -->
 
-# examples
+# Elyra examples
+
+
+This repository provides a set of examples that explore some of the unique
+features provided by Elyra.

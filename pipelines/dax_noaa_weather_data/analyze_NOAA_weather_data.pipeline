@@ -1,0 +1,257 @@
+{
+  "doc_type": "pipeline",
+  "version": "3.0",
+  "json_schema": "http://api.dataplatform.ibm.com/schemas/common-pipeline/pipeline-flow/pipeline-flow-v3-schema.json",
+  "id": "f667f909-35de-468d-a87d-be030ed4998f",
+  "primary_pipeline": "405ee603-c87e-4658-bf72-9b5afa0b7dfc",
+  "pipelines": [
+    {
+      "id": "405ee603-c87e-4658-bf72-9b5afa0b7dfc",
+      "nodes": [
+        {
+          "id": "c88d9c0b-a5d5-45ab-88d6-eb6ce24ffdbb",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "filename": "load_data.ipynb",
+            "runtime_image": "amancevice/pandas:1.0.3",
+            "env_vars": [
+              "dataset_url=https://dax-cdn.cdn.appdomain.cloud/dax-noaa-weather-data-jfk-airport/1.1.4/noaa-weather-data-jfk-airport.tar.gz"
+            ],
+            "include_subdirectories": false,
+            "outputs": [
+              "data/noaa-weather-data-jfk-airport/jfk_weather.csv"
+            ],
+            "ui_data": {
+              "label": "load_data",
+              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
+              "x_pos": 223.70574951171875,
+              "y_pos": 239.04904174804688,
+              "description": "Notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": 1
+                  },
+                  "label": "Input Port"
+                }
+              }
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "e07e1b7f-568b-4bc3-9fc6-da372fd58daf",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "filename": "Part 1 - Data Cleaning.ipynb",
+            "runtime_image": "amancevice/pandas:1.0.3",
+            "env_vars": [],
+            "include_subdirectories": false,
+            "outputs": [
+              "data/noaa-weather-data-jfk-airport/jfk_weather_cleaned.csv"
+            ],
+            "dependencies": [
+              "data/noaa-weather-data-jfk-airport/jfk_weather.csv"
+            ],
+            "ui_data": {
+              "label": "Part 1 - Data Cleaning",
+              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
+              "x_pos": 463.4868469238281,
+              "y_pos": 239.04904174804688,
+              "description": "Notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "label": ""
+                }
+              },
+              "links": [
+                {
+                  "node_id_ref": "c88d9c0b-a5d5-45ab-88d6-eb6ce24ffdbb",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "label": ""
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "982e672a-4ae5-4608-bcb0-ce309868415a",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "filename": "Part 2 - Data Analysis.ipynb",
+            "runtime_image": "amancevice/pandas:1.0.3",
+            "env_vars": [],
+            "include_subdirectories": false,
+            "dependencies": [
+              "data/noaa-weather-data-jfk-airport/jfk_weather_cleaned.csv"
+            ],
+            "ui_data": {
+              "label": "Part 2 - Data Analysis",
+              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
+              "x_pos": 724,
+              "y_pos": 240.78109741210938,
+              "description": "Notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "label": ""
+                }
+              },
+              "links": [
+                {
+                  "node_id_ref": "e07e1b7f-568b-4bc3-9fc6-da372fd58daf",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "label": ""
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "b00e4654-a2b0-417c-8f93-8a03bec95945",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "filename": "Part 3 - Time Series Forecasting.ipynb",
+            "runtime_image": "amancevice/pandas:1.0.3",
+            "env_vars": [],
+            "include_subdirectories": false,
+            "dependencies": [
+              "data/noaa-weather-data-jfk-airport/jfk_weather_cleaned.csv"
+            ],
+            "ui_data": {
+              "label": "Part 3 - Time Series Forecasting",
+              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
+              "x_pos": 726.7548217773438,
+              "y_pos": 356.5849304199219,
+              "description": "Notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "label": ""
+                }
+              },
+              "links": [
+                {
+                  "node_id_ref": "e07e1b7f-568b-4bc3-9fc6-da372fd58daf",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "label": ""
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "app_data": {
+        "ui_data": {
+          "comments": [
+            {
+              "id": "674e675e-73c2-4535-8251-df58704443a9",
+              "x_pos": 194.3624725341797,
+              "y_pos": 164.65670776367188,
+              "width": 228.27503967285156,
+              "height": 60,
+              "class_name": "d3-comment-rect",
+              "content": "Download the JFK Weather dataset archive and extract it",
+              "associated_id_refs": []
+            },
+            {
+              "id": "e5cfb9cc-25fa-47bb-92ae-b13c81ef1f12",
+              "x_pos": 717,
+              "y_pos": 168.29067993164062,
+              "width": 171,
+              "height": 55,
+              "class_name": "d3-comment-rect",
+              "content": " Analyze the dataset",
+              "associated_id_refs": []
+            },
+            {
+              "id": "d856880c-bde9-4870-a2e6-89d4ed8323bd",
+              "x_pos": 727,
+              "y_pos": 415,
+              "width": 155.58135986328125,
+              "height": 63,
+              "class_name": "d3-comment-rect",
+              "content": "Explore approaches to predicting future temperatures ",
+              "associated_id_refs": []
+            },
+            {
+              "id": "461b6627-385d-4b1a-aeb8-664ab1dcee7b",
+              "x_pos": 462,
+              "y_pos": 164.38877868652344,
+              "width": 175,
+              "height": 61,
+              "class_name": "d3-comment-rect",
+              "content": "Clean the dataset\n ",
+              "associated_id_refs": []
+            }
+          ]
+        }
+      },
+      "runtime_ref": ""
+    }
+  ],
+  "schemas": []
+}

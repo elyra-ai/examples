@@ -16,7 +16,7 @@
             "filename": "load_data.ipynb",
             "runtime_image": "amancevice/pandas:1.0.3",
             "env_vars": [
-              "dataset_url=https://dax-cdn.cdn.appdomain.cloud/dax-noaa-weather-data-jfk-airport/1.1.4/noaa-weather-data-jfk-airport.tar.gz"
+              "DATASET_URL=https://dax-cdn.cdn.appdomain.cloud/dax-noaa-weather-data-jfk-airport/1.1.4/noaa-weather-data-jfk-airport.tar.gz"
             ],
             "include_subdirectories": false,
             "outputs": [

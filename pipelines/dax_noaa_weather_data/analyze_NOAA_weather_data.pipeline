@@ -248,7 +248,8 @@
               "associated_id_refs": []
             }
           ]
-        }
+        },
+        "version": 1
       },
       "runtime_ref": ""
     }

@@ -13,10 +13,9 @@ This pipeline illustrates the following concepts:
  ## Exploring the pipeline
 
  1. [Configure a KubeFlow runtime environment in Elyra](https://elyra.readthedocs.io/en/latest/user_guide/runtime-conf.html) 
- 1. Clone the sample repository.
- 1. Navigate to the pipeline directory.
+ 1. Clone the sample repository `https://github.com/elyra-ai/examples`.
  1. Launch JupyterLab, which has the Elyra extension installed.
- 1. Open the `analyze_NOAA_weather_data.pipeline`.
+ 1. From the File Browser open `analyze_NOAA_weather_data.pipeline`, which is located in the `pipelines/dax_noaa_weather_data/` directory.
  1. Review the notebook properties (right click > "Properties").
  1. Review the notebooks (right click > "Open notebook").
  1. Run the pipeline. Two links are displayed.

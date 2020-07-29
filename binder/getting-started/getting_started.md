@@ -75,11 +75,41 @@ Elyra adds a basic Python script editor, which supports running in a local kerne
 
 Elyra introduces a re-usable code snippets feature, which enables you to define and insert custom pieces of code. 
 
-1. Open the "File Browser" tab on the left hand side.
+### Creating code snippets
+
+1. Select the "Code Snippets" tab on the left hand side. 
+1. Click the + sign to create a new snippet. 
+
+   ![Create code snippet](images/create_code_snippet.png)
+
+1. Enter a snippet name, choose from the list of predefined languages (or enter a custom language value) and provide the desired source code. 
+
+   ![Define code snippet](images/define_code_snippet.png)
+
+For illustrative purposes this getting started tour includes two pre-defined code snippets - one for Python and one for markdown.   
+
+### Copy and insert code snippets
+
+You can copy code snippets to the clipboard or insert them in JupyterLab widgets, such as the notebook editor, that support the snippet's language.
+
+![Copy and paste code snippet](images/consume_code_snippet.png)
+
+To insert a Python or markdown snippet into a Python notebook cell:
+1. Open the "File Browser" tab on the left hand side. 
 1. Open the `getting_started.ipynb` notebook.
 1. Scroll to the bottom.
-1. Position the cursor in the code cell that reads `# TODO: insert ...`.
-1. Select the "Code Snippets" tab on the left hand side. 
-1. Click on the plus sign next to the predefined code snippet to insert it.
+1. Position the cursor in the _code_ cell that reads `# TODO: insert ...`.
+1. Select the "Code Snippets" tab on the left hand side.
+1. Try to insert the markdown snippet. A warning should be displayed indicating that the snippet is not compatible with the cell's type. Do not insert the snippet.
+1. Insert the Python snippet into the code cell.
 
-   ![Code Snippet](images/code_snippets.png)
+   ![Code Snippet](images/insert_code_snippet.png)
+
+### Deleting code snippets
+
+To delete a code snippet definition 
+
+1. Select the "Code Snippets" tab on the left hand side.
+1. Click the trash can icon. 
+
+   ![Delete code snippet](images/delete_code_snippet.png)

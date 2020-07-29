@@ -13,7 +13,7 @@
           "type": "execution_node",
           "op": "execute-notebook-node",
           "app_data": {
-            "filename": "load_data.ipynb",
+            "filename": "pipelines/dax_noaa_weather_data/load_data.ipynb",
             "runtime_image": "amancevice/pandas:1.0.3",
             "env_vars": [
               "DATASET_URL=https://dax-cdn.cdn.appdomain.cloud/dax-noaa-weather-data-jfk-airport/1.1.4/noaa-weather-data-jfk-airport.tar.gz"
@@ -22,6 +22,7 @@
             "outputs": [
               "data/noaa-weather-data-jfk-airport/jfk_weather.csv"
             ],
+            "invalidNodeError": null,
             "ui_data": {
               "label": "load_data",
               "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
@@ -64,7 +65,7 @@
           "type": "execution_node",
           "op": "execute-notebook-node",
           "app_data": {
-            "filename": "Part 1 - Data Cleaning.ipynb",
+            "filename": "pipelines/dax_noaa_weather_data/Part 1 - Data Cleaning.ipynb",
             "runtime_image": "amancevice/pandas:1.0.3",
             "env_vars": [],
             "include_subdirectories": false,
@@ -72,6 +73,7 @@
               "data/noaa-weather-data-jfk-airport/jfk_weather_cleaned.csv"
             ],
             "dependencies": [],
+            "invalidNodeError": null,
             "ui_data": {
               "label": "Part 1 - Data Cleaning",
               "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
@@ -90,6 +92,7 @@
               },
               "links": [
                 {
+                  "id": "d2a3bd2c-fc0c-47e2-a343-6ae74d76b891",
                   "node_id_ref": "c88d9c0b-a5d5-45ab-88d6-eb6ce24ffdbb",
                   "port_id_ref": "outPort"
                 }
@@ -112,11 +115,12 @@
           "type": "execution_node",
           "op": "execute-notebook-node",
           "app_data": {
-            "filename": "Part 2 - Data Analysis.ipynb",
+            "filename": "pipelines/dax_noaa_weather_data/Part 2 - Data Analysis.ipynb",
             "runtime_image": "amancevice/pandas:1.0.3",
             "env_vars": [],
             "include_subdirectories": false,
             "dependencies": [],
+            "invalidNodeError": null,
             "ui_data": {
               "label": "Part 2 - Data Analysis",
               "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
@@ -135,6 +139,7 @@
               },
               "links": [
                 {
+                  "id": "45c53974-acbb-4782-a8ff-96c5b37f8db6",
                   "node_id_ref": "e07e1b7f-568b-4bc3-9fc6-da372fd58daf",
                   "port_id_ref": "outPort"
                 }
@@ -157,11 +162,12 @@
           "type": "execution_node",
           "op": "execute-notebook-node",
           "app_data": {
-            "filename": "Part 3 - Time Series Forecasting.ipynb",
+            "filename": "pipelines/dax_noaa_weather_data/Part 3 - Time Series Forecasting.ipynb",
             "runtime_image": "amancevice/pandas:1.0.3",
             "env_vars": [],
             "include_subdirectories": false,
             "dependencies": [],
+            "invalidNodeError": null,
             "ui_data": {
               "label": "Part 3 - Time Series Forecasting",
               "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
@@ -180,6 +186,7 @@
               },
               "links": [
                 {
+                  "id": "b73a2229-4c84-40a5-93c0-f22c7a778a8a",
                   "node_id_ref": "e07e1b7f-568b-4bc3-9fc6-da372fd58daf",
                   "port_id_ref": "outPort"
                 }

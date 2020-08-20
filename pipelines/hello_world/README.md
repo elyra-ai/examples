@@ -10,7 +10,7 @@ A companion tutorial will cover how to run pipelines on Kubeflow Pipelines, enab
 
 ### Prerequisites
 
-- JupyterLab 2.x with the Elyra extension 1.1.x installed
+- JupyterLab 2.x with the Elyra extension v1.1.x (or newer) installed
 
 ### Setup
 

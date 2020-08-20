@@ -10,12 +10,19 @@ A companion tutorial will cover how to run pipelines on Kubeflow Pipelines, enab
 
 ### Prerequisites
 
-- JupyterLab 2.x with the Elyra extension 1.0.x installed
+- JupyterLab 2.x with the Elyra extension 1.1.x installed
 
 ### Setup
 
-1. Clone the Elyra examples repository https://github.com/elyra-ai/examples into your JupyterLab workspace
+This tutorial uses the `Hello world` sample from the https://github.com/elyra-ai/examples GitHub repository.
 1. Launch JupyterLab
+1. Open the _Git clone_ wizard (Git > Clone)
+1. Enter `https://github.com/elyra-ai/examples.git` as URI.
+1. In the _File Browser_ navigate to `examples/pipelines/hello_world`
+
+   ![Tutorial assets in File Browser](doc/images/cloned_examples.png)
+
+You are ready to start the tutorial.
 
 ### Creating a notebook pipeline
 
@@ -53,7 +60,7 @@ Next, you'll add a notebook to the pipeline that downloads an open data set arch
 
    If a notebook requires access to local files, such as python scripts, you can specify them as _File Dependencies_. When you run a pipeline locally this setting is ignored because the notebook can access all (readable) files in your workspace. However, it is considered good practise to explicitly declare file dependencies to make the pipeline also runnable in environments where notebooks are executed isolated from each other.
 
-1. The `load_data.iynb` notebook does not have any file dependencies. Leave the input field empty.
+1. The `load_data.ipynb` notebook does not have any file dependencies. Leave the input field empty.
 
     ![Configure file dependencies](doc/images/configure_file_dependencies.png)
 
@@ -131,18 +138,25 @@ You can monitor the run progress in the JupyterLab console.
 ### Inspecting the pipeline run results
 
 A _local pipeline run_ produces the following output artifacts:
-- The output cells of each executed notebook are updated. 
-- If any notebook persists data/files they are stored in your local file system.
+- Each executed notebook is updated and includes the run results in the output cells.
+- If any notebook persists data/files they are stored in the local file system.
 
-You can access output artifacts from the File Browser. In the screen capture below the `hello world` pipeline output artifacts are highlighted in green.
+You can access output artifacts from the _File Browser_. In the screen capture below the `hello_world` pipeline output artifacts are highlighted in green.
 
  ![View local pipeline run output artifacts](doc/images/review_pipeline_output_artifacts.png)
 
 ### Next steps
 
-This concludes the Hello World tutorial. If you'd like you can extend the pipeline by adding two more notebooks, which can be executed in parallel after notebook `Part 1 - Data Cleaning.ipynb` was processed:
- - `Part 2 - Data Analysis.iynb`
- - `Part 3 - Time Series Forecasting.iynb`
+This concludes the Hello World tutorial. You've learned how to 
+- create a notebook pipeline
+- add and configure notebooks
+- run a notebook pipeline in a local environment
+- monitor the pipeline run progress
+- inspect the pipeline run results
+
+If you'd like you can extend the pipeline by adding two more notebooks, which can be executed in parallel after notebook `Part 1 - Data Cleaning.ipynb` was processed:
+ - `Part 2 - Data Analysis.ipynb`
+ - `Part 3 - Time Series Forecasting.ipynb`
 
 Each of the notebooks can run in the `Pandas` Docker image and doesn't have any input dependencies, doesn't require any environment variables and doesn't produce an additional output files.
 

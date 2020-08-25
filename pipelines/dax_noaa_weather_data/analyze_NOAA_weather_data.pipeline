@@ -13,7 +13,7 @@
           "type": "execution_node",
           "op": "execute-notebook-node",
           "app_data": {
-            "filename": "pipelines/dax_noaa_weather_data/load_data.ipynb",
+            "filename": "load_data.ipynb",
             "runtime_image": "amancevice/pandas:1.0.3",
             "env_vars": [
               "DATASET_URL=https://dax-cdn.cdn.appdomain.cloud/dax-noaa-weather-data-jfk-airport/1.1.4/noaa-weather-data-jfk-airport.tar.gz"
@@ -65,7 +65,7 @@
           "type": "execution_node",
           "op": "execute-notebook-node",
           "app_data": {
-            "filename": "pipelines/dax_noaa_weather_data/Part 1 - Data Cleaning.ipynb",
+            "filename": "Part 1 - Data Cleaning.ipynb",
             "runtime_image": "amancevice/pandas:1.0.3",
             "env_vars": [],
             "include_subdirectories": false,
@@ -115,7 +115,7 @@
           "type": "execution_node",
           "op": "execute-notebook-node",
           "app_data": {
-            "filename": "pipelines/dax_noaa_weather_data/Part 2 - Data Analysis.ipynb",
+            "filename": "Part 2 - Data Analysis.ipynb",
             "runtime_image": "amancevice/pandas:1.0.3",
             "env_vars": [],
             "include_subdirectories": false,
@@ -162,7 +162,7 @@
           "type": "execution_node",
           "op": "execute-notebook-node",
           "app_data": {
-            "filename": "pipelines/dax_noaa_weather_data/Part 3 - Time Series Forecasting.ipynb",
+            "filename": "Part 3 - Time Series Forecasting.ipynb",
             "runtime_image": "amancevice/pandas:1.0.3",
             "env_vars": [],
             "include_subdirectories": false,
@@ -270,7 +270,7 @@
             }
           ]
         },
-        "version": 1
+        "version": 2
       },
       "runtime_ref": ""
     }

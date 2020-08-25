@@ -10,6 +10,10 @@ This pipeline illustrates the following concepts:
 
 ![pipeline snapshot](doc/images/pipeline_snapshot.png)
 
+ ## Prerequisites
+ 
+ This pipeline requires Elyra v1.1 or later.
+
  ## Exploring the pipeline
 
  1. [Configure a KubeFlow runtime environment in Elyra](https://elyra.readthedocs.io/en/latest/user_guide/runtime-conf.html) 

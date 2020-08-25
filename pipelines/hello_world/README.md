@@ -4,23 +4,25 @@ A notebook pipeline comprises of notebook nodes that are connected with each oth
 
 ![The completed tutorial pipeline](doc/images/completed_tutorial_pipeline.png)
 
-In this tutorial you will learn how to create a notebook pipeline and run it in your local development environment. When you run a notebook pipeline in your local environment, each notebook is executed on the machine where JupyterLab is running, such as your laptop. Since resources on that machine might be limited local pipeline execution might not always be a viable option.
+In this tutorial you will learn how to create a notebook pipeline and run it in your local development environment. When you run a notebook pipeline in your local environment, each notebook is executed in a Kernel on the machine where JupyterLab is running, such as your laptop. Since resources on that machine might be limited local pipeline execution might not always be a viable option.
 
 A companion tutorial will cover how to run pipelines on Kubeflow Pipelines, enabling you to take advantage of shared compute resources that might dramatically reduce pipeline processing time or allow for processing of much larger data volumes.
 
 ### Prerequisites
 
-- JupyterLab 2.x with the Elyra extension v1.1.x (or newer) installed
+- JupyterLab 2.x with the Elyra extension v1.1 (or newer) installed
 
 ### Setup
 
-This tutorial uses the `Hello world` sample from the https://github.com/elyra-ai/examples GitHub repository.
-1. Launch JupyterLab
-1. Open the _Git clone_ wizard (Git > Clone)
-1. Enter `https://github.com/elyra-ai/examples.git` as URI.
-1. In the _File Browser_ navigate to `examples/pipelines/hello_world`
+This tutorial uses the `hello_world` sample from the https://github.com/elyra-ai/examples GitHub repository.
+1. Launch JupyterLab.
+1. Open the _Git clone_ wizard (Git > Clone).
+1. Enter `https://github.com/elyra-ai/examples.git` as _Clone URI_.
+1. In the _File Browser_ navigate to `examples/pipelines/hello_world`.
 
    ![Tutorial assets in File Browser](doc/images/cloned_examples.png)
+   
+   The cloned repository includes a set of notebooks that download an open [weather data set from the Data Asset Exchange](https://developer.ibm.com/exchanges/data/all/jfk-weather-data/), cleanse the data, analyze the data, and perform time-series predictions.
 
 You are ready to start the tutorial.
 
@@ -58,7 +60,7 @@ Next, you'll add a notebook to the pipeline that downloads an open data set arch
 
    ![Configure runtime image](doc/images/configure_runtime_image.png)
 
-   If a notebook requires access to local files, such as python scripts, you can specify them as _File Dependencies_. When you run a pipeline locally this setting is ignored because the notebook can access all (readable) files in your workspace. However, it is considered good practise to explicitly declare file dependencies to make the pipeline also runnable in environments where notebooks are executed isolated from each other.
+   If a notebook requires access to local files, such as Python scripts, you can specify them as _File Dependencies_. When you run a pipeline locally this setting is ignored because the notebook can access all (readable) files in your workspace. However, it is considered good practise to explicitly declare file dependencies to make the pipeline also runnable in environments where notebooks are executed isolated from each other.
 
 1. The `load_data.ipynb` notebook does not have any file dependencies. Leave the input field empty.
 

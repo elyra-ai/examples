@@ -1,0 +1,13 @@
+{
+  "display_name": "MIT license text",
+  "metadata": {
+    "language": "Markdown",
+    "code": [
+      "### Copyright",
+      "",
+      "Copyright \u00a9 2020 <COPYRIGHT-HOLDER>. This notebook and its source code are released under the terms of the [MIT License](https://opensource.org/licenses/MIT)."
+    ],
+    "description": "See https://opensource.org/licenses/MIT"
+  },
+  "schema_name": "code-snippet"
+}

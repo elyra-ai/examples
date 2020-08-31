@@ -13,17 +13,17 @@ In this tutorial you will learn how to create a notebook pipeline and run it on 
 ### Prerequisites
 
 To complete this tutorial you need
-- JupyterLab 2.x with the Elyra extension v1.1 (or newer) installed
+- [JupyterLab 2.x with the Elyra extension v1.1 (or newer) installed](https://elyra.readthedocs.io/en/latest/getting_started/installation.html)
 - Access to a [Kubeflow Pipelines](https://www.kubeflow.org/docs/pipelines/overview/pipelines-overview/) deployment
 
 #### Information to collect collect before starting
 
 Collect the following information for your Kubeflow Pipelines installation:
 - API endpoint, e.g. `http://kubernetes-service.ibm.com/pipeline`
-- Username for a multi-user, auth-enabled Kubeflow installation
-- Password for a multi-user, auth-enabled Kubeflow installation
+- Username for a multi-user, auth-enabled Kubeflow installation, e.g. `jdoe`
+- Password for a multi-user, auth-enabled Kubeflow installation, e.g. `passw0rd`
 
-Notebook pipelines use S3-compatible cloud storage at runtime to exchange data between notebooks. You can use stand-alone cloud storage (e.g. IBM Cloud Object Storage) or Minio, which is sh
+Notebook pipelines use S3-compatible cloud storage at runtime to make data available to notebooks. Any kind of cloud storage should work (e.g. IBM Cloud Object Storage or Minio) as long as it can be accessed from your local machine and the Kubeflow Pipelines installation:
 - S3 compatible object storage endpoint, e.g. `http://minio-service.kubeflow:9000`
 - S3 object storage username, e.g. `minio`
 - S3 object storage password, e.g. `minio123`
@@ -33,12 +33,15 @@ Notebook pipelines use S3-compatible cloud storage at runtime to exchange data b
 This tutorial uses the `hello_world_kubeflow_pipelines` sample from the https://github.com/elyra-ai/examples GitHub repository.
 1. Launch JupyterLab.
 1. Open the _Git clone_ wizard (Git > Clone).
+
+   ![Open Git clone wizard](doc/images/navigate_to_git_clone.png)
+
 1. Enter `https://github.com/elyra-ai/examples.git` as _Clone URI_.
 1. In the _File Browser_ navigate to `examples/pipelines/hello_world_kubeflow_pipelines`.
 
    ![Tutorial assets in File Browser](doc/images/cloned_examples.png)
    
-   The cloned repository includes a set of notebooks that download an open [weather data set from the Data Asset Exchange](https://developer.ibm.com/exchanges/data/all/jfk-weather-data/), cleanse the data, analyze the data, and perform time-series predictions.
+   The cloned repository includes a set of notebooks that download an open [weather data set from the Data Asset Exchange](https://developer.ibm.com/exchanges/data/all/jfk-weather-data/), cleanse the data, analyze the data, and perform time-series predictions. In this tutorial you create a pipeline that runs these notebooks in the appropriate order. 
 
 You are ready to start the tutorial.
 
@@ -70,7 +73,7 @@ Next, you'll add a notebook to the pipeline that downloads an open data set arch
 
    ![Open notebook node properties](doc/images/open_node_properties.png)
 
-   The properties define the runtime environment, input artifacts (file dependencies and environment variables), and output files.
+   The execution properties define the runtime environment, input artifacts (file dependencies and environment variables), and output files.
 
    ![Notebook node configuration](doc/images/node_configuration.png)
 
@@ -81,7 +84,7 @@ Next, you'll add a notebook to the pipeline that downloads an open data set arch
 
    ![Configure runtime image](doc/images/configure_runtime_image.png)
 
-1. By default only the notebook is made available in the Docker container. If a notebook requires access to other files (like Python scripts) on your local machine you have to specify them as _file dependencies_. Files that have been declared as a dependency are uploaded to a cloud storage bucket together with the notebook and downloaded into the Docker image prior to notebook execution.
+1. By default only the notebook is made available in the Docker container. If a notebook requires access to other files (like Python scripts) that are stored on your local machine you have to specify them as _file dependencies_. Files that have been declared as a dependency are uploaded to a cloud storage bucket together with the notebook and downloaded into the Docker image prior to notebook execution.
 
    ![Input dependencies are uploaded to a Cloud storage bucket](doc/images/input_dependencies.png)
 
@@ -89,7 +92,7 @@ Next, you'll add a notebook to the pipeline that downloads an open data set arch
 
    ![Configure input file dependencies](doc/images/configure_input_file_dependencies.png)
 
-1. If a notebook references `environment variables` you can declare them, if required. The `load_data` notebook you have added to the pipeline uses environment variable `DATASET_URL` to determine the name and location of the compressed data set archive which needs to be downloaded and extracted. Assign environment variable `DATASET_URL` the value `https://dax-cdn.cdn.appdomain.cloud/dax-noaa-weather-data-jfk-airport/1.1.4/noaa-weather-data-jfk-airport.tar.gz`, which is a time-series data set containing weather information.
+1. If a notebook references `environment variables` you can declare them, if required. The `load_data` notebook you have added to the pipeline uses environment variable `DATASET_URL` to determine the name and location of a compressed data set archive, which needs to be downloaded and extracted. Assign environment variable `DATASET_URL` the value `https://dax-cdn.cdn.appdomain.cloud/dax-noaa-weather-data-jfk-airport/1.1.4/noaa-weather-data-jfk-airport.tar.gz`, which is a time-series data set containing weather information.
 
    ![Configure environment variables](doc/images/configure_environment_variables.png)
 
@@ -122,7 +125,7 @@ Next, you'll add a second notebook to the pipeline and connect it with the first
 ### Adding a second notebook to the pipeline
 
 1. Drag the `Part 1 - Data Cleaning.ipynb` notebook from the File Browser onto the canvas.
-1. Customize its execution properties as follows:
+1. Customize the node's execution properties as follows:
    - Runtime image: `Pandas`
    - Output files: `data/noaa-weather-data-jfk-airport/jfk_weather_cleaned.csv`
 1. Attach a comment node to the `Part 1 - Data Cleaning` node and provide a description, such as `Clean the dataset`. 
@@ -132,9 +135,9 @@ Next, you'll add a second notebook to the pipeline and connect it with the first
 
 1. Save the pipeline.
 
-    ![Save pipeline](doc/images/save_wip_pipeline.png)
+   ![Save pipeline](doc/images/save_wip_pipeline.png)
 
-Before you can run a pipeline on Kubeflows Pipelines, you have to define a runtime configuration.
+Before you can run a pipeline on Kubeflows Pipelines, you have to define a runtime environment configuration.
 
 > You can run a pipeline locally right away using the default `run in-place locally` configuration, as illustrated in the [_Hello World_ tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world).
 
@@ -152,13 +155,17 @@ A runtime environment configuration in Elyra contains connectivity information f
 
 1. Enter a _Name_ and an optional _Description_ for the configuration.
 
-1. Enter the connectivity information for your Kubeflows Pipelines information and S3-compatible cloud storage instance. If access to your Kubeflows Pipelines instance is [secured using DEX](https://www.kubeflow.org/docs/started/k8s/kfctl-istio-dex/), provide the appropriate credentials.
+1. Enter the connectivity information for your Kubeflows Pipelines instance and S3-compatible cloud storage. If access to your Kubeflows Pipelines instance is [secured using DEX](https://www.kubeflow.org/docs/started/k8s/kfctl-istio-dex/), provide the appropriate credentials.
 
    ![Configure Kubeflows Pipelines runtime](doc/images/configure_runtime_environment.png)
 
 1. Save the runtime configuration.
 
    ![Saved Kubeflows Pipelines runtime configuration](doc/images/saved_runtime_configuration.png)
+
+1. Expand the twistie in front of the configuration entry. The displayed links provide access to the configured Kubeflow Pipelines UI and the cloud strage UI.
+
+   ![Review runtime configuration](doc/images/review_runtime_configuration.png)
 
 ### Running a notebook pipeline on Kubeflow Pipelines
 
@@ -172,11 +179,11 @@ A runtime environment configuration in Elyra contains connectivity information f
 
    ![Configure pipeline run](doc/images/run_pipeline_remotely.png)
 
-1. Start the pipeline run. The pipeline artifacts (notebooks and file input dependencies) are gathered, packaged, and uploaded to cloud storage. The pipeline is compiled and submitted to Kubeflow Pipelines for execution.
+1. Start the pipeline run. The pipeline artifacts (notebooks and file input dependencies) are gathered, packaged, and uploaded to cloud storage. The pipeline is compiled and subsequently submitted to Kubeflow Pipelines for execution.
 
    ![Pipeline run submitted confirmation message](doc/images/run_submission_confirmation.png)
 
-   The confirmation message two links:
+   The confirmation message contains two links:
     - _Run details_: provides access to the Kubeflow Pipelines UI where you monitor the pipeline execution progress.
     - _Object storage_: provides access to the object storage where you access the input artifacts and output artifacts.
 
@@ -196,15 +203,19 @@ A runtime environment configuration in Elyra contains connectivity information f
 
    ![Wait for pipeline run to finish](doc/images/pipeline_run_complete.png)
 
-### Accessing the pipeline run results
+### Accessing the pipeline run outputs
 
-1. Open the object storage link and, if required, log in.
+Notebook pipelines that execute on Kubeflow Pipelines store the pipeline run outputs (completed notebooks and declared output files) in the cloud storage bucket you've configured in the runtime configuration.
+
+1. Open the object storage link and, if required, log in. 
+
+   ![open cloud storage page](doc/images/access_pipeline_run_results.png)
 
 1. Navigate to the bucket you've specified in the runtime configuration to review the content.
 
-   ![](doc/images/inspect_object_storage_bucket_content.png)
+   ![review run output artifacts](doc/images/inspect_object_storage_bucket_content.png)
 
-   If pipeline execution completed successfully the bucket contains the following artifacts for each  notebook node:
+   If pipeline execution completed successfully the bucket contains for each notebook node the following artifacts:
       - a `tar.gz` archive containing the input notebook and, if applicable, its declared file-dependencies
       - the completed notebook with it's populated output cells
       - HTML version of the completed notebook
@@ -217,6 +228,7 @@ A runtime environment configuration in Elyra contains connectivity information f
    - `load_data.html` (output artifact) 
    - `data/noaa-weather-data-jfk-airport/jfk_weather.csv` (output artifact)
 
+
 ### Next steps
 
 This concludes the _Hello World Kubeflow Pipelines_ tutorial. You've learned how to 
@@ -226,7 +238,7 @@ This concludes the _Hello World Kubeflow Pipelines_ tutorial. You've learned how
 - create a Kubeflow Pipelines runtime configuration
 - run a notebook pipeline on Kubeflow Pipelines
 - monitor the pipeline run progress in the Kubeflow Pipelines UI
-- access the pipeline run results on cloud storage
+- access the pipeline run output on cloud storage
 
 If you'd like you can extend the pipeline by adding two more notebooks, which can be executed in parallel after notebook `Part 1 - Data Cleaning.ipynb` was processed:
  - `Part 2 - Data Analysis.ipynb`

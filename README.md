@@ -24,6 +24,7 @@ features provided by Elyra.
 
 ### Tutorials
 - [Running notebook pipelines in a local environment](pipelines/hello_world)
+- [Running notebook pipelines on Kubeflow Pipelines](pipelines/hello_world_kubeflow_pipelines)
 
 ### Notebook pipelines
 - [NOAA time-series data weather prediction pipeline](pipelines/dax_noaa_weather_data)

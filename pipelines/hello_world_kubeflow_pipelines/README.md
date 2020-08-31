@@ -14,16 +14,16 @@ In this tutorial you will learn how to create a notebook pipeline and run it on 
 
 To complete this tutorial you need
 - [JupyterLab 2.x with the Elyra extension v1.1 (or newer) installed](https://elyra.readthedocs.io/en/latest/getting_started/installation.html)
-- Access to a [Kubeflow Pipelines](https://www.kubeflow.org/docs/pipelines/overview/pipelines-overview/) deployment
+- Access to a [local](https://elyra.readthedocs.io/en/latest/recipes/deploying-kubeflow-locally-for-dev.html) or [cloud](https://www.kubeflow.org/docs/started/cloud/) Kubeflow Pipelines deployment
 
-#### Information to collect collect before starting
+#### Information to collect before starting
 
 Collect the following information for your Kubeflow Pipelines installation:
 - API endpoint, e.g. `http://kubernetes-service.ibm.com/pipeline`
 - Username for a multi-user, auth-enabled Kubeflow installation, e.g. `jdoe`
 - Password for a multi-user, auth-enabled Kubeflow installation, e.g. `passw0rd`
 
-Notebook pipelines use S3-compatible cloud storage at runtime to make data available to notebooks. Any kind of cloud storage should work (e.g. IBM Cloud Object Storage or Minio) as long as it can be accessed from your local machine and the Kubeflow Pipelines installation:
+Notebook pipelines use S3-compatible cloud storage at runtime to make data available to notebooks. Any kind of cloud storage should work (e.g. IBM Cloud Object Storage or Minio - which is installed with Kubeflow Pipelines by default) as long as it can be accessed from your local machine and the Kubeflow Pipelines installation:
 - S3 compatible object storage endpoint, e.g. `http://minio-service.kubeflow:9000`
 - S3 object storage username, e.g. `minio`
 - S3 object storage password, e.g. `minio123`

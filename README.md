@@ -22,10 +22,10 @@ limitations under the License.
 This repository provides a set of examples that explore some of the unique
 features provided by Elyra.
 
-### Tutorials
+### Notebook pipelines tutorials
 - [Running notebook pipelines in a local environment](pipelines/hello_world)
 - [Running notebook pipelines on Kubeflow Pipelines](pipelines/hello_world_kubeflow_pipelines)
 
-### Notebook pipelines
+### Example notebook pipelines
 - [NOAA time-series data weather prediction pipeline](pipelines/dax_noaa_weather_data)
 

@@ -13,7 +13,7 @@
 			"    print('DataFrame info:')",
 			"    print(dframe.info())",
 			"    print(dframe.describe())",
-			"    print(DataFrame sample:",
+			"    print('DataFrame sample:')",
 			"    print(dframe.head(5))"
 		]
 	}

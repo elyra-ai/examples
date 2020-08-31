@@ -6,11 +6,12 @@ A notebook pipeline comprises of notebook nodes that are connected with each oth
 
 In this tutorial you will learn how to create a notebook pipeline and run it in your local development environment. When you run a notebook pipeline in your local environment, each notebook is executed in a Kernel on the machine where JupyterLab is running, such as your laptop. Since resources on that machine might be limited local pipeline execution might not always be a viable option.
 
-A companion tutorial will cover how to run pipelines on Kubeflow Pipelines, enabling you to take advantage of shared compute resources that might dramatically reduce pipeline processing time or allow for processing of much larger data volumes.
+ The [Hello World Kubeflow Pipelines tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world_kubeflow_pipelines) is similar to this tutorial but runs the notebook pipeline on Kubeflow Pipelines, enabling you to take advantage of shared compute resources in the cloud that might dramatically reduce pipeline processing time or allow for processing of much larger data volumes.
 
 ### Prerequisites
 
 - [JupyterLab 2.x with the Elyra extension v1.1 (or newer) installed](https://elyra.readthedocs.io/en/latest/getting_started/installation.html). 
+
 ### Setup
 
 This tutorial uses the `hello_world` sample from the https://github.com/elyra-ai/examples GitHub repository.

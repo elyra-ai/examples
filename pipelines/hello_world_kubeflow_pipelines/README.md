@@ -163,7 +163,7 @@ A runtime environment configuration in Elyra contains connectivity information f
 
    ![Saved Kubeflows Pipelines runtime configuration](doc/images/saved_runtime_configuration.png)
 
-1. Expand the twistie in front of the configuration entry. The displayed links provide access to the configured Kubeflow Pipelines UI and the cloud strage UI.
+1. Expand the twistie in front of the configuration entry. The displayed links provide access to the configured Kubeflow Pipelines UI and the cloud storage UI.
 
    ![Review runtime configuration](doc/images/review_runtime_configuration.png)
 
@@ -216,7 +216,7 @@ Notebook pipelines that execute on Kubeflow Pipelines store the pipeline run out
    ![review run output artifacts](doc/images/inspect_object_storage_bucket_content.png)
 
    If pipeline execution completed successfully the bucket contains for each notebook node the following artifacts:
-      - a `tar.gz` archive containing the input notebook and, if applicable, its declared file-dependencies
+      - a `tar.gz` archive containing the input notebook and, if applicable, its declared file dependencies
       - the completed notebook with it's populated output cells
       - HTML version of the completed notebook
       - if applicable, the declared output files 

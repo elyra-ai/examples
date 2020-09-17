@@ -1,12 +1,12 @@
-## Getting started with notebook pipelines
+## Getting started with AI workflow pipelines
 
-A notebook pipeline comprises of notebook nodes that are connected with each other. 
+A workflow pipeline comprises of notebook nodes or Python script nodes that are connected with each other. 
 
-![The completed tutorial pipeline](doc/images/completed_tutorial_pipeline.png)
+![The completed tutorial pipeline](doc/images/tutorial_pipeline.png)
 
-In this tutorial you will learn how to create a notebook pipeline and run it in your local development environment. When you run a notebook pipeline in your local environment, each notebook is executed in a Kernel on the machine where JupyterLab is running, such as your laptop. Since resources on that machine might be limited local pipeline execution might not always be a viable option.
+In this tutorial you will learn how to create a workflow pipeline and run it in your local development environment. When you run a pipeline in your local environment, each notebook or Python script is executed in a Kernel on the machine where JupyterLab is running, such as your laptop. Since resources on that machine might be limited local pipeline execution might not always be a viable option.
 
- The [Hello World Kubeflow Pipelines tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world_kubeflow_pipelines) is similar to this tutorial but runs the notebook pipeline on Kubeflow Pipelines, enabling you to take advantage of shared compute resources in the cloud that might dramatically reduce pipeline processing time or allow for processing of much larger data volumes.
+ The [Hello World Kubeflow Pipelines tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world_kubeflow_pipelines) is similar to this tutorial but runs the pipeline on Kubeflow Pipelines, enabling you to take advantage of shared compute resources in the cloud that might dramatically reduce pipeline processing time or allow for processing of much larger data volumes.
 
 ### Prerequisites
 
@@ -44,29 +44,29 @@ You are ready to start the tutorial.
 
 Next, you'll add a notebook to the pipeline that downloads an open data set archive from public cloud storage.
 
-### Adding a notebook to the pipeline
+### Adding a notebook or script to the pipeline
 
-1. From the _File Browser_ pane drag the `load_data.ipynb` notebook onto the canvas.
+1. From the _File Browser_ pane drag the `load_data.ipynb` notebook onto the canvas. If you  like, you can add the `load_data.py` Python script instead. The script provides the same functionality as the notebook. The instructions below assume that you've added the notebook to the pipeline but the steps you need to complete are identical.
 
    ![Add first notebook to pipeline](doc/images/add_node.png)
 
-1. Right click on the `load_data` notebook node to customize its execution properties.
+1. Right click on the `load_data` node to customize its execution properties.
 
-   ![Open notebook node properties](doc/images/open_node_properties.png)
+   ![Open load_data node properties](doc/images/open_node_properties.png)
 
    Some of the properties are only required when you plan to run the pipeline on Kubeflows Pipelines. However, it is considered good practice to specify those properties to allow for easy migration from development to test and production. Details are in the instructions below.
 
-1. As _Runtime Image_ choose `Pandas`. The runtime image identifies the Docker image that is used to execute the notebook when the pipeline is run on Kubeflows Pipelines. This setting is ignored when you run the pipeline locally. This setting must always be specified.
+1. As _Runtime Image_ choose `Pandas`. The runtime image identifies the Docker image that is used to execute the notebook or Python script when the pipeline is run on Kubeflows Pipelines. This setting is ignored when you run the pipeline locally. This setting must always be specified.
 
    ![Configure runtime image](doc/images/configure_runtime_image.png)
 
-   If a notebook requires access to local files, such as Python scripts, you can specify them as _File Dependencies_. When you run a pipeline locally this setting is ignored because the notebook can access all (readable) files in your workspace. However, it is considered good practise to explicitly declare file dependencies to make the pipeline also runnable in environments where notebooks are executed isolated from each other.
+   If a notebook or script requires access to local files, such as Python scripts, you can specify them as _File Dependencies_. When you run a pipeline locally this setting is ignored because the notebook or script can access all (readable) files in your workspace. However, it is considered good practise to explicitly declare file dependencies to make the pipeline also runnable in environments where notebooks or scripts are executed isolated from each other.
 
-1. The `load_data.ipynb` notebook does not have any file dependencies. Leave the input field empty.
+1. The `load_data` notebook or script does not have any input file dependencies. Leave the input field empty.
 
     ![Configure file dependencies](doc/images/configure_file_dependencies.png)
 
-    If desired, you can customize additional notebook inputs by defining environment variables. The `load_data.ipynb` notebook requires environment variable `DATASET_URL`. This variable identifies the name and location of a data set file, which the code in this notebook will download and decompress. 
+    If desired, you can customize additional inputs by defining environment variables. The `load_data` notebook or script require environment variable `DATASET_URL`. This variable identifies the name and location of a data set file, which the notebook or script will download and decompress. 
     
 1. Assign environment variable `DATASET_URL` the value `https://dax-cdn.cdn.appdomain.cloud/dax-noaa-weather-data-jfk-airport/1.1.4/noaa-weather-data-jfk-airport.tar.gz`.
 
@@ -76,13 +76,13 @@ Next, you'll add a notebook to the pipeline that downloads an open data set arch
 
     ![Configure environment variables](doc/images/configure_environment_variables.png)
 
-    If the notebook generates files that other notebooks require access to, specify them as _Output Files_. This setting is ignored if you are running a pipeline locally because all notebooks have access to the same shared file system. However, it is considered good practise to declare these files to make the pipeline also runnable in environments where notebooks are executed in isoluation from each other.
+    If a notebook or script generates files that other notebooks or scripts require access to, specify them as _Output Files_. This setting is ignored if you are running a pipeline locally because all notebooks or scripts in a pipeline have access to the same shared file system. However, it is considered good practise to declare these files to make the pipeline also runnable in environments where notebooks or scripts are executed in isoluation from each other.
 
-1.  The notebook generates output file `data/noaa-weather-data-jfk-airport/jfk_weather.csv`, which other notebooks in this pipeline process.
+1.  `load_data` generates output file `data/noaa-weather-data-jfk-airport/jfk_weather.csv`, which other notebooks in this pipeline process.
 
     ![Configure output files](doc/images/configure_output_files.png)
 
-    > It is considered good pratice to specify paths that are relative to the notebook location.
+    > It is considered good pratice to specify paths that are relative to the notebook or script location.
 
 1. Select the `load_data` node and attach a comment to it.
 
@@ -96,7 +96,7 @@ Next, you'll add a notebook to the pipeline that downloads an open data set arch
 
    ![Add node comment](doc/images/add_comment_text.png)
 
-Next, you'll add a second notebook to the pipeline and connect it with the first notebook in such a way that it is executed _after_ the first notebook. This notebook cleans the data in  `data/noaa-weather-data-jfk-airport/jfk_weather.csv`, which the `load_data` notebook produced.
+Next, you'll add a data pre-processing notebook to the pipeline and connect it with the first notebook in such a way that it is executed _after_ the first notebook. This notebook cleans the data in  `data/noaa-weather-data-jfk-airport/jfk_weather.csv`, which the `load_data` notebook or script produced.
 
 ### Adding a second notebook to the pipeline
 
@@ -150,9 +150,9 @@ You can access output artifacts from the _File Browser_. In the screen capture b
 ### Next steps
 
 This concludes the Hello World tutorial. You've learned how to 
-- create a notebook pipeline
-- add and configure notebooks
-- run a notebook pipeline in a local environment
+- create a workflow pipeline
+- add and configure notebooks or Python scripts
+- run a workflow pipeline in a local environment
 - monitor the pipeline run progress
 - inspect the pipeline run results
 

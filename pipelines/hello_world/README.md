@@ -10,7 +10,7 @@ In this tutorial you will learn how to create a workflow pipeline and run it in 
 
 ### Prerequisites
 
-- [JupyterLab 2.x with the Elyra extension v1.1 (or newer) installed](https://elyra.readthedocs.io/en/latest/getting_started/installation.html). 
+- [JupyterLab 2.x with the Elyra extension v1.2 (or newer) installed](https://elyra.readthedocs.io/en/latest/getting_started/installation.html). 
 
 ### Setup
 

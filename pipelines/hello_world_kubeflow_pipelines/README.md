@@ -13,7 +13,7 @@ In this tutorial you will learn how to create a pipeline and run it on Kubeflow 
 ### Prerequisites
 
 To complete this tutorial you need
-- [JupyterLab 2.x with the Elyra extension v1.1 (or newer) installed](https://elyra.readthedocs.io/en/latest/getting_started/installation.html)
+- [JupyterLab 2.x with the Elyra extension v1.2 (or newer) installed](https://elyra.readthedocs.io/en/latest/getting_started/installation.html)
 - Access to a [local](https://elyra.readthedocs.io/en/latest/recipes/deploying-kubeflow-locally-for-dev.html) or [cloud](https://www.kubeflow.org/docs/started/cloud/) Kubeflow Pipelines deployment
 
 #### Information to collect before starting
@@ -228,6 +228,11 @@ Pipelines that execute on Kubeflow Pipelines store the pipeline run outputs (com
    - `load_data.html` (output artifact) 
    - `data/noaa-weather-data-jfk-airport/jfk_weather.csv` (output artifact)
 
+   If you've included the `load_data` Python script in the pipeline, the following artifacts should be present:
+
+   - `load_data-<UUID>.tar.gz` (input artifacts)
+   - `load_data.log` (output artifact) 
+   - `data/noaa-weather-data-jfk-airport/jfk_weather.csv` (output artifact)
 
 ### Next steps
 

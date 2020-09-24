@@ -1,6 +1,6 @@
-## Getting started with AI workflow pipelines
+## Getting started with AI pipelines
 
-A workflow pipeline comprises of notebook nodes or Python script nodes that are connected with each other. 
+In Elyra, an AI pipeline, also referred to as workflow pipeline, comprises of notebook nodes or Python script nodes that are connected with each other. 
 
 ![The completed tutorial pipeline](doc/images/tutorial_pipeline.png)
 

@@ -12,7 +12,7 @@ This pipeline illustrates the following concepts:
 
  ## Prerequisites
  
- This pipeline requires Elyra v1.1 or later.
+ This pipeline requires Elyra v1.2 or later.
 
  ## Exploring the pipeline
 

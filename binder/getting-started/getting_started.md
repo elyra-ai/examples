@@ -37,7 +37,7 @@ Elyra includes the [Git extension](https://github.com/jupyterlab/jupyterlab-git)
 
    ![Git interface](images/git-interface.png)
 
-   When you add, modify, or remove files the status is reflected in this view. You can stage, unstage, or commit changes, access the commit history and much more.
+   When you add, modify, or remove files the status is reflected in this view. You can compare file versions, stage, unstage, or commit changes, access the commit history and much more.
 
 ## AI Pipelines
 

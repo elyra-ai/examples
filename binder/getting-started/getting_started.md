@@ -17,7 +17,7 @@ limitations under the License.
 -->
 # Elyra quickstart
 
-This short interactive quickstart provides an introduction to Elyra - aset of AI centric extensions for JupyterLab. Note that this tour does not include features requiring software that is not bundled with Elyra or JupyterLab, such as Kubeflow Pipelines.
+This short interactive quickstart provides an introduction to Elyra - a set of AI centric extensions for JupyterLab. Note that this tour does not include features requiring software that is not bundled with Elyra or JupyterLab, such as Kubeflow Pipelines.
 
 A complete list of features can be found in [the documentation](https://elyra.readthedocs.io/en/latest/getting_started/overview.html).
 

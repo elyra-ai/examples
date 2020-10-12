@@ -17,13 +17,42 @@ limitations under the License.
 -->
 # Elyra quickstart
 
-This short interactive quickstart provides an introduction to Elyra - an AI centric extension for JupyterLab. Note that this tour does not include features requiring software that is not bundled with Elyra or JupyterLab, such as the Notebook pipeline editor, which requires a KubeFlow Pipelines installation. 
+This short interactive quickstart provides an introduction to Elyra - a set of AI centric extensions for JupyterLab. Note that this tour does not include features requiring software that is not bundled with Elyra or JupyterLab, such as Kubeflow Pipelines.
 
 A complete list of features can be found in [the documentation](https://elyra.readthedocs.io/en/latest/getting_started/overview.html).
 
 An easy way to determine whether Elyra is installed in your JupyterLab is to look for the logo.
 
-![Elyra extensions](images/elyra.png)
+  ![Elyra extensions](images/elyra.png)
+
+## Git integration
+
+Elyra includes the [Git extension](https://github.com/jupyterlab/jupyterlab-git) to allow for easy sharing and versioning of notebooks, Python scripts and other artifacts in your work directory.
+
+1. From the JupyterLab main menu select `Git` > `Clone a Repository`.
+1. Enter `https://github.com/elyra-ai/examples.git` as repository URL to clone the Elyra examples.
+1. From the sidebar on the left hand side open the "File Browser" tab.
+1. Navigate to the cloned `examples` directory.
+1. From the sidebar select the "Git" tab. 
+
+   ![Git interface](images/git-interface.png)
+
+   When you add, modify, or remove files the status is reflected in this view. You can compare file versions, stage, unstage, or commit changes, access the commit history and much more.
+
+## AI Pipelines
+
+Elyra provides a Visual Pipeline Editor, which you can use to create AI workflows from Jupyter notebooks and Python scripts and run them in your local environment or on Kubeflow Pipelines, a platform for building and deploying portable and scalable machine learning workflows.
+
+Local execution is primarily suitable during development or for workflows that process rather small data volumes or don't require special purpose hardware to complete processing in a reasonable amount of time.
+
+![Pipeline editor](images/pipeline-in-editor.png)
+
+The https://github.com/elyra-ai/examples.git repository contains two tutorials that guide you through the process of creating and running your first pipeline, which downloads a time series weather data set, cleanses it, performs analysis and explores approaches to predicting future temperatures.
+
+1. Follow the instructions in section _[Git integration](#git-integration)_ to clone the repository.
+1. In the File Browser navigate to `examples/pipelines/hello_world` to try out the local execution. The Elyra getting started deployment on mybinder does not include a Kubeflow Pipelines deployment. If you have access to a Kubeflow Pipelines deployment navigate to `examples/pipelines/hello_world_kubeflow_pipelines`. 
+
+1. Open `README.md` and complete the steps.
 
 ## Enhanced Notebook Support
 

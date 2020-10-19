@@ -18,14 +18,22 @@ limitations under the License.
 
 # Elyra examples
 
-
 This repository provides a set of examples that explore some of the unique
 features provided by Elyra.
 
-### Notebook pipelines tutorials
-- [Running notebook pipelines in a local environment](pipelines/hello_world)
-- [Running notebook pipelines on Kubeflow Pipelines](pipelines/hello_world_kubeflow_pipelines)
+## AI/ML Pipelines
 
-### Example notebook pipelines
-- [NOAA time-series data weather prediction pipeline](pipelines/dax_noaa_weather_data)
+Use the Elyra Visual Pipeline Editor to [assemble pipelines from Python notebooks or scripts](https://elyra.readthedocs.io/en/latest/user_guide/pipelines.html) without the need for any coding.
 
+### Pipelines tutorials
+Tutorials to get started with pipelines in Elyra:
+- [Running pipelines in a local environment](pipelines/hello_world)
+- [Running pipelines on Kubeflow Pipelines](pipelines/hello_world_kubeflow_pipelines)
+
+### Example pipelines
+This repository includes the following example pipelines:
+- [Analyzing NOAA weather data](pipelines/dax_noaa_weather_data)
+
+### Example pipelines in third-party repositories
+Pipelines that were created by the community:
+- [Analyzing COVID-19 time series data](https://github.com/CODAIT/covid-notebooks)

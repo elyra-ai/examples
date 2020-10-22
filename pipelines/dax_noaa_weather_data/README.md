@@ -10,23 +10,23 @@ This pipeline illustrates the following concepts:
 
 ![pipeline snapshot](doc/images/pipeline_snapshot.png)
 
+You can run this pipeline as is locally in JupyterLab or on Kubeflow Pipelines.
+
  ## Prerequisites
  
  This pipeline requires Elyra v1.2 or later.
 
  ## Exploring the pipeline
 
- 1. [Configure a KubeFlow runtime environment in Elyra](https://elyra.readthedocs.io/en/latest/user_guide/runtime-conf.html) 
- 1. Clone the sample repository `https://github.com/elyra-ai/examples`.
- 1. Launch JupyterLab, which has the Elyra extension installed.
+ 1. Launch JupyterLab, which has the [Elyra extension installed](https://elyra.readthedocs.io/en/latest/getting_started/installation.html).
+ 1. Clone the sample repository `https://github.com/elyra-ai/examples.git` using the Git extension ("Git" > "Clone repository").
+ 1. If you have access to a Kubeflow Pipelines deployment, [create a runtime environment configuration].(https://elyra.readthedocs.io/en/latest/user_guide/runtime-conf.html) 
  1. From the File Browser open `analyze_NOAA_weather_data.pipeline`, which is located in the `pipelines/dax_noaa_weather_data/` directory.
  1. Review the notebook properties (right click > "Properties").
- 1. Review the notebooks (right click > "Open notebook").
+ 1. Review the notebooks (right click > "Open file").
  1. Run the pipeline. Two links are displayed.
- 1. Open the Kubeflow console link in a new browser window. You can monitor the pipeline execution progress by clicking on a node and opening the "Logs" tab. 
+ 1. Open the Kubeflow Pipelines console link in a new browser window. You can monitor the pipeline execution progress by clicking on a node and opening the "Logs" tab. 
     ![pipeline graph](doc/images/pipeline_graph_and_output.png)
  1. Open the object storage link in another browser window to download the completed notebooks.
     ![object storage](doc/images/object_storage.png) 
  
-
-

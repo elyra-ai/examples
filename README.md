@@ -37,3 +37,4 @@ This repository includes the following example pipelines:
 ### Example pipelines in third-party repositories
 Pipelines that were created by the community:
 - [Analyzing COVID-19 time series data](https://github.com/CODAIT/covid-notebooks)
+- [Analyzing flight delays](https://github.com/CODAIT/flight-delay-notebooks)

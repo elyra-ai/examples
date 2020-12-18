@@ -33,6 +33,7 @@ Tutorials to get started with pipelines in Elyra:
 ### Example pipelines
 This repository includes the following example pipelines:
 - [Analyzing NOAA weather data](pipelines/dax_noaa_weather_data)
+- [Visualize outputs in the Kubeflow Pipelines UI](pipelines/visualize_output_in_kubeflow_pipelines_ui)
 
 ### Example pipelines in third-party repositories
 Pipelines that were created by the community:

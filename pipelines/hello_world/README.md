@@ -27,13 +27,16 @@ In this tutorial you will learn how to create a workflow pipeline and run it in 
 
 ### Prerequisites
 
-- [JupyterLab 2.x with the Elyra extension v1.2 (or newer) installed](https://elyra.readthedocs.io/en/latest/getting_started/installation.html). 
+- [JupyterLab 2.x with the Elyra extension v1.2 (or newer) installed](https://elyra.readthedocs.io/en/latest/getting_started/installation.html).
+- [JupyterLab 3.x with the Elyra extension v2.x (or newer) installed](https://elyra.readthedocs.io/en/latest/getting_started/installation.html).
+
+> The tutorial instructions were last updated using Elyra 2.0.
 
 ### Setup
 
 This tutorial uses the `hello_world` sample from the https://github.com/elyra-ai/examples GitHub repository.
 1. Launch JupyterLab.
-1. Open the _Git clone_ wizard (Git > Clone).
+1. Open the _Git clone_ wizard (Git > Clone A Repository).
 1. Enter `https://github.com/elyra-ai/examples.git` as _Clone URI_.
 1. In the _File Browser_ navigate to `examples/pipelines/hello_world`.
 
@@ -53,7 +56,7 @@ You are ready to start the tutorial.
 
    ![New pipeline](doc/images/new_pipeline.png)
 
-1. In the _File Browser_ pane, right click on the untitled pipeline and select &#x270E; _Rename_.
+1. In the _File Browser_ pane, right click on the untitled pipeline, and select &#x270E; _Rename_.
 
    ![Rename pipeline](doc/images/rename_pipeline.png)
 
@@ -63,19 +66,29 @@ Next, you'll add a notebook to the pipeline that downloads an open data set arch
 
 ### Adding a notebook or script to the pipeline
 
-1. From the _File Browser_ pane drag the `load_data.ipynb` notebook onto the canvas. If you  like, you can add the `load_data.py` Python script instead. The script provides the same functionality as the notebook. The instructions below assume that you've added the notebook to the pipeline but the steps you need to complete are identical.
+1. From the _File Browser_ pane drag the `load_data.ipynb` notebook onto the canvas. If you  like, you can add the `load_data.py` Python script instead. The script provides the same functionality as the notebook. The instructions below assume that you've added the notebook to the pipeline, but the steps you need to complete are identical.
 
    ![Add first notebook to pipeline](doc/images/add_node.png)
 
-1. Right click on the `load_data` node to customize its execution properties.
+1. Right click on the `load_data` node to customize its properties.
 
    ![Open load_data node properties](doc/images/open_node_properties.png)
 
-   Some of the properties are only required when you plan to run the pipeline on Kubeflows Pipelines. However, it is considered good practice to specify those properties to allow for easy migration from development to test and production. Details are in the instructions below.
+   Some properties are only required when you plan to run the pipeline in a remote environment, such as Kubeflow Pipelines. However, it is considered good practice to always specify those properties to allow for easy migration from development (where you might run a pipeline locally) to test and production (where you would want to take advantage of resources that are not available to you in a local environment). Details are in the instructions below.
 
-1. As _Runtime Image_ choose `Pandas`. The runtime image identifies the Docker image that is used to execute the notebook or Python script when the pipeline is run on Kubeflows Pipelines. This setting is ignored when you run the pipeline locally. This setting must always be specified.
+1. By default the file name is used as node label. You should customize the label text if it is too long (and therefore displayed truncated on the canvas) or not descriptive enough.
+
+   ![Edit node name](doc/images/edit_node_name.png)
+
+1. As _Runtime Image_ choose `Pandas`. The runtime image identifies the container image that is used to execute the notebook or Python script when the pipeline is run on Kubeflows Pipelines. This setting must always be specified but is ignored when you run the pipeline locally.
 
    ![Configure runtime image](doc/images/configure_runtime_image.png)
+
+   If the container image requires a specific minimum amount of resources during execution, you can specify them. 
+
+   ![Customize container resources](doc/images/customize_container_resources.png)
+
+   > If no custom requirements are defined, the defaults in the Kubeflow Pipeline environment are used.
 
    If a notebook or script requires access to local files, such as Python scripts, you can specify them as _File Dependencies_. When you run a pipeline locally this setting is ignored because the notebook or script can access all (readable) files in your workspace. However, it is considered good practise to explicitly declare file dependencies to make the pipeline also runnable in environments where notebooks or scripts are executed isolated from each other.
 
@@ -95,11 +108,13 @@ Next, you'll add a notebook to the pipeline that downloads an open data set arch
 
     If a notebook or script generates files that other notebooks or scripts require access to, specify them as _Output Files_. This setting is ignored if you are running a pipeline locally because all notebooks or scripts in a pipeline have access to the same shared file system. However, it is considered good practise to declare these files to make the pipeline also runnable in environments where notebooks or scripts are executed in isoluation from each other.
 
-1.  `load_data` generates output file `data/noaa-weather-data-jfk-airport/jfk_weather.csv`, which other notebooks in this pipeline process.
+1.  Declare an output file named `data/noaa-weather-data-jfk-airport/jfk_weather.csv`, which other notebooks in this pipeline process.
 
     ![Configure output files](doc/images/configure_output_files.png)
 
     > It is considered good pratice to specify paths that are relative to the notebook or script location.
+
+1. Close the node's properties view.
 
 1. Select the `load_data` node and attach a comment to it.
 
@@ -177,6 +192,6 @@ If you'd like you can extend the pipeline by adding two more notebooks, which ca
  - `Part 2 - Data Analysis.ipynb`
  - `Part 3 - Time Series Forecasting.ipynb`
 
-Each of the notebooks can run in the `Pandas` Docker image and doesn't have any input dependencies, doesn't require any environment variables and doesn't produce an additional output files.
+Each of the notebooks can run in the `Pandas` container image and doesn't have any input dependencies, doesn't require any environment variables and doesn't produce an additional output files.
 
  ![The completed tutorial pipeline](doc/images/completed_tutorial_pipeline.png)

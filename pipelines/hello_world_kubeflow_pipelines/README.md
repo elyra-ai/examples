@@ -21,7 +21,7 @@ In Elyra, an AI pipeline, also referred to as workflow pipeline, comprises of no
 
 ![The completed tutorial pipeline](doc/images/tutorial_pipeline.png)
 
-Workflow pipelines can run locally in JupyterLab or remotely on Kubeflow Pipelines, a platform for building and deploying machine learning workflows based on Docker containers.
+Workflow pipelines can run locally in JupyterLab or remotely on Kubeflow Pipelines, a platform for building and deploying machine learning workflows based on containers.
 
 ![Run a notebook pipeline locally or on Kubeflow Pipelines](doc/images/notebook_pipeline_local_and_remote.png)
 
@@ -30,15 +30,17 @@ In this tutorial you will learn how to create a pipeline and run it on Kubeflow 
 ### Prerequisites
 
 To complete this tutorial you need
-- [JupyterLab 2.x with the Elyra extension v1.2 (or newer) installed](https://elyra.readthedocs.io/en/latest/getting_started/installation.html)
+- [JupyterLab 3.x with the Elyra extension v2.x (or newer) installed](https://elyra.readthedocs.io/en/latest/getting_started/installation.html).
 - Access to a [local](https://elyra.readthedocs.io/en/latest/recipes/deploying-kubeflow-locally-for-dev.html) or [cloud](https://www.kubeflow.org/docs/started/cloud/) Kubeflow Pipelines deployment
 
 #### Information to collect before starting
 
 Collect the following information for your Kubeflow Pipelines installation:
 - API endpoint, e.g. `http://kubernetes-service.ibm.com/pipeline`
+- Namespace, for a multi-user, auth-enabled Kubeflow installation, e.g. `mynamespace`
 - Username for a multi-user, auth-enabled Kubeflow installation, e.g. `jdoe`
 - Password for a multi-user, auth-enabled Kubeflow installation, e.g. `passw0rd`
+- Workflow engine type, which should be `Argo` or `Tekton`. Contact your administrator if you are unsure which engine your deployment utilizes.
 
 Notebook pipelines use S3-compatible cloud storage at runtime to make data available to notebooks. Any kind of cloud storage should work (e.g. IBM Cloud Object Storage or Minio - which is installed with Kubeflow Pipelines by default) as long as it can be accessed from your local machine and the Kubeflow Pipelines installation:
 - S3 compatible object storage endpoint, e.g. `http://minio-service.kubeflow:9000`
@@ -48,13 +50,11 @@ Notebook pipelines use S3-compatible cloud storage at runtime to make data avail
 ### Setup
 
 This tutorial uses the `hello_world_kubeflow_pipelines` sample from the https://github.com/elyra-ai/examples GitHub repository.
+
 1. Launch JupyterLab.
-1. Open the _Git clone_ wizard (Git > Clone).
-
-   ![Open Git clone wizard](doc/images/navigate_to_git_clone.png)
-
+1. Open the _Git clone_ wizard (Git > Clone A Repository).
 1. Enter `https://github.com/elyra-ai/examples.git` as _Clone URI_.
-1. In the _File Browser_ navigate to `examples/pipelines/hello_world_kubeflow_pipelines`.
+1. In the _File Browser_ navigate to `examples/pipelines/hello_world`.
 
    ![Tutorial assets in File Browser](doc/images/cloned_examples.png)
    
@@ -86,7 +86,7 @@ Next, you'll add a notebook to the pipeline that downloads an open data set arch
 
    ![Add first node to pipeline](doc/images/add_first_node.png)
 
-1. Right click on the `load_data` node to customize its execution properties.
+1. Right click on the `load_data` node to customize its properties.
 
    ![Open node properties](doc/images/open_node_properties.png)
 
@@ -94,26 +94,40 @@ Next, you'll add a notebook to the pipeline that downloads an open data set arch
 
    ![Notebook node configuration](doc/images/node_configuration.png)
 
-1. Notebooks or Python scripts are executed in Docker containers. 
+1. By default the file name is used as node label. You should customize the label text if it is too long (and therefore displayed truncated on the canvas) or not descriptive enough.
+
+   ![Edit node name](doc/images/edit_node_name.png)
+
+1. Notebooks or Python scripts are executed in containers. 
    ![Notebooks or Python scripts are executed in Docker containers](doc/images/execution_environment.png)
 
    When you configure a node you identify the _runtime image_, which will be used to instantiate the container. You can choose from a set of pre-configured public images or [provide your own](https://elyra.readthedocs.io/en/latest/user_guide/runtime-image-conf.html). If you provide your own image Python 3 and `curl` must be pre-installed. In this tutorial you'll use the stock `Pandas` image to run the notebook or script and all other notebooks.
 
    ![Configure runtime image](doc/images/configure_runtime_image.png)
 
-1. By default only the notebook or Python script is made available in the Docker container. If a notebook or script requires access to other files that are stored on your local machine you have to specify them as _file dependencies_. Files that have been declared as a dependency are uploaded to a cloud storage bucket together with the notebook or Python script and downloaded into the Docker image prior to notebook execution.
+   If the container requires a specific minimum amount of resources during execution, you can specify them. For example, to speed up model training, you might want to make GPUs available. 
+
+   ![Customize container resources](doc/images/customize_container_resources.png)
+
+   > If no custom requirements are defined, the defaults in the Kubeflow Pipeline environment are used.
+
+1. By default only the notebook or Python script is made available in the container. If the file requires access to other files that are stored on your local machine you have to specify them as _file dependencies_. Files that have been declared as a dependency are uploaded to a cloud storage bucket together with the notebook or Python script and downloaded into the running container prior to notebook execution.
 
    ![Input dependencies are uploaded to a Cloud storage bucket](doc/images/input_dependencies.png)
 
    The `load_data` notebook and Python script do not have any input file dependencies. Leave the input field empty.
 
-   ![Configure input file dependencies](doc/images/configure_input_file_dependencies.png)
+   ![Configure input file dependencies](doc/images/configure_file_dependencies.png)
 
-1. If a notebook or Python script references `environment variables` you can declare them, if required. The `load_data` notebook or script you have added to the pipeline uses environment variable `DATASET_URL` to determine the name and location of a compressed data set archive, which needs to be downloaded and extracted. Assign environment variable `DATASET_URL` the value `https://dax-cdn.cdn.appdomain.cloud/dax-noaa-weather-data-jfk-airport/1.1.4/noaa-weather-data-jfk-airport.tar.gz`, which is a time-series data set containing weather information.
+1. You can customize additional inputs by defining environment variables. The `load_data` notebook or script require environment variable `DATASET_URL`. This variable identifies the name and location of a data set file, which the notebook or script will download and decompress.
+
+   ```
+   DATASET_URL=https://dax-cdn.cdn.appdomain.cloud/dax-noaa-weather-data-jfk-airport/1.1.4/noaa-weather-data-jfk-airport.tar.gz
+   ```
 
    ![Configure environment variables](doc/images/configure_environment_variables.png)
 
-1. Each node in a pipeline is executed in an isolated Docker container. These Docker containers do not have access to a shared local file system and persisted output artifacts (such as data files or trained model files) that a notebook or Python script might produce. To make output artifacts accessible to other notebooks or scripts you have to declare them as _output files_ in the configuration of the node that produces them. Declared output artifacts are automatically uploaded to the pre-configured cloud object storage bucket after node  processing has completed and can subsequently be accessed by other notebooks or scripts in the pipeline by referencing the declared name.
+1. Each node in a pipeline is executed in an isolated container. These containers do not have access to a shared local file system and persisted output artifacts (such as data files or trained model files) that a notebook or Python script might produce. To make output artifacts accessible to other notebooks or scripts you have to declare them as _output files_ in the configuration of the node that produces them. Declared output artifacts are automatically uploaded to the pre-configured cloud object storage bucket after node  processing has completed and can subsequently be accessed by other notebooks or scripts in the pipeline by referencing the declared name.
 
    ![Data exchange between notebooks in a pipeline via cloud storage](doc/images/data_flow.png)
     
@@ -170,17 +184,34 @@ A runtime environment configuration in Elyra contains connectivity information f
 
    ![Create runtime configuration](doc/images/create_runtime_configuration.png)
 
-1. Enter a _Name_ and an optional _Description_ for the configuration.
+1. Enter a _Name_ and a _Description_ for the configuration and optionally assign tags to support searching.
 
-1. Enter the connectivity information for your Kubeflows Pipelines instance and S3-compatible cloud storage. If access to your Kubeflows Pipelines instance is [secured using DEX](https://www.kubeflow.org/docs/started/k8s/kfctl-istio-dex/), provide the appropriate credentials.
+   ![Define misc properties](doc/images/define_misc_properties.png)
 
-   ![Configure Kubeflows Pipelines runtime](doc/images/configure_runtime_environment.png)
+1. Enter the connectivity information for your Kubeflows Pipelines deployment:
+   - Kubeflow Pipelines API endpoint, e.g. `https://kubernetes-service.ibm.com/pipeline`
+     > Do not specify the namespace in the API endpoint.
+   - User namespace used to run pipelines, e.g. `mynamespace`
+   - User credentials if the deployment is multi-user, auth enabled using [DEX](https://www.kubeflow.org/docs/started/k8s/kfctl-istio-dex/).
+   - Workflow engine type, which is either `Argo` (default) or `Tekton`. Check with an administrator if you are unsure which workflow engine your deployment utilizes.
+
+   ![Define Kubeflow Pipeline properties](doc/images/define_kfp_properties.png)
+
+   Refer to the [runtime configuration documentation](https://elyra.readthedocs.io/en/latest/user_guide/runtime-conf.html) for a description of each input field.
+
+1. Enter the connectivity information for your  S3-compatible cloud storage:
+   - The cloud storage endpoint URL, e.g. `https://minio-service.kubeflow:9000`
+   - Username, e.g. `minio`
+   - Password, e.g. `minio123`
+   - Bucket name, where Elyra will store the pipeline input and output artifacts, e.g. `test-bucket`
+
+   ![Define Kubeflow Pipeline properties](doc/images/define_s3_properties.png)
 
 1. Save the runtime configuration.
 
    ![Saved Kubeflows Pipelines runtime configuration](doc/images/saved_runtime_configuration.png)
 
-1. Expand the twistie in front of the configuration entry. The displayed links provide access to the configured Kubeflow Pipelines UI and the cloud storage UI.
+1. Expand the twistie in front of the configuration entry. The displayed links provide access to the configured Kubeflow Pipelines UI and the cloud storage UI. Open the links to confirm connectivity.
 
    ![Review runtime configuration](doc/images/review_runtime_configuration.png)
 

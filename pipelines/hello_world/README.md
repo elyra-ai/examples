@@ -84,7 +84,7 @@ Next, you'll add a notebook to the pipeline that downloads an open data set arch
 
    ![Configure runtime image](doc/images/configure_runtime_image.png)
 
-   If the container image requires a specific minimum amount of resources during execution, you can specify them. 
+   If the container requires a specific minimum amount of resources during execution, you can specify them. 
 
    ![Customize container resources](doc/images/customize_container_resources.png)
 

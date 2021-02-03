@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import json
 import os
 from pathlib import Path
 import requests
@@ -50,6 +51,29 @@ def download_from_public_url(url):
             downloaded_data_file.unlink()
 
 
+def log_results(url):
+    """
+    Generate static result metadata, which is rendered in the
+    Kubeflow Pipelines UI. Refer to
+    https://elyra.readthedocs.io/en/latest/recipes/visualizing-output-in-the-kfp-ui.html
+    for details.
+    """
+
+    # Create result metadata
+    metadata = {'outputs': [
+     {
+       'storage': 'inline',
+       'source': '# Data archive URL: {}'
+                 .format(url),
+       'type': 'markdown',
+     }]
+    }
+
+    # Save metadata to file
+    with open('mlpipeline-ui-metadata.json', 'w') as f:
+        json.dump(metadata, f)
+
+
 if __name__ == "__main__":
 
     # This script downloads a compressed data set archive from a public
@@ -67,3 +91,5 @@ if __name__ == "__main__":
 
     # Try to process the URL
     download_from_public_url(dataset_url)
+    # Log the results
+    log_results(dataset_url)

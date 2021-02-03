@@ -192,7 +192,7 @@ A runtime environment configuration in Elyra contains connectivity information f
    - Kubeflow Pipelines API endpoint, e.g. `https://kubernetes-service.ibm.com/pipeline`
      > Do not specify the namespace in the API endpoint.
    - User namespace used to run pipelines, e.g. `mynamespace`
-   - User credentials if the deployment is multi-user, auth enabled using [DEX](https://www.kubeflow.org/docs/started/k8s/kfctl-istio-dex/).
+   - User credentials if the deployment is multi-user, auth enabled using [Dex](https://www.kubeflow.org/docs/started/k8s/kfctl-istio-dex/).
    - Workflow engine type, which is either `Argo` (default) or `Tekton`. Check with an administrator if you are unsure which workflow engine your deployment utilizes.
 
    ![Define Kubeflow Pipeline properties](doc/images/define_kfp_properties.png)
@@ -215,15 +215,17 @@ A runtime environment configuration in Elyra contains connectivity information f
 
    ![Review runtime configuration](doc/images/review_runtime_configuration.png)
 
+   > If you are accessing the Kubeflow Pipelines UI for the first time an error might be raised if namespaces are configured. To resolve this issue, open the Kubeflow UI (e.g. `https://kubernetes-service.ibm.com/` instead of `https://kubernetes-service.ibm.com/pipeline`) and select a namespace, and then try the Kubeflow Pipelines UI link again. 
+
 ### Running a notebook pipeline on Kubeflow Pipelines
 
 1. Run the pipeline.
 
    ![Run pipeline](doc/images/run_pipeline.png)
 
-1. Enter `hello_kubeflows_world_pipeline` as _Pipeline name_.
+1. The _Pipeline Name_ is pre-populated with the pipeline file name. You can change the name if desired.
 
-1. From the _Runtime configuration_ drop down select the runtime configuration you've just created.
+1. From the _Runtime configuration_ drop down select the runtime configuration you just created.
 
    ![Configure pipeline run](doc/images/run_pipeline_remotely.png)
 
@@ -233,7 +235,7 @@ A runtime environment configuration in Elyra contains connectivity information f
 
    The confirmation message contains two links:
     - _Run details_: provides access to the Kubeflow Pipelines UI where you monitor the pipeline execution progress.
-    - _Object storage_: provides access to the object storage where you access the input artifacts and output artifacts.
+    - _Object storage_: provides access to the cloud storage where you access the input artifacts and output artifacts.
 
 ### Monitoring a pipeline run
 
@@ -241,11 +243,25 @@ A runtime environment configuration in Elyra contains connectivity information f
 
    ![](doc/images/pipeline_graph_run_in_progress.png)
 
-1. Select one of the displayed nodes. A side panel opens, displaying information about the pipeline.
+1. Select the first node. A side panel opens, displaying information about the node.
 
 1. Open the _Logs_ tab to access the node's execution log file.
 
    ![Monitor pipeline run progress](doc/images/review_node_execution_log.png)
+
+   Inspecting the log file, you'll notice that the log file does not contain any console output that the notebook or Python script might have produced. This output is captured separately and accessed outside of the Kubeflow Pipelines UI.
+
+   If desired, you can visualize results directly in the Kubeflow Pipelines UI. For example, if a notebook trains a classification model, you could visualize its accuracy using a confusion matrix by producing metadata in Kubeflow Pipelines output viewer compatible format.
+
+1. Wait until node processing has completed before continuing.
+
+1. Open the _Visualizations_ tab. For illustrative purposes `load_data` produces metadata in markdown format, which identifies the data set download location.
+
+   ![Review visualizations](doc/images/review_visualization_in_kfp_ui.png)
+
+   > The code that produces the metadata is located in the last code cell in the notebook and the bottom of the Python script.
+
+   To learn more about how to generate visualizations, refer to [_Visualizing output from your notebooks or Python scripts in the Kubeflow Pipelines UI_](https://elyra.readthedocs.io/en/latest/recipes/visualizing-output-in-the-kfp-ui.html).
 
 1. Wait for the pipeline run to finish.
 
@@ -297,6 +313,6 @@ If you'd like you can extend the pipeline by adding two more notebooks, which ca
  - `Part 2 - Data Analysis.ipynb`
  - `Part 3 - Time Series Forecasting.ipynb`
 
-Each of the notebooks can run in the `Pandas` Docker image and doesn't have any input dependencies, doesn't require any environment variables and doesn't produce an additional output files.
+Each of the notebooks can run in the `Pandas` Docker image, doesn't have any input dependencies, doesn't require any environment variables and doesn't produce an additional output files.
 
  ![The completed tutorial pipeline](doc/images/completed_tutorial_pipeline.png)

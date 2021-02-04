@@ -215,7 +215,7 @@ A runtime environment configuration in Elyra contains connectivity information f
 
    ![Review runtime configuration](doc/images/review_runtime_configuration.png)
 
-   > If you are accessing the Kubeflow Pipelines UI for the first time an error might be raised if namespaces are configured. To resolve this issue, open the Kubeflow UI (e.g. `https://kubernetes-service.ibm.com/` instead of `https://kubernetes-service.ibm.com/pipeline`) and select a namespace, and then try the Kubeflow Pipelines UI link again. 
+   > If you are accessing the Kubeflow Pipelines UI for the first time an error might be raised (e.g. "`Failed to retrieve list of pipelines`") if namespaces are configured. To resolve this issue, manually open the Kubeflow UI (e.g. `https://kubernetes-service.ibm.com/` instead of `https://kubernetes-service.ibm.com/pipeline`) and select a namespace, and then try the Kubeflow Pipelines UI link again. 
 
 ### Running a notebook pipeline on Kubeflow Pipelines
 
@@ -298,6 +298,8 @@ Pipelines that execute on Kubeflow Pipelines store the pipeline run outputs (com
    - `load_data.log` (output artifact) 
    - `data/noaa-weather-data-jfk-airport/jfk_weather.csv` (output artifact)
 
+1. Download the output artifacts to your local machine and inspect them.
+
 ### Next steps
 
 This concludes the _Hello World Kubeflow Pipelines_ tutorial. You've learned how to 
@@ -307,6 +309,7 @@ This concludes the _Hello World Kubeflow Pipelines_ tutorial. You've learned how
 - create a Kubeflow Pipelines runtime configuration
 - run a pipeline on Kubeflow Pipelines
 - monitor the pipeline run progress in the Kubeflow Pipelines UI
+- review output visualizations a notebook or script produces 
 - access the pipeline run output on cloud storage
 
 If you'd like you can extend the pipeline by adding two more notebooks, which can be executed in parallel after notebook `Part 1 - Data Cleaning.ipynb` was processed:

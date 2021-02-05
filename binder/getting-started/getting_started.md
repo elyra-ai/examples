@@ -21,7 +21,7 @@ This short interactive quickstart provides an introduction to Elyra - a set of A
 
 A complete list of features can be found in [the documentation](https://elyra.readthedocs.io/en/latest/getting_started/overview.html).
 
-An easy way to determine whether Elyra is installed in your JupyterLab is to look for the logo.
+An easy way to determine whether Elyra is installed in JupyterLab is to look for Elyra category in the launcher.
 
   ![Elyra extensions](images/elyra.png)
 
@@ -92,19 +92,33 @@ In JupyterLab you can view a dynamically generated table of contents for noteboo
 
 ## Python Editor
 
-Elyra adds a basic Python script editor, which supports running in a local kernel or a remote kernel for offloading of compute intensive tasks. Remote execution requires a [Jupyter Enterprise Gateway](https://jupyter-enterprise-gateway.readthedocs.io/en/latest/). 
+Elyra adds a Python script editor, which supports running in a local kernel or a remote kernel for offloading of compute intensive tasks. Remote execution requires a [Jupyter Enterprise Gateway](https://jupyter-enterprise-gateway.readthedocs.io/en/latest/). 
 
 1. Open the "File Browser" tab on the left hand side.
 1. Open a Python script or create a new script ("File" > "New" > "Python File")
 1. Select a kernel from the drop down and click "Run" to execute the script.
 
    ![Python Editor](images/python_editor.png)
+   
+The editor supports common tasks such as code completion, "find references" and "replace references".
+
+![Python Language server support](images/language_server.gif)
+
+You can also debug the script if you have a kernel installed that supports debugging. One such kernel for Python is [xeus-python](https://github.com/jupyter-xeus/xeus-python)
+
+![Python debugger support](images/python-script-debugger.gif)
 
 ## Code Snippets
 
 Elyra introduces a re-usable code snippets feature, which enables you to define and insert custom pieces of code. 
 
 ### Creating code snippets
+
+You can create code snippets by selecting code in the editor, right clicking, and selecting `Save as Code Snippet` from the context menu.
+
+![Create code snippet_from_code](images/copy_and_paste_code_snippets.gif)
+
+You can also create code snippets from scratch.
 
 1. Select the "Code Snippets" tab on the left hand side. 
 1. Click the + sign to create a new snippet. 
@@ -133,6 +147,8 @@ To insert a Python or markdown snippet into a Python notebook cell:
 1. Insert the Python snippet into the code cell.
 
    ![Code Snippet](images/insert_code_snippet.png)
+   
+> You can also drag and drop code snippets.   
 
 ### Deleting code snippets
 

@@ -25,7 +25,7 @@ Workflow pipelines can run locally in JupyterLab or remotely on Kubeflow Pipelin
 
 ![Run a notebook pipeline locally or on Kubeflow Pipelines](doc/images/notebook_pipeline_local_and_remote.png)
 
-In this tutorial you will learn how to create a pipeline and run it on Kubeflow Pipelines. Take a look at the [Hello World tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world) to learn how to run notebook pipelines locally in JupyterLab. 
+In this tutorial you will learn how to create a pipeline and run it on Kubeflow Pipelines. Two additional tutorials are available that illustrate the process for pipeline execution [locally in JupyterLab ](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world) and [on Apache Airflow](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world_apache_airflow).
 
 ### Prerequisites
 
@@ -54,7 +54,7 @@ This tutorial uses the `hello_world_kubeflow_pipelines` sample from the https://
 1. Launch JupyterLab.
 1. Open the _Git clone_ wizard (Git > Clone A Repository).
 1. Enter `https://github.com/elyra-ai/examples.git` as _Clone URI_.
-1. In the _File Browser_ navigate to `examples/pipelines/hello_world`.
+1. In the _File Browser_ navigate to `examples/pipelines/hello_world_kubeflow_pipelines`.
 
    ![Tutorial assets in File Browser](doc/images/cloned_examples.png)
    

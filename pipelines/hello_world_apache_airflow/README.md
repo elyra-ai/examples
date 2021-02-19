@@ -21,40 +21,40 @@ In Elyra, an AI pipeline, also referred to as workflow pipeline, comprises of no
 
 ![The completed tutorial pipeline](doc/images/tutorial_pipeline.png)
 
-Workflow pipelines can run locally in JupyterLab or remotely on Kubeflow Pipelines, a platform for building and deploying machine learning workflows based on containers.
+Workflow pipelines can run locally in JupyterLab or remotely on Apache Airflow and Kubeflow Pipelines.
 
 ![Run a notebook pipeline locally or on Kubeflow Pipelines](doc/images/notebook_pipeline_local_and_remote.png)
 
-In this tutorial you will learn how to create a pipeline and run it on Kubeflow Pipelines. Take a look at the [Hello World tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world) to learn how to run notebook pipelines locally in JupyterLab. 
+In this tutorial you will learn how to create a pipeline and run it on Apache Airflow. Two additional tutorials are available that illustrate the process for pipeline execution [locally in JupyterLab ](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world) and [on Kubeflow Pipelines](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world_kubeflow_pipelines).
 
 ### Prerequisites
 
 To complete this tutorial you need
 - [JupyterLab 3.x with the Elyra extension v2.x (or newer) installed](https://elyra.readthedocs.io/en/latest/getting_started/installation.html).
-- Access to a [local](https://elyra.readthedocs.io/en/latest/recipes/deploying-kubeflow-locally-for-dev.html) or [cloud](https://www.kubeflow.org/docs/started/cloud/) Kubeflow Pipelines deployment
+- Access to a local or cloud deployment of Apache Airflow that has been [configured for use with Elyra](https://elyra.readthedocs.io/en/latest/recipes/configure-airflow-as-a-runtime.html).
 
 #### Information to collect before starting
 
-Collect the following information for your Kubeflow Pipelines installation:
-- API endpoint, e.g. `http://kubernetes-service.ibm.com/pipeline`
-- Namespace, for a multi-user, auth-enabled Kubeflow installation, e.g. `mynamespace`
-- Username for a multi-user, auth-enabled Kubeflow installation, e.g. `jdoe`
-- Password for a multi-user, auth-enabled Kubeflow installation, e.g. `passw0rd`
-- Workflow engine type, which should be `Argo` or `Tekton`. Contact your administrator if you are unsure which engine your deployment utilizes.
+Collect the following information for your Apache Airflow deployment:
+- API endpoint, e.g. `http://your.apache.webserver:port`
+- Git repository name and owner on github.com where DAGs are stored, e.g. `your-github-id/your-dag-repository`
+- Git repository branch in named repository, e.g. `test-dags`
+- Git repository token, e.g. `954cd6e41cb334eef6a072d5c3d18935f63d50ad`
 
-Notebook pipelines use S3-compatible cloud storage at runtime to make data available to notebooks. Any kind of cloud storage should work (e.g. IBM Cloud Object Storage or Minio - which is installed with Kubeflow Pipelines by default) as long as it can be accessed from your local machine and the Kubeflow Pipelines installation:
-- S3 compatible object storage endpoint, e.g. `http://minio-service.kubeflow:9000`
+Notebook pipelines use S3-compatible cloud storage at runtime to make data available to notebooks. Any kind of cloud storage should work (e.g. IBM Cloud Object Storage or Minio) as long as it can be accessed from your local machine and the Apache Airflow cluster:
+- S3 compatible object storage endpoint, e.g. `http://minio-service.kubernetes:9000`
 - S3 object storage username, e.g. `minio`
 - S3 object storage password, e.g. `minio123`
 
+
 ### Setup
 
-This tutorial uses the `hello_world_kubeflow_pipelines` sample from the https://github.com/elyra-ai/examples GitHub repository.
+This tutorial uses the `hello_world_apache_airflow` sample from the https://github.com/elyra-ai/examples GitHub repository.
 
 1. Launch JupyterLab.
 1. Open the _Git clone_ wizard (Git > Clone A Repository).
 1. Enter `https://github.com/elyra-ai/examples.git` as _Clone URI_.
-1. In the _File Browser_ navigate to `examples/pipelines/hello_world`.
+1. In the _File Browser_ navigate to `examples/pipelines/hello_world_apache_airflow`.
 
    ![Tutorial assets in File Browser](doc/images/cloned_examples.png)
    
@@ -76,7 +76,7 @@ You are ready to start the tutorial.
 
    ![Rename pipeline](doc/images/rename_pipeline.png)
 
-1. Change the pipeline name to `hello_world_kubeflow_pipelines`.
+1. Change the pipeline name to `hello_world_apache_airflow`.
 
 Next, you'll add a notebook to the pipeline that downloads an open data set archive from public cloud storage.
 

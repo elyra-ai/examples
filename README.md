@@ -29,6 +29,7 @@ Use the Elyra Visual Pipeline Editor to [assemble pipelines from Python notebook
 Tutorials to get started with pipelines in Elyra:
 - [Running pipelines in a local environment](pipelines/hello_world)
 - [Running pipelines on Kubeflow Pipelines](pipelines/hello_world_kubeflow_pipelines)
+- [Running pipelines on Apache Airflow](pipelines/hello_world_apache_airflow)
 
 ### Example pipelines
 This repository includes the following example pipelines:

@@ -90,7 +90,7 @@ Next, you'll add a notebook to the pipeline that downloads an open data set arch
 
    > If no custom requirements are defined, the defaults in the Kubeflow Pipeline environment are used.
 
-   If a notebook or script requires access to local files, such as Python scripts, you can specify them as _File Dependencies_. When you run a pipeline locally this setting is ignored because the notebook or script can access all (readable) files in your workspace. However, it is considered good practise to explicitly declare file dependencies to make the pipeline also runnable in environments where notebooks or scripts are executed isolated from each other.
+   If a notebook or script requires access to local files, such as Python scripts, you can specify them as _File Dependencies_. When you run a pipeline locally this setting is ignored because the notebook or script can access all (readable) files in your workspace. However, it is considered good practice to explicitly declare file dependencies to make the pipeline also runnable in environments where notebooks or scripts are executed isolated from each other.
 
 1. The `load_data` notebook or script does not have any input file dependencies. Leave the input field empty.
 
@@ -106,7 +106,7 @@ Next, you'll add a notebook to the pipeline that downloads an open data set arch
 
     ![Configure environment variables](doc/images/configure_environment_variables.png)
 
-    If a notebook or script generates files that other notebooks or scripts require access to, specify them as _Output Files_. This setting is ignored if you are running a pipeline locally because all notebooks or scripts in a pipeline have access to the same shared file system. However, it is considered good practise to declare these files to make the pipeline also runnable in environments where notebooks or scripts are executed in isoluation from each other.
+    If a notebook or script generates files that other notebooks or scripts require access to, specify them as _Output Files_. This setting is ignored if you are running a pipeline locally because all notebooks or scripts in a pipeline have access to the same shared file system. However, it is considered good practice to declare these files to make the pipeline also runnable in environments where notebooks or scripts are executed in isoluation from each other.
 
 1.  Declare an output file named `data/noaa-weather-data-jfk-airport/jfk_weather.csv`, which other notebooks in this pipeline process.
 

@@ -180,11 +180,11 @@ A runtime environment configuration in Elyra contains connectivity information f
 
    ![Open runtime configuration panel](doc/images/open_runtime_configuration_panel.png)
 
-1. Click + to create a new configuration.
+1. Click **+** and _New Kubeflow Pipelines runtime_ to create a new configuration for your Kubeflow Pipelines deployment.
 
    ![Create runtime configuration](doc/images/create_runtime_configuration.png)
 
-1. Enter a _Name_ and a _Description_ for the configuration and optionally assign tags to support searching.
+1. Enter a _name_ and a _description_ for the configuration and optionally assign _tags_ to support searching.
 
    ![Define misc properties](doc/images/define_misc_properties.png)
 

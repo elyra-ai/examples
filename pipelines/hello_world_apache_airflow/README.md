@@ -17,15 +17,15 @@ limitations under the License.
 -->
 ## Getting started with AI pipelines
 
-In Elyra, an AI pipeline, also referred to as workflow pipeline, comprises of notebook nodes or Python script nodes that are connected with each other. 
+In Elyra, an AI pipeline comprises of Jupyter notebook nodes or Python script nodes that are connected with each other. You can use pipelines to automate the complete machine learning lifecycle (e.g. load data, pre-process data, analyze data, train model, ...), parts of the lifecycle (e.g. pre-process and analyze data), or to run any kind of Jupyter notebook or Python script as a batch job. 
 
 ![The completed tutorial pipeline](doc/images/tutorial_pipeline.png)
 
-Workflow pipelines can run locally in JupyterLab or remotely on Apache Airflow and Kubeflow Pipelines.
+You can run pipelines locally in JupyterLab or remotely on [Apache Airflow](https://airflow.apache.org/) and [Kubeflow Pipelines](https://www.kubeflow.org/docs/components/pipelines/).
 
 ![Run a notebook pipeline locally or remotely](doc/images/notebook_pipeline_local_and_remote.png)
 
-In this tutorial you will learn how to create a pipeline and run it on Apache Airflow. Two additional tutorials are available that illustrate the process for pipeline execution [locally in JupyterLab ](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world) and [on Kubeflow Pipelines](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world_kubeflow_pipelines).
+In this tutorial you will learn how to create a pipeline and run it on Apache Airflow. Two additional tutorials are available that illustrate the process for pipeline execution [in JupyterLab](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world) and [on Kubeflow Pipelines](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world_kubeflow_pipelines).
 
 ### Prerequisites
 
@@ -33,7 +33,9 @@ To complete this tutorial you need
 - [JupyterLab 3.x with the Elyra extension v2.1 (or newer) installed](https://elyra.readthedocs.io/en/latest/getting_started/installation.html).
 - Access to a local or cloud deployment of Apache Airflow that has been [configured for use with Elyra](https://elyra.readthedocs.io/en/latest/recipes/configure-airflow-as-a-runtime.html).
 
-This tutorial was tested with Apache Airflow v1.10.12.
+This tutorial was tested with Elyra 2.1.x and Apache Airflow v1.10.12.
+
+> Apache Airflow version 2.x is currently not supported.
 
 #### Information to collect before starting
 
@@ -41,18 +43,18 @@ Gather the following information:
 
 - Apache Airflow API endpoint, e.g. `https://your-airflow-webserver:port`
 
-Elyra currently supports Apache Airflow deployments that utilize GitHub or GitHub Enterprise for DAG storage. Collect the following information:
+Elyra currently supports Apache Airflow deployments that utilize GitHub or GitHub Enterprise for Directed Acyclic Graph ([DAG](https://airflow.apache.org/docs/apache-airflow/stable/concepts.html#dags)) storage. Collect the following information:
 
 - GitHub server API endpoint, e.g. `https://api.github.com`
 - Name and owner of the repository where DAGs are stored, e.g. `your-git-org/your-dag-repo`. This repository must exist.
 - Branch in named repository, e.g. `test-dags`. This branch must exist.
 - [Personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) that Elyra can use to push DAGs to the repository, e.g. `4d79206e616d6520697320426f6e642e204a616d657320426f6e64`
 
-Elyra utilizes S3-compatible cloud storage to make data available to notebooks and Python scripts while they are executed. Any kind of cloud storage should work (e.g. IBM Cloud Object Storage or Minio) as long as it can be accessed from your local machine and the Apache Airflow cluster. Collect the following information:
+Elyra utilizes S3-compatible cloud storage to make data available to notebooks and Python scripts while they are executed. Any kind of cloud storage should work (e.g. IBM Cloud Object Storage or Minio) as long as it can be accessed from the machine where JupyterLab is running and the Apache Airflow cluster. Collect the following information:
 - S3 compatible object storage endpoint, e.g. `http://minio-service.kubernetes:9000`
 - S3 object storage username, e.g. `minio`
 - S3 object storage password, e.g. `minio123`
-
+- S3 object storage bucket, e.g. `airflow-task-artifacts`
 
 ### Setup
 
@@ -65,13 +67,13 @@ This tutorial uses the `hello_world_apache_airflow` sample from the https://gith
 
    ![Tutorial assets in File Browser](doc/images/cloned_examples.png)
    
-   The cloned repository includes a set of notebooks and a Python script that download an open [weather data set from the Data Asset Exchange](https://developer.ibm.com/exchanges/data/all/jfk-weather-data/), cleanse the data, analyze the data, and perform time-series predictions. In this tutorial you create a pipeline that runs these notebooks in the appropriate order. 
+   The cloned repository includes a set of Jupyter notebooks and a Python script that download a weather data set from an [open data directory called the Data Asset Exchange](https://developer.ibm.com/exchanges/data/all/jfk-weather-data/), cleanse the data, analyze the data, and perform time-series predictions. In this tutorial you create a pipeline that runs these files as a batch  in the appropriate order. 
 
 You are ready to start the tutorial.
 
 ### Creating a pipeline
 
-Generally speaking, a pipeline in Elyra is an abstract representation of an Apache Airflow Directed Acyclic Graph (DAG).
+Generally speaking, a pipeline in Elyra is an abstract representation of a workflow, which is in this tutorial executed using an Apache Airflow DAG.
 
 1. Open the _Launcher_ (File > New Launcher) if it is not already open.
 
@@ -87,15 +89,17 @@ Generally speaking, a pipeline in Elyra is an abstract representation of an Apac
 
 1. Change the pipeline name to `hello_world_apache_airflow`.
 
-Next, you'll add a notebook to the pipeline that downloads an open data set archive from public cloud storage.
+Next, you'll add a file to the pipeline that downloads an open data set archive from public cloud storage.
 
 ### Adding a notebook or Python script to the pipeline
 
 Python scripts and notebooks are represented in Elyra as nodes. Each node maps to task in Apache Airflow, which is executed with the help of Elyra's [`NotebookOp` operator](https://github.com/elyra-ai/airflow-notebook).
 
-1. From the _File Browser_ pane drag the `load_data.ipynb` notebook onto the canvas. If you  like, you can add the `load_data.py` Python script instead. The script provides the same functionality as the notebook. The instructions below assume that you've added the notebook to the pipeline but the steps you need to complete are identical.
+1. From the _File Browser_ pane drag the `load_data.ipynb` notebook onto the canvas. If you  like, you can add the `load_data.py` Python script instead. The script provides the same functionality as the notebook. The instructions below assume that you've added the notebook to the pipeline but the steps you need to complete if you are using the Python script are identical.
 
    ![Add first node to pipeline](doc/images/add_first_node.png)
+
+   > To open the associated notebook or Python script in an editor window, double click on the node name.
 
 1. Right click on the `load_data` node to customize its properties.
 
@@ -113,7 +117,11 @@ Python scripts and notebooks are represented in Elyra as nodes. Each node maps t
 
    ![Notebooks or Python scripts are executed in Docker containers](doc/images/execution_environment.png)
 
-   When you configure a node you identify the _runtime image_, which will be used to instantiate the container. You can choose from a set of pre-configured public images or [provide your own](https://elyra.readthedocs.io/en/latest/user_guide/runtime-image-conf.html). If you provide your own image, Python 3 and `curl` must be pre-installed. In this tutorial you'll use the stock `Pandas` image to run the notebook or script and all other notebooks.
+   When you configure a node you identify the _runtime image_, which will be used to instantiate the container. You can choose from a set of pre-configured public images or [register your own](https://elyra.readthedocs.io/en/latest/user_guide/runtime-image-conf.html). 
+
+   > Custom images must meet certain requirements, as stated in the documentation, and should have all prerequisite package pre-installed to assure the same package versions are used across multiple pipeline executions.  
+
+   In this tutorial you'll use the stock `Pandas` container image to run the notebook or script and all other notebooks.
 
    ![Configure runtime image](doc/images/configure_runtime_image.png)
 
@@ -123,15 +131,15 @@ Python scripts and notebooks are represented in Elyra as nodes. Each node maps t
 
    > If no custom requirements are defined, the defaults in the Apache Airflow environment are used.
 
-1. By default only the notebook or Python script is made available in the container. If the file requires access to other files that are stored on your local machine you have to specify them as _file dependencies_. Files that have been declared as a dependency are uploaded to a cloud storage bucket together with the notebook or Python script and downloaded into the running container prior to execution.
+1. By default only the file that's associated with the node is made available in the container. If it requires access to other files that are stored on your local machine you have to specify them as _file dependencies_. Files that have been declared as a dependency are packaged together with the notebook or Python script, uploaded to a cloud storage bucket and downloaded into the running container prior to execution. In this tutorial we are referring to these files as input artifacts.
 
    ![Input dependencies are uploaded to a Cloud storage bucket](doc/images/input_dependencies.png)
 
-   The `load_data` notebook and Python script do not have any input file dependencies. Leave the input field empty.
+   The `load_data` files do not have any input file dependencies. Leave the input field empty.
 
    ![Configure input file dependencies](doc/images/configure_file_dependencies.png)
 
-1. You can customize additional inputs by defining environment variables. The `load_data` notebook or script require environment variable `DATASET_URL`. This variable identifies the name and location of a data set file, which the notebook or script will download and decompress.
+1. You can customize additional inputs by defining environment variables. For illustrative purposes the `load_data` files query environment variable `DATASET_URL` to determine which data set archive to download and process. Define the variable as follows:
 
    ```
    DATASET_URL=https://dax-cdn.cdn.appdomain.cloud/dax-noaa-weather-data-jfk-airport/1.1.4/noaa-weather-data-jfk-airport.tar.gz
@@ -313,9 +321,9 @@ Elyra does not automatically download the output artifacts from the cloud storag
 
 ### Customizing the generated DAG
 
-When you run a pipeline from the pipeline editor, Elyra generates a DAG and uploads it to the configured GitHub repository. If desired, you can customize the DAG by exporting the pipeline:
+When you run a pipeline from the Pipeline Editor, Elyra generates a DAG and uploads it to the configured GitHub repository. If desired, you can customize the DAG by exporting the pipeline:
 
-1. Open the pipeline in the pipeline editor.
+1. Open the pipeline in the Pipeline Editor.
 1. Click the _Export Pipeline_ button.
 
    ![Export pipeline from the editor](doc/images/export_pipeline.png)
@@ -324,18 +332,31 @@ When you run a pipeline from the pipeline editor, Elyra generates a DAG and uplo
 
    ![Select export format](doc/images/export_pipeline_dialog.png)
 
-1. Locate the generated file `hello_world_apache_airflow.py` in the File Browser.
+   > An exported pipeline comprises of two parts: the DAG Python code and the input artifact archives that were uploaded to cloud storage.
 
-1. Open the Python script and review the generated DAG Python code in the Python editor.
+1. Locate the generated `hello_world_apache_airflow.py` Python script in the File Browser.
+
+1. Open the Python script and briefly review the generated code in the Python editor.
 
    ![Review exported DAG](doc/images/review_exported_dag.png)
 
-1. Manually push the DAG to the GitHub repository to schedule the run.
+1. Optionally push the DAG manually to the GitHub repository to schedule the run.
+
+### Running notebooks and scripts ad-hoc
+
+In Elyra you can also run a single Python script or notebook as an Apache Airflow task without having to create a pipeline first:
+ - open the file
+ - click the _Submit ..._ button
+ - provide the requested information.
+
+![Run Python script as pipeline](doc/images/ad_hoc_submit_script.png)
+
+Elyra creates a transient one node pipeline on the fly and processes it as if it had been manually created using the Pipeline Editor.
 
 ### Next steps
 
 This concludes the _Hello World Apache Airflow_ tutorial. You've learned how to 
-- create a pipeline using Elyra's visual pipeline editor
+- create a pipeline using Elyra's Pipeline Editor
 - add a node and configure its execution properties
 - connect nodes to define the execution dependencies
 - create an Apache Airflow runtime configuration

@@ -119,7 +119,7 @@ Python scripts and notebooks are represented in Elyra as nodes. Each node maps t
 
    When you configure a node you identify the _runtime image_, which will be used to instantiate the container. You can choose from a set of pre-configured public images or [register your own](https://elyra.readthedocs.io/en/latest/user_guide/runtime-image-conf.html). 
 
-   > Custom images must meet certain requirements, as stated in the documentation, and should have all prerequisite package pre-installed to assure the same package versions are used across multiple pipeline executions.  
+   > Custom images must meet certain requirements, as stated in the documentation, and should have all prerequisite packages pre-installed to assure the same package versions are used across multiple pipeline executions.  
 
    In this tutorial you'll use the stock `Pandas` container image to run the notebook or script and all other notebooks.
 
@@ -240,11 +240,11 @@ You are ready to run the pipeline.
 
 1. Open the run wizard.
 
-   ![Run pipeline](doc/images/run_pipeline.png)
-
-1. Choose the Apache Airflow run configuration you created.   
+   ![Run pipeline](doc/images/run_pipeline.png)  
 
 1. The _Pipeline Name_ is pre-populated with the pipeline file name. The specified name is used to identify the DAG in Apache Airflow.
+
+1. Select `Apache Airflow` as _Runtime type_.
 
 1. From the _Runtime configuration_ drop down select the runtime configuration you just created.
 

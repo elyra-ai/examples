@@ -157,7 +157,9 @@ Python scripts and notebooks are represented in Elyra as nodes. Each node maps t
 
     > It is considered good pratice to specify paths that are relative to the notebook or script location.
 
-1. Save the node configuration.
+1. Close the node configuration.
+
+   > Changes you make to the node configuration are saved only when the pipeline is saved. The Pipeline Editor does not auto-save work in progress.
 
 1. Select the `load_data` node and attach a comment to it.
 

@@ -23,7 +23,7 @@ In Elyra, an AI pipeline, also referred to as workflow pipeline, comprises of no
 
 In this tutorial you will learn how to create a workflow pipeline and run it in your local development environment. When you run a pipeline in your local environment, each notebook or Python script is executed in a Kernel on the machine where JupyterLab is running, such as your laptop. Since resources on that machine might be limited local pipeline execution might not always be a viable option.
 
- The [Hello World Kubeflow Pipelines tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world_kubeflow_pipelines) is similar to this tutorial but runs the pipeline on Kubeflow Pipelines, enabling you to take advantage of shared compute resources in the cloud that might dramatically reduce pipeline processing time or allow for processing of much larger data volumes.
+ The [Hello World Kubeflow Pipelines tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world_kubeflow_pipelines) and [Hello World Apache Airflow tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world_apache_airflow) are similar to this tutorial but run the pipeline on Kubeflow Pipelines or Apache Airflow, enabling you to take advantage of shared compute resources in the cloud that might dramatically reduce pipeline processing time or allow for processing of much larger data volumes.
 
 ### Prerequisites
 
@@ -80,7 +80,7 @@ Next, you'll add a notebook to the pipeline that downloads an open data set arch
 
    ![Edit node name](doc/images/edit_node_name.png)
 
-1. As _Runtime Image_ choose `Pandas`. The runtime image identifies the container image that is used to execute the notebook or Python script when the pipeline is run on Kubeflows Pipelines. This setting must always be specified but is ignored when you run the pipeline locally.
+1. As _Runtime Image_ choose `Pandas`. The runtime image identifies the container image that is used to execute the notebook or Python script when the pipeline is run on Kubeflows Pipelines or Apache Airflow. This setting must always be specified but is ignored when you run the pipeline locally.
 
    ![Configure runtime image](doc/images/configure_runtime_image.png)
 
@@ -88,7 +88,7 @@ Next, you'll add a notebook to the pipeline that downloads an open data set arch
 
    ![Customize container resources](doc/images/customize_container_resources.png)
 
-   > If no custom requirements are defined, the defaults in the Kubeflow Pipeline environment are used.
+   > If no custom requirements are defined, the defaults in the target runtime environment (Kubeflow Pipelines or Apache Airflow) are used.
 
    If a notebook or script requires access to local files, such as Python scripts, you can specify them as _File Dependencies_. When you run a pipeline locally this setting is ignored because the notebook or script can access all (readable) files in your workspace. However, it is considered good practice to explicitly declare file dependencies to make the pipeline also runnable in environments where notebooks or scripts are executed isolated from each other.
 

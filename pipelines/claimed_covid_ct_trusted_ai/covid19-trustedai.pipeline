@@ -15,22 +15,25 @@
           "app_data": {
             "filename": "component-library/input/input-covid-chestxray.ipynb",
             "runtime_image": "continuumio/anaconda3:2020.07",
-            "env_vars": [],
+            "env_vars": [
+              "checkpoint_ip=158.177.161.46:9000",
+              "checkpoint=True"
+            ],
             "include_subdirectories": false,
             "outputs": [
               "metadata.csv",
               "images.zip"
             ],
             "dependencies": [
-              null,
+              "",
               ""
             ],
             "invalidNodeError": null,
             "ui_data": {
               "label": "input-covid-chestxray.ipynb",
               "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
-              "x_pos": 54,
-              "y_pos": 168,
+              "x_pos": 35,
+              "y_pos": 41,
               "description": "Notebook file"
             }
           },
@@ -70,14 +73,18 @@
           "app_data": {
             "filename": "component-library/train/train-mobilenet_v2.ipynb",
             "runtime_image": "continuumio/anaconda3:2020.07",
-            "env_vars": [],
+            "env_vars": [
+              "checkpoint=True",
+              "checkpoint_ip=158.177.161.46:9000"
+            ],
             "include_subdirectories": false,
             "outputs": [
-              "model.zip"
+              "model.zip",
+              "data.zip"
             ],
             "dependencies": [
-              "/home/jovyan/work/examples/pipelines/claimed_covid_ct_trusted_ai/component-library/codait_utils.ipynb",
-              ""
+              null,
+              null
             ],
             "cpu": 1,
             "memory": 1,
@@ -104,8 +111,8 @@
               },
               "links": [
                 {
-                  "id": "f855845d-fb47-4111-934d-c1299e65e2a0",
-                  "node_id_ref": "a3d1efdc-971d-49c5-b749-179bfcf34142",
+                  "id": "b3c60515-1c06-4184-a0de-027080ee46a4",
+                  "node_id_ref": "9431cdd6-5ac6-4c72-ab10-3b7993fc99d2",
                   "port_id_ref": "outPort"
                 }
               ]
@@ -135,9 +142,11 @@
             "runtime_image": "continuumio/anaconda3:2020.07",
             "env_vars": [],
             "include_subdirectories": false,
-            "outputs": [],
+            "outputs": [
+              null
+            ],
             "dependencies": [
-              "/home/jovyan/work/examples/pipelines/claimed_covid_ct_trusted_ai/component-library/codait_utils.ipynb"
+              null
             ],
             "invalidNodeError": null,
             "ui_data": {
@@ -197,17 +206,18 @@
             ],
             "include_subdirectories": false,
             "outputs": [
-              "metadata.csv"
+              "metadata.csv",
+              null
             ],
             "dependencies": [
-              "metadata.csv"
+              null
             ],
             "invalidNodeError": null,
             "ui_data": {
               "label": "transform-apply.ipynb",
               "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
-              "x_pos": 294,
-              "y_pos": 168,
+              "x_pos": 293,
+              "y_pos": 41,
               "description": "Notebook file"
             }
           },
@@ -259,15 +269,16 @@
             ],
             "include_subdirectories": false,
             "outputs": [
-              "metadata.csv"
+              "metadata.csv",
+              null
             ],
             "dependencies": [],
             "invalidNodeError": null,
             "ui_data": {
               "label": "filter.ipynb",
               "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
-              "x_pos": 534,
-              "y_pos": 168,
+              "x_pos": 530,
+              "y_pos": 40,
               "description": "Notebook file"
             }
           },
@@ -285,76 +296,8 @@
               },
               "links": [
                 {
-                  "id": "319e36ee-fca1-492d-b925-fc87ee13c73b",
+                  "id": "a93df98c-48d0-4425-ba53-bdb3ed1262db",
                   "node_id_ref": "0d99256b-415b-4ca6-9a03-bf3cdcc8685d",
-                  "port_id_ref": "outPort"
-                }
-              ]
-            }
-          ],
-          "outputs": [
-            {
-              "id": "outPort",
-              "app_data": {
-                "ui_data": {
-                  "cardinality": {
-                    "min": 0,
-                    "max": -1
-                  },
-                  "label": "Output Port"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "id": "a3d1efdc-971d-49c5-b749-179bfcf34142",
-          "type": "execution_node",
-          "op": "execute-notebook-node",
-          "app_data": {
-            "filename": "component-library/transform/transform-images.ipynb",
-            "runtime_image": "continuumio/anaconda3:2020.07",
-            "env_vars": [
-              null,
-              null,
-              null,
-              null,
-              "output_folder_replace=/",
-              "output_folder_replace_with=_",
-              null
-            ],
-            "include_subdirectories": false,
-            "outputs": [
-              "data.zip"
-            ],
-            "dependencies": [
-              "/home/jovyan/work/examples/pipelines/claimed_covid_ct_trusted_ai/component-library/codait_utils.ipynb"
-            ],
-            "invalidNodeError": null,
-            "ui_data": {
-              "label": "transform-images.ipynb",
-              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
-              "x_pos": 774,
-              "y_pos": 168,
-              "description": "Notebook file"
-            }
-          },
-          "inputs": [
-            {
-              "id": "inPort",
-              "app_data": {
-                "ui_data": {
-                  "cardinality": {
-                    "min": 0,
-                    "max": -1
-                  },
-                  "label": "Input Port"
-                }
-              },
-              "links": [
-                {
-                  "id": "ebfb00e0-250e-4085-9cdc-002178381439",
-                  "node_id_ref": "19efb1d5-4525-40b2-bdc2-e75a014419d6",
                   "port_id_ref": "outPort"
                 }
               ]
@@ -393,8 +336,8 @@
               "metadata.csv"
             ],
             "dependencies": [
-              "/home/jovyan/work/examples/pipelines/claimed_covid_ct_trusted_ai/component-library/codait_utils.ipynb",
-              "metadata.csv"
+              null,
+              null
             ],
             "invalidNodeError": null,
             "ui_data": {
@@ -457,9 +400,11 @@
               "metadata=metadata.csv"
             ],
             "include_subdirectories": false,
-            "outputs": [],
+            "outputs": [
+              null
+            ],
             "dependencies": [
-              "/home/jovyan/work/examples/pipelines/claimed_covid_ct_trusted_ai/component-library/codait_utils.ipynb"
+              null
             ],
             "invalidNodeError": null,
             "ui_data": {
@@ -515,7 +460,9 @@
             "runtime_image": "continuumio/anaconda3:2020.07",
             "env_vars": [],
             "include_subdirectories": false,
-            "outputs": [],
+            "outputs": [
+              null
+            ],
             "dependencies": [],
             "invalidNodeError": null,
             "ui_data": {
@@ -693,9 +640,11 @@
             "runtime_image": "continuumio/anaconda3:2020.07",
             "env_vars": [],
             "include_subdirectories": false,
-            "outputs": [],
+            "outputs": [
+              null
+            ],
             "dependencies": [
-              "/home/jovyan/work/examples/pipelines/claimed_covid_ct_trusted_ai/component-library/codait_utils.ipynb"
+              null
             ],
             "ui_data": {
               "label": "metric-confusion-matrix.ipynb",
@@ -721,6 +670,205 @@
                 {
                   "id": "35aa12fe-38bf-420d-8a29-5a33352e28d7",
                   "node_id_ref": "7ddc1de7-c95f-483f-a98a-0b3d9194c874",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "9431cdd6-5ac6-4c72-ab10-3b7993fc99d2",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "filename": "component-library/checkpoint/store_asset.ipynb",
+            "runtime_image": "continuumio/anaconda3:2020.07",
+            "env_vars": [
+              "checkpoint_ip=158.177.161.46:9000",
+              null,
+              null,
+              null,
+              "asset_name=data.zip"
+            ],
+            "include_subdirectories": false,
+            "outputs": [
+              "data.zip",
+              null
+            ],
+            "dependencies": [],
+            "ui_data": {
+              "label": "store_asset.ipynb",
+              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
+              "x_pos": 291.0000305175781,
+              "y_pos": 151,
+              "description": "Notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Input Port"
+                }
+              },
+              "links": [
+                {
+                  "id": "9b3cc637-d357-4aec-874a-2efa9279dccf",
+                  "node_id_ref": "a3d1efdc-971d-49c5-b749-179bfcf34142",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "6507b5b1-5b5b-45f0-b522-c6b654004438",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "filename": "component-library/checkpoint/store_asset.ipynb",
+            "runtime_image": "continuumio/anaconda3:2020.07",
+            "env_vars": [
+              null,
+              null,
+              "checkpoint_ip=158.177.161.46:9000",
+              null,
+              "asset_name=metadata.csv"
+            ],
+            "include_subdirectories": false,
+            "outputs": [
+              null,
+              null,
+              null
+            ],
+            "dependencies": [],
+            "ui_data": {
+              "label": "store_asset.ipynb",
+              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
+              "x_pos": 777,
+              "y_pos": 41,
+              "description": "Notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Input Port"
+                }
+              },
+              "links": [
+                {
+                  "id": "a8e015c1-4cc9-4315-814f-f3a0325a507f",
+                  "node_id_ref": "19efb1d5-4525-40b2-bdc2-e75a014419d6",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "a3d1efdc-971d-49c5-b749-179bfcf34142",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "filename": "component-library/transform/transform-images.ipynb",
+            "runtime_image": "continuumio/anaconda3:2020.07",
+            "env_vars": [
+              null,
+              null,
+              null,
+              null,
+              "output_folder_replace=/",
+              "output_folder_replace_with=_",
+              null
+            ],
+            "include_subdirectories": false,
+            "outputs": [
+              "data.zip",
+              null,
+              ""
+            ],
+            "dependencies": [
+              null
+            ],
+            "invalidNodeError": null,
+            "ui_data": {
+              "label": "transform-images.ipynb",
+              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
+              "x_pos": 39.000030517578125,
+              "y_pos": 151,
+              "description": "Notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Input Port"
+                }
+              },
+              "links": [
+                {
+                  "id": "39d0774d-69ac-4025-859e-52ef5f154c60",
+                  "node_id_ref": "6507b5b1-5b5b-45f0-b522-c6b654004438",
                   "port_id_ref": "outPort"
                 }
               ]

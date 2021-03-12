@@ -1,3 +1,3 @@
 [submodule "pipelines/claimed_covid_ct_trusted_ai/component-library"]
 	path = pipelines/claimed_covid_ct_trusted_ai/component-library
-	url = git@github.com:elyra-ai/component-library.git
+	url = git@github.com:romeokienzler/component-library.git

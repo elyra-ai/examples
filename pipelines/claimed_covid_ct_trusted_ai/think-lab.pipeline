@@ -854,7 +854,7 @@
             "runtime_image": "quay.io/romeokienzler/elyra-ai:v1",
             "env_vars": [
               "checkpoint_ip=158.177.161.46:9000",
-              "asset_name=mode.zip"
+              "asset_name=model.zip"
             ],
             "include_subdirectories": false,
             "outputs": [

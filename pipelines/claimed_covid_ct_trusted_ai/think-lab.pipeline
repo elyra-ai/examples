@@ -497,62 +497,6 @@
           ]
         },
         {
-          "id": "b60c73b6-07da-40f8-aa96-0cbb3f40b297",
-          "type": "execution_node",
-          "op": "execute-notebook-node",
-          "app_data": {
-            "filename": "component-library/deploy/deploy-kfserving.ipynb",
-            "runtime_image": "quay.io/romeokienzler/elyra-ai:v1",
-            "env_vars": [],
-            "include_subdirectories": false,
-            "invalidNodeError": null,
-            "outputs": [],
-            "dependencies": [],
-            "ui_data": {
-              "label": "deploy-kfserving.ipynb",
-              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
-              "x_pos": 576.6413879394531,
-              "y_pos": 562.4269561767578,
-              "description": "Notebook file"
-            }
-          },
-          "inputs": [
-            {
-              "id": "inPort",
-              "app_data": {
-                "ui_data": {
-                  "cardinality": {
-                    "min": 0,
-                    "max": -1
-                  },
-                  "label": "Input Port"
-                }
-              },
-              "links": [
-                {
-                  "id": "bcf57572-c196-48c2-9b21-d0663357e750",
-                  "node_id_ref": "368baec8-431e-4415-9b69-3048c10cff92",
-                  "port_id_ref": "outPort"
-                }
-              ]
-            }
-          ],
-          "outputs": [
-            {
-              "id": "outPort",
-              "app_data": {
-                "ui_data": {
-                  "cardinality": {
-                    "min": 0,
-                    "max": -1
-                  },
-                  "label": "Output Port"
-                }
-              }
-            }
-          ]
-        },
-        {
           "id": "368baec8-431e-4415-9b69-3048c10cff92",
           "type": "execution_node",
           "op": "execute-notebook-node",
@@ -886,6 +830,66 @@
                 {
                   "id": "d4b37541-9cca-4a9f-ac8b-bff132aaac77",
                   "node_id_ref": "7ddc1de7-c95f-483f-a98a-0b3d9194c874",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "39d7f5a9-0792-4d0b-bf8a-f1901ded9d5f",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "filename": "component-library/deploy/deploy_watson_machine_learning.ipynb",
+            "runtime_image": "quay.io/romeokienzler/elyra-ai:v1",
+            "env_vars": [
+              "api_key=your_ibm_cloud_api_key",
+              "space=your_watson_studio_space_uid",
+              "location=your_ibm_cloud_data_center_location"
+            ],
+            "include_subdirectories": false,
+            "invalidNodeError": null,
+            "outputs": [],
+            "dependencies": [],
+            "ui_data": {
+              "label": "deploy_watson_machine_learning.ipynb",
+              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
+              "x_pos": 554.5,
+              "y_pos": 562,
+              "description": "Notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Input Port"
+                }
+              },
+              "links": [
+                {
+                  "id": "5ca09c2b-f374-4844-9691-6fb815e8d5b7",
+                  "node_id_ref": "368baec8-431e-4415-9b69-3048c10cff92",
                   "port_id_ref": "outPort"
                 }
               ]

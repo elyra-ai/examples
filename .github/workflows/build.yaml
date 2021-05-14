@@ -13,12 +13,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-name: Component tests
+name: Example validations
+
 on:
+  # Trigger the workflow on push or pull request,
+  # but only for the master branch
   push:
-    branches: '*'
+    branches:
+      - master
   pull_request:
-    branches: '*'
+    branches:
+      - master
 
 jobs:
   build:

@@ -63,7 +63,7 @@ if __name__ == "__main__":
     # No data set URL was provided.
     if dataset_url is None:
         raise RuntimeError(
-                'Cannot run script. A data set URL must be provided as input.')
+            'Cannot run script. A data set URL must be provided as input.')
 
     # Try to process the URL
     download_from_public_url(dataset_url)

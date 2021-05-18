@@ -61,12 +61,12 @@ def log_results(url):
 
     # Create result metadata
     metadata = {'outputs': [
-     {
-       'storage': 'inline',
-       'source': '# Data archive URL: {}'
-                 .format(url),
-       'type': 'markdown',
-     }]
+        {
+            'storage': 'inline',
+            'source': '# Data archive URL: {}'
+                      .format(url),
+            'type': 'markdown',
+        }]
     }
 
     # Save metadata to file
@@ -87,7 +87,7 @@ if __name__ == "__main__":
     # No data set URL was provided.
     if dataset_url is None:
         raise RuntimeError(
-                'Cannot run script. A data set URL must be provided as input.')
+            'Cannot run script. A data set URL must be provided as input.')
 
     # Try to process the URL
     download_from_public_url(dataset_url)

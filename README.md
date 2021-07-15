@@ -29,8 +29,9 @@ Examples for earlier releases:
 Use the Elyra Visual Pipeline Editor to [assemble pipelines from Python notebooks or scripts](https://elyra.readthedocs.io/en/latest/user_guide/pipelines.html) without the need for any coding.
 
 ### Pipelines tutorials
-Tutorials to get started with pipelines in Elyra:
-- [Running pipelines in a local environment](pipelines/hello_world)
+
+Tutorials to get started with generic pipelines in Elyra:
+- [Introduction to generic pipelines](pipelines/introduction-to-generic-pipelines)
 - [Running pipelines on Kubeflow Pipelines](pipelines/hello_world_kubeflow_pipelines)
 - [Running pipelines on Apache Airflow](pipelines/hello_world_apache_airflow)
 

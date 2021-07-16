@@ -267,7 +267,7 @@ Each of the notebooks can run in the `Pandas` container image and doesn't have a
 
 ### Resources
 
-- [Pipelines topic in the Elyra User Guide](https://elyra.readthedocs.io/en/stable/user_guide/pipelines.html)
-- [Pipeline components in the Elyra User Guide](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html)
-- [Best practices for file-based pipeline nodes](https://elyra.readthedocs.io/en/stable/user_guide/best-practices-file-based-nodes.html)
-- [Elyra command line interface](https://elyra.readthedocs.io/en/latest/user_guide/command-line-interface.html)
+- [_Pipelines_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/pipelines.html)
+- [_Pipeline components_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html)
+- [_Best practices for file-based pipeline nodes_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/best-practices-file-based-nodes.html)
+- [_Command line interface_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/command-line-interface.html)

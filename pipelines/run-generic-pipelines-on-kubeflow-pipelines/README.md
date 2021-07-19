@@ -47,7 +47,7 @@ Collect the following information for your Kubeflow Pipelines installation:
 - Password for a multi-user, auth-enabled Kubeflow installation, e.g. `passw0rd`
 - Workflow engine type, which should be `Argo` or `Tekton`. Contact your administrator if you are unsure which engine your deployment utilizes.
 
-Elyra utilizes S3-compatible cloud storage to make data available to notebooks and Python scripts while they are executed. Any kind of cloud storage should work (e.g. IBM Cloud Object Storage or Minio) as long as it can be accessed from the machine where JupyterLab is running and the Kubeflow Pipelines cluster. Collect the following information:
+Elyra utilizes S3-compatible cloud storage to make data available to notebooks and Python scripts while they are executed. Any kind of cloud storage should work (e.g. IBM Cloud Object Storage or Minio) as long as it can be accessed from the machine where JupyterLab is running and from the Kubeflow Pipelines cluster. Collect the following information:
 - S3 compatible object storage endpoint, e.g. `http://minio-service.kubernetes:9000`
 - S3 object storage username, e.g. `minio`
 - S3 object storage password, e.g. `minio123`
@@ -68,13 +68,39 @@ This tutorial uses the `run-generic-pipelines-on-kubeflow-pipelines` sample from
 
 You are ready to start the tutorial.
 
-### Review the pipeline
+### Review the generic pipeline
 
 1. Open the `hello-generic-world` pipeline file.
 
    ![Tutorial pipeline](doc/images/tutorial-pipeline-in-vpe.png)
 
-1. TODO
+1. Right click generic node `Load weather data` and select _Open Properties_ to review its configuration.
+
+   ![View node properties](doc/images/generic-node-properties-1.png)
+
+   A generic node configuration identifies the runtime environment, input artifacts (file to be executed, file dependencies and environment variables), and output files.
+
+   ![Generic node configuration](doc/images/generic-node-configuration.png)
+
+   Each generic node is executed in a separate container, which is instantiated using the configured _runtime image_.
+
+   ![Generic components are executed in containers](doc/images/execution-environment.png)
+
+   All nodes in this tutorial pipeline are configured to utilize a pre-configured public Python container image that has the Pandas package preinstalled. For your own pipelines you should always utilize custom-built container images that have the appropriate prerequisites installed. Refer to the [_runtime image configuration_ topic in the User Guide](https://elyra.readthedocs.io/en/stable/user_guide/runtime-image-conf.html) for more information. 
+
+   If the container requires a specific minimum amount of resources during execution, you can specify them. For example, to speed up model training, you might want to make GPUs available. 
+
+   ![Customize container resources](doc/images/customize-resources.png)
+
+   > If no custom resource requirements are defined, the defaults in the Kubeflow Pipeline environment are used.
+
+   Containers don't share a file system. Elyra utilizes S3-compatible cloud storage to facilitate the transfer of files from the JupyterLab environment to the containers and between containers.
+
+   ![Files are exchanged using S3 storage](doc/images/file-inputs-and-outputs.png)
+
+   Therefore you must declare files that the notebook or script requires and declare files that are being produced.
+
+   ![Declare file inputs and outputs](doc/images/file-io-declarations.png)
 
 ### Define a runtime environment configuration
 

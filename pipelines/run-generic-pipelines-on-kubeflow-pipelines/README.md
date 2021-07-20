@@ -60,7 +60,7 @@ This tutorial uses the `run-generic-pipelines-on-kubeflow-pipelines` sample from
 1. Launch JupyterLab.
 1. Open the _Git clone_ wizard (Git > Clone A Repository).
 1. Enter `https://github.com/elyra-ai/examples.git` as _Clone URI_.
-1. In the _File Browser_ navigate to `examples/pipelines/introduction-to-generic-pipelines`.
+1. In the _File Browser_ navigate to `examples/pipelines/run-generic-pipelines-on-kubeflow-pipelines`.
 
    ![Tutorial assets in File Browser](doc/images/tutorial-files.png)
    

@@ -17,7 +17,7 @@ limitations under the License.
 -->
 ## Run generic pipelines on Kubeflow Pipelines
 
-A [pipeline](https://elyra.readthedocs.io/en/stable/user_guide/pipelines.html) comprises one or more nodes that are (in many cases) connected with each other to define execution dependencies. Each node is implemented by a [component](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html) and typically performs only a single task, such as loading data, processing data, training a model, or sending an email.
+A [pipeline](https://elyra.readthedocs.io/en/stable/user_guide/pipelines.html) comprises one or more nodes that are (in many cases) connected to define execution dependencies. Each node is implemented by a [component](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html) and typically performs only a single task, such as loading data, processing data, training a model, or sending an email.
 
 ![A basic pipeline](doc/images/pipelines-nodes.png)
 
@@ -47,7 +47,7 @@ Collect the following information for your Kubeflow Pipelines installation:
 - Password for a multi-user, auth-enabled Kubeflow installation, e.g. `passw0rd`
 - Workflow engine type, which should be `Argo` or `Tekton`. Contact your administrator if you are unsure which engine your deployment utilizes.
 
-Elyra utilizes S3-compatible cloud storage to make data available to notebooks and Python scripts while they are executed. Any kind of cloud storage should work (e.g. IBM Cloud Object Storage or Minio) as long as it can be accessed from the machine where JupyterLab is running and from the Kubeflow Pipelines cluster. Collect the following information:
+Elyra utilizes S3-compatible cloud storage to make data available to notebooks and scripts while they are executed. Any kind of cloud storage should work (e.g. IBM Cloud Object Storage or Minio) as long as it can be accessed from the machine where JupyterLab is running and from the Kubeflow Pipelines cluster. Collect the following information:
 - S3 compatible object storage endpoint, e.g. `http://minio-service.kubernetes:9000`
 - S3 object storage username, e.g. `minio`
 - S3 object storage password, e.g. `minio123`
@@ -86,7 +86,7 @@ You are ready to start the tutorial.
 
    ![Generic components are executed in containers](doc/images/execution-environment.png)
 
-   All nodes in this tutorial pipeline are configured to utilize a pre-configured public Python container image that has the Pandas package preinstalled. For your own pipelines you should always utilize custom-built container images that have the appropriate prerequisites installed. Refer to the [_runtime image configuration_ topic in the User Guide](https://elyra.readthedocs.io/en/stable/user_guide/runtime-image-conf.html) for more information. 
+   All nodes in this tutorial pipeline are configured to utilize a pre-configured public container image that has Python and the `Pandas` package preinstalled. For your own pipelines you should always utilize custom-built container images that have the appropriate prerequisites installed. Refer to the [_runtime image configuration_ topic in the User Guide](https://elyra.readthedocs.io/en/stable/user_guide/runtime-image-conf.html) for more information. 
 
    If the container requires a specific minimum amount of resources during execution, you can specify them. For example, to speed up model training, you might want to make GPUs available. 
 
@@ -94,13 +94,19 @@ You are ready to start the tutorial.
 
    > If no custom resource requirements are defined, the defaults in the Kubeflow Pipeline environment are used.
 
-   Containers don't share a file system. Elyra utilizes S3-compatible cloud storage to facilitate the transfer of files from the JupyterLab environment to the containers and between containers.
+   Containers in which the notebooks or scripts are executed don't share a file system. Elyra utilizes S3-compatible cloud storage to facilitate the transfer of files from the JupyterLab environment to the containers and between containers.
 
    ![Files are exchanged using S3 storage](doc/images/file-inputs-and-outputs.png)
 
-   Therefore you must declare files that the notebook or script requires and declare files that are being produced.
+   Therefore you must declare files that the notebook or script requires and declare files that are being produced. The node you are inspecting does not have any file input dependecies but it does produce an output file.
 
    ![Declare file inputs and outputs](doc/images/file-io-declarations.png)
+
+   Notebooks and scripts can be parameterized using environment variables. The node you are looking at requires a variable that identifies the download location of a data file.
+
+   ![Declare environment variables](doc/images/environment-variable-declarations.png)
+
+   Refer to [_Best practices for file-based pipeline nodes_](https://elyra.readthedocs.io/en/stable/user_guide/best-practices-file-based-nodes.html) in the _User Guide_ to learn more about considerations for each configuration setting.
 
 ### Define a runtime environment configuration
 
@@ -134,6 +140,8 @@ A [runtime configuration](https://elyra.readthedocs.io/en/stable/user_guide/runt
    - _Bucket name_, where Elyra will store the pipeline input and output artifacts, e.g. `test-bucket`
 
    ![Define object storage properties](doc/images/define-cos-properties.png)
+
+   > Refer to [this topic](https://elyra.readthedocs.io/en/stable/user_guide/runtime-conf.html#cloud-object-storage-credentials-secret-cos-secret) for important information about the optional credentials secret.
 
 1. Save the runtime configuration. 
 
@@ -272,6 +280,7 @@ This concludes the _Run generic pipelines on Kubeflow Pipelines_ tutorial. You'v
 
 - [_Pipelines_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/pipelines.html)
 - [_Pipeline components_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html)
+- [_Best practices for file-based pipeline nodes_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/best-practices-file-based-nodes.html)
 - [_Runtime configuration_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/runtime-conf.html)
 - [_Runtime image configuration_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/runtime-image-conf.html)
 - [_Command line interface_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/command-line-interface.html)

@@ -1,0 +1,304 @@
+{
+  "doc_type": "pipeline",
+  "version": "3.0",
+  "json_schema": "http://api.dataplatform.ibm.com/schemas/common-pipeline/pipeline-flow/pipeline-flow-v3-schema.json",
+  "id": "elyra-auto-generated-pipeline",
+  "primary_pipeline": "primary",
+  "pipelines": [
+    {
+      "id": "primary",
+      "nodes": [
+        {
+          "id": "0e6119bb-efbb-48e6-8a7a-c81edf387a6b",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "label": "",
+            "filename": "Part 1 - Data Cleaning.ipynb",
+            "runtime_image": "docker.io/amancevice/pandas:1.1.1",
+            "outputs": [
+              "data/noaa-weather-data-jfk-airport/jfk_weather_cleaned.csv"
+            ],
+            "env_vars": [],
+            "dependencies": [],
+            "include_subdirectories": false,
+            "ui_data": {
+              "label": "Part 1 - Data Cleaning.ipynb",
+              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
+              "x_pos": 393,
+              "y_pos": 137.00000762939453
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Input Port"
+                }
+              },
+              "links": [
+                {
+                  "id": "67d4d5e2-fb13-4726-a79c-bc119d009351",
+                  "node_id_ref": "215d76c1-6d6f-4dcc-91b3-85ad77dde8ab",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "2d44bb98-4998-4be5-986b-230b167d2d4d",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "label": "",
+            "filename": "Part 2 - Data Analysis.ipynb",
+            "runtime_image": "docker.io/amancevice/pandas:1.1.1",
+            "outputs": [],
+            "env_vars": [],
+            "dependencies": [],
+            "include_subdirectories": false,
+            "ui_data": {
+              "label": "Part 2 - Data Analysis.ipynb",
+              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
+              "x_pos": 675,
+              "y_pos": 102
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Input Port"
+                }
+              },
+              "links": [
+                {
+                  "id": "9f65e8a2-ad49-45c4-b522-bd6f22d81e92",
+                  "node_id_ref": "0e6119bb-efbb-48e6-8a7a-c81edf387a6b",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "064f3ffb-6176-432c-bd17-88899c1effa9",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "label": "",
+            "filename": "Part 3 - Time Series Forecasting.ipynb",
+            "runtime_image": "docker.io/amancevice/pandas:1.1.1",
+            "outputs": [],
+            "env_vars": [],
+            "dependencies": [],
+            "include_subdirectories": false,
+            "ui_data": {
+              "label": "Part 3 - Time Series Forecasting.ipynb",
+              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
+              "x_pos": 678,
+              "y_pos": 191
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Input Port"
+                }
+              },
+              "links": [
+                {
+                  "id": "62b9ea8b-b418-43d6-acf9-69696158f841",
+                  "node_id_ref": "0e6119bb-efbb-48e6-8a7a-c81edf387a6b",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "215d76c1-6d6f-4dcc-91b3-85ad77dde8ab",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "label": "Load weather data",
+            "filename": "load_data.ipynb",
+            "runtime_image": "docker.io/amancevice/pandas:1.1.1",
+            "outputs": [
+              "data/noaa-weather-data-jfk-airport/jfk_weather.csv"
+            ],
+            "env_vars": [
+              "DATASET_URL=https://dax-cdn.cdn.appdomain.cloud/dax-noaa-weather-data-jfk-airport/1.1.4/noaa-weather-data-jfk-airport.tar.gz"
+            ],
+            "dependencies": [],
+            "include_subdirectories": false,
+            "ui_data": {
+              "label": "Load weather data",
+              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
+              "x_pos": 113,
+              "y_pos": 136.50000762939453
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Input Port"
+                }
+              }
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "app_data": {
+        "ui_data": {
+          "runtime": null,
+          "comments": [
+            {
+              "id": "590eba82-3ce2-47c6-83e5-264fd9038f7c",
+              "x_pos": 57,
+              "y_pos": 33.999996185302734,
+              "width": 175,
+              "height": 42,
+              "class_name": "d3-comment-rect",
+              "content": "Download the data",
+              "associated_id_refs": [
+                {
+                  "node_ref": "215d76c1-6d6f-4dcc-91b3-85ad77dde8ab"
+                }
+              ]
+            },
+            {
+              "id": "2b9ab4b9-51b5-4e04-a9f6-fe00291d6710",
+              "x_pos": 314,
+              "y_pos": 33.999996185302734,
+              "width": 175,
+              "height": 42,
+              "class_name": "d3-comment-rect",
+              "content": "Clean the data",
+              "associated_id_refs": [
+                {
+                  "node_ref": "0e6119bb-efbb-48e6-8a7a-c81edf387a6b"
+                }
+              ]
+            },
+            {
+              "id": "bb0fe7e6-6e39-4318-97dd-6abd07759bfe",
+              "x_pos": 569.0000305175781,
+              "y_pos": 33,
+              "width": 175,
+              "height": 42,
+              "class_name": "d3-comment-rect",
+              "content": "Analyze the data",
+              "associated_id_refs": [
+                {
+                  "node_ref": "2d44bb98-4998-4be5-986b-230b167d2d4d"
+                }
+              ]
+            },
+            {
+              "id": "41c421be-f975-4a36-a5bb-40ff8ab9fa69",
+              "x_pos": 569.0000305175781,
+              "y_pos": 279.00000762939453,
+              "width": 223,
+              "height": 59,
+              "class_name": "d3-comment-rect",
+              "content": "Explore approaches to predicting future temperatures",
+              "associated_id_refs": [
+                {
+                  "node_ref": "064f3ffb-6176-432c-bd17-88899c1effa9"
+                }
+              ]
+            }
+          ]
+        },
+        "version": 3,
+        "properties": {
+          "name": "hello-generic-world",
+          "runtime": "Generic",
+          "description": "A generic pipeline tutorial"
+        }
+      },
+      "runtime_ref": ""
+    }
+  ],
+  "schemas": []
+}

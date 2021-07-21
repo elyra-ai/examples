@@ -128,22 +128,21 @@ A [runtime configuration](https://elyra.readthedocs.io/en/stable/user_guide/runt
 
    ![Define misc properties](doc/images/define-misc-properties.png)
 
-1. Enter the connectivity information for your Apache Airflow  deployment:
-   - TODO
+1. Enter the Apache Airflow server URL, the Kubernetes namespace where Airflow is deployed, and details for the DAG GitHub repository that Airflow is monitoring.
 
    ![Define Apache Airflow properties](doc/images/define-airflow-properties.png)
 
-   Refer to the [runtime configuration documentation](https://elyra.readthedocs.io/en/stable/user_guide/runtime-conf.html#configuration-settings) for a description of each input field.
+   Refer to the [runtime configuration documentation](https://elyra.readthedocs.io/en/stable/user_guide/runtime-conf.html#apache-airflow-configuration-settings) for a description of each input field.
 
 1. Enter the connectivity information for your  S3-compatible cloud storage:
    - The _cloud object storage endpoint_ URL, e.g. `https://minio-service.kubeflow:9000`
    - _Username_, e.g. `minio`
    - _Password_, e.g. `minio123`
-   - _Bucket name_, where Elyra will store the pipeline input and output artifacts, e.g. `test-bucket`
+   - _Bucket name_, where Elyra will store the pipeline input and output artifacts, e.g. `my-elyra-artifact-bucket`
 
    ![Define object storage properties](doc/images/define-cos-properties.png)
 
-   > Refer to [this topic](https://elyra.readthedocs.io/en/stable/user_guide/runtime-conf.html#cloud-object-storage-credentials-secret-cos-secret) for important information about the optional credentials secret.
+   > Refer to [this topic](https://elyra.readthedocs.io/en/stable/user_guide/runtime-conf.html#cloud-object-storage-credentials-secret-cos-secret) for important information about the Cloud Object Storage credentials secret.
 
 1. Save the runtime configuration. 
 
@@ -152,7 +151,6 @@ A [runtime configuration](https://elyra.readthedocs.io/en/stable/user_guide/runt
    ![Saved Apache Airflow runtime configuration](doc/images/saved-runtime-configuration.png)
 
    The displayed links provide access to the configured Apache Airflow GUI and the cloud storage UI (if one is available at the specified URL). Open the links to confirm connectivity.
-
 
 ### Run a generic pipeline on Apache Airflow
 
@@ -170,9 +168,9 @@ You can run pipelines from the Visual Pipeline Editor or using the [`elyra-pipel
 
 1. From the _Runtime configuration_ drop down select the runtime configuration you just created.
 
-1. Start the pipeline run. The pipeline artifacts (notebooks, Python scripts and file input dependencies) are gathered, packaged, and uploaded to cloud storage. The pipeline is compiled, and the DAG uploaded to the configured GitHub repository branch.
+1. Start the pipeline run. The pipeline artifacts (notebooks, scripts and file input dependencies) are gathered, packaged, and uploaded to cloud storage. Elyra generates a DAG and pushes it to the GitHub repository branch that you've specified in the runtime configuration.
 
-   Each time you run a pipeline with the same name, it is uploaded to the GitHub repository branch as a new version, allowing for comparison between pipeline runs. 
+   The DAG name is derived from the pipeline name and concatenated with the current timestamp. Therefore the GitHub repository contains a DAG file for each pipeline run that you initiate from the Visual Pipeline Editor or the Elyra CLI.
 
    ![Pipeline run submitted confirmation message](doc/images/run-submission-confirmation.png)
 
@@ -188,72 +186,58 @@ You can run pipelines from the Visual Pipeline Editor or using the [`elyra-pipel
 
 1. Open the run details and object storage links in a new browser tab or window.
 
-### Review the generated DAG
-
-TODO
-
 ### Monitor the DAG run
 
-Elyra does not provide a monitoring interface for Apache Airflow. However, it does provide a link to the Apache Airflow UI.
-
-The uploaded DAG is configured to run only once. When the DAG is executed depends on how frequently Apache Airflow polls the GitHub repository for changes. 
+Elyra does not provide a monitoring interface for Apache Airflow. However, it does provide a link to the Apache Airflow GUI.
 
 1. Open the _Run Details_ link to access the Apache Airflow GUI. 
 
    ![Inspect DAG](doc/images/inspect-dag-status.png)
 
+   The generated DAG is configured to run only once. When the DAG is executed depends on how frequently Apache Airflow polls the GitHub repository for changes. 
+
 1. Click on the `hello-generic-world` DAG and select the _Graph View_ to access the task information.
 
    ![Inspect DAG tasks](doc/images/inspect-dag-tasks.png)
 
-1. Click on a task and open the log file.
+1. Click on any completed task and open the log file.
 
    ![Review task log](doc/images/review-task-log.png)
 
-   Note that each task is implemented using the [`NotebookOp` operator](https://github.com/elyra-ai/airflow-notebook), which downloads the compressed input artifact archive from the cloud storage bucket, extracts the archive, processes the notebook or Python script, and uploads the output artifacts to the cloud storage bucket.
+   Note that the task is implemented using the [`NotebookOp` operator](https://github.com/elyra-ai/airflow-notebook), which downloads the compressed input artifact archive from the cloud storage bucket, extracts the archive, processes the notebook or script, and uploads the output artifacts to the cloud storage bucket.
 
 1. Wait for the DAG run to finish.
 
 ### Access the pipeline run outputs
 
-Pipelines that execute on Kubeflow Pipelines store the pipeline run outputs (completed notebooks, script output, and declared output files) in the cloud storage bucket you've configured in the runtime configuration.
+The DAG run outputs (completed notebooks, script output, and declared output files) are persisted in the cloud storage bucket you've configured in the runtime configuration.
 
-Elyra does not automatically download the output artifacts from the cloud storage bucket after DAG execution has completed.
+Elyra does not automatically download the output artifacts to your JupyterLab environment from the cloud storage bucket after DAG execution has completed. Therefore you have to use an S3 client, or, if configured, the cloud storage's web GUI to access the artifacts.
 
-1. Open the object storage link and, if required, log in. 
-
-   ![Open cloud storage page](doc/images/access_pipeline_run_results.png)
-
-1. Navigate to the bucket you've specified in the runtime configuration to review the content.
+1. Navigate to the bucket you've specified in the runtime configuration to review the content. 
 
    ![Review run output artifacts](doc/images/inspect-object-storage-bucket-content.png)
 
-   If pipeline execution completed successfully the bucket contains for each node the following artifacts:
-      - a `tar.gz` archive containing the input notebook or Python script and, if applicable, its declared file dependencies
+   The bucket contains for each node the following artifacts, which are prefixed with the DAG name:
+      - a `tar.gz` archive containing the notebook or script, and, if applicable, its declared input file dependencies
       - if the node is associated with a notebook, the artifacts include the completed notebook with it's populated output cells and an HTML version of the completed notebook
-      - if the node is associated with a Python script, the artifacts include the console output that the script produced
+      - if the node is associated with a script, the artifacts include the console output that the script produced
       - if applicable, the declared output files 
 
-   For example, for the `load_data` notebook the following artifacts should be present:
+   For example, for the `load_data` notebook that was executed by the `Load weather data` node, the following artifacts should be present:
 
    - `load_data-<UUID>.tar.gz` (input artifacts)
    - `load_data.ipynb` (output artifact) 
    - `load_data.html` (output artifact) 
    - `data/noaa-weather-data-jfk-airport/jfk_weather.csv` (output artifact)
 
-   If you've included the `load_data` Python script in the pipeline, the following artifacts should be present:
-
-   - `load_data-<UUID>.tar.gz` (input artifacts)
-   - `load_data.log` (output artifact) 
-   - `data/noaa-weather-data-jfk-airport/jfk_weather.csv` (output artifact)
-
 1. Download the output artifacts to your local machine and inspect them.
 
 ## Export the pipeline as an Apache Airflow DAG
 
-When you run a pipeline from the Pipeline Editor, Elyra generates a DAG and uploads it to the configured GitHub repository. If desired, you can customize the DAG by exporting the pipeline:
+When you run a pipeline from the pipeline, Elyra generates a DAG and uploads it to the configured GitHub repository. If desired, you can customize the DAG by exporting the pipeline instead:
 
-1. Open the pipeline in the Pipeline Editor.
+1. Open the pipeline in the Visual Pipeline Editor.
 1. Click the _Export Pipeline_ button.
 
    ![Export pipeline from the editor](doc/images/export-pipeline.png)
@@ -264,13 +248,13 @@ When you run a pipeline from the Pipeline Editor, Elyra generates a DAG and uplo
 
    > An exported pipeline comprises of two parts: the DAG Python code and the input artifact archives that were uploaded to cloud storage.
 
-1. Locate the generated `hello_generic_pipeline.py` Python script in the File Browser.
+1. Locate the generated `hello_generic_pipeline.py` Python script in the JupyterLab File Browser.
 
 1. Open the Python script and briefly review the generated code in the Python editor.
 
    ![Review exported DAG](doc/images/review-exported-dag.png)
 
-1. Optionally push the DAG manually to the GitHub repository to schedule the run.
+1. To run the DAG, push the file manually to the GitHub repository.
 
 ### Next steps
 

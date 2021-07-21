@@ -26,7 +26,7 @@ Examples for earlier releases:
 
 ## Pipelines
 
-Use the Elyra Visual Pipeline Editor to [assemble pipelines from Python notebooks or scripts](https://elyra.readthedocs.io/en/latest/user_guide/pipelines.html) without the need for any coding.
+Use the Elyra Visual Pipeline Editor to [assemble pipelines from Python notebooks or scripts](https://elyra.readthedocs.io/en/stable/user_guide/pipelines.html) without the need for any coding.
 
 ### Pipeline tutorials
 

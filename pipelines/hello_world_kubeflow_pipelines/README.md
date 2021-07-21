@@ -25,7 +25,7 @@ In Elyra, an AI pipeline comprises of Jupyter notebook nodes or Python script no
 
 ![Run a notebook pipeline locally or on Kubeflow Pipelines](doc/images/notebook_pipeline_local_and_remote.png)
 
-In this tutorial you will learn how to create a pipeline and run it on Kubeflow Pipelines. Two additional tutorials are available that illustrate the process for pipeline execution [locally in JupyterLab ](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world) and [on Apache Airflow](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world_apache_airflow).
+In this tutorial you will learn how to create a pipeline and run it on Kubeflow Pipelines. Two additional tutorials are available that illustrate the process for pipeline execution [locally in JupyterLab ](https://github.com/elyra-ai/examples/tree/master/pipelines/introduction-to-generic-pipelines) and [on Apache Airflow](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world_apache_airflow).
 
 ### Prerequisites
 
@@ -179,7 +179,7 @@ Next, you'll add a data pre-processing notebook to the pipeline and connect it w
 
 Before you can run a pipeline on Kubeflows Pipelines, you have to define a runtime environment configuration.
 
-> You can run a pipeline locally right away using the default `run in-place locally` configuration, as illustrated in the [_Hello World_ tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world).
+> You can run a pipeline locally right away using the default `run in-place locally` configuration, as illustrated in the [_Hello World_ tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/introduction-to-generic-pipelines).
 
 ### Defining a runtime environment configuration
 

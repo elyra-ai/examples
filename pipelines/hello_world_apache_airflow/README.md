@@ -25,7 +25,7 @@ You can run pipelines locally in JupyterLab or remotely on [Apache Airflow](http
 
 ![Run a notebook pipeline locally or remotely](doc/images/notebook_pipeline_local_and_remote.png)
 
-In this tutorial you will learn how to create a pipeline and run it on Apache Airflow. Two additional tutorials are available that illustrate the process for pipeline execution [in JupyterLab](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world) and [on Kubeflow Pipelines](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world_kubeflow_pipelines).
+In this tutorial you will learn how to create a pipeline and run it on Apache Airflow. Two additional tutorials are available that illustrate the process for pipeline execution [in JupyterLab](https://github.com/elyra-ai/examples/tree/master/pipelines/introduction-to-generic-pipelines) and [on Kubeflow Pipelines](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world_kubeflow_pipelines).
 
 ### Prerequisites
 
@@ -192,7 +192,7 @@ Next, you'll add a data pre-processing notebook to the pipeline and connect it w
 
 Before you can run a pipeline on Apache Airflow, you have to define a runtime environment configuration.
 
-> You can run a pipeline locally right away using the default `run in-place locally` configuration, as illustrated in the [_Hello World_ tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world).
+> You can run a pipeline locally right away using the default `run in-place locally` configuration, as illustrated in the [_Hello World_ tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/introduction-to-generic-pipelines).
 
 ### Defining a runtime environment configuration
 

@@ -24,16 +24,16 @@ features provided by Elyra. All examples require Elyra version 2.3.x.
 Examples for earlier releases:
  - [`v2.2.x`](https://github.com/elyra-ai/examples/tree/v2.2.x)
 
-## AI/ML Pipelines
+## Pipelines
 
 Use the Elyra Visual Pipeline Editor to [assemble pipelines from Python notebooks or scripts](https://elyra.readthedocs.io/en/latest/user_guide/pipelines.html) without the need for any coding.
 
-### Pipelines tutorials
+### Pipeline tutorials
 
 Tutorials to get started with generic pipelines in Elyra:
 - [Introduction to generic pipelines](pipelines/introduction-to-generic-pipelines)
-- [Running pipelines on Kubeflow Pipelines](pipelines/hello_world_kubeflow_pipelines)
-- [Running pipelines on Apache Airflow](pipelines/hello_world_apache_airflow)
+- [Run generic pipelines on Kubeflow Pipelines](pipelines/run-generic-pipelines-on-kubeflow-pipelines)
+- [Run generic pipelines on Apache Airflow](pipelines/run-generic-pipelines-on-apache-airflow)
 
 ### Example pipelines
 This repository includes the following example pipelines:

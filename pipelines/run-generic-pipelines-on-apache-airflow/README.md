@@ -36,7 +36,7 @@ The tutorial instructions were last updated using Elyra v3.0 and Apache Airflow 
 ### Prerequisites
 
 - [JupyterLab 3.x with the Elyra extension v3.x (or newer) installed](https://elyra.readthedocs.io/en/stable/getting_started/installation.html).
-- Access to a local or cloud deployment of Apache Airflow that has been [configured for use with Elyra](https://elyra.readthedocs.io/en/latest/recipes/configure-airflow-as-a-runtime.html).
+- Access to a local or cloud deployment of Apache Airflow that has been [configured for use with Elyra](https://elyra.readthedocs.io/en/stable/recipes/configure-airflow-as-a-runtime.html).
 
 > Apache Airflow version 2.x is currently not supported.
 

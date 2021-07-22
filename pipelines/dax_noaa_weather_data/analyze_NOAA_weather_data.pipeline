@@ -13,22 +13,25 @@
           "type": "execution_node",
           "op": "execute-notebook-node",
           "app_data": {
-            "filename": "load_data.ipynb",
-            "runtime_image": "amancevice/pandas:1.0.3",
-            "env_vars": [
-              "DATASET_URL=https://dax-cdn.cdn.appdomain.cloud/dax-noaa-weather-data-jfk-airport/1.1.4/noaa-weather-data-jfk-airport.tar.gz"
-            ],
-            "include_subdirectories": false,
-            "outputs": [
-              "data/noaa-weather-data-jfk-airport/jfk_weather.csv"
-            ],
-            "invalidNodeError": null,
+            "component_parameters": {
+              "filename": "load_data.ipynb",
+              "runtime_image": "docker.io/amancevice/pandas:1.1.1",
+              "outputs": [
+                "data/noaa-weather-data-jfk-airport/jfk_weather.csv"
+              ],
+              "env_vars": [
+                "DATASET_URL=https://dax-cdn.cdn.appdomain.cloud/dax-noaa-weather-data-jfk-airport/1.1.4/noaa-weather-data-jfk-airport.tar.gz"
+              ],
+              "dependencies": [],
+              "include_subdirectories": false
+            },
+            "label": "load_data",
             "ui_data": {
               "label": "load_data",
               "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
               "x_pos": 60.70574951171875,
               "y_pos": 230.04904174804688,
-              "description": "Notebook file"
+              "description": "Run notebook file"
             }
           },
           "inputs": [
@@ -65,21 +68,23 @@
           "type": "execution_node",
           "op": "execute-notebook-node",
           "app_data": {
-            "filename": "Part 1 - Data Cleaning.ipynb",
-            "runtime_image": "amancevice/pandas:1.0.3",
-            "env_vars": [],
-            "include_subdirectories": false,
-            "outputs": [
-              "data/noaa-weather-data-jfk-airport/jfk_weather_cleaned.csv"
-            ],
-            "dependencies": [],
-            "invalidNodeError": null,
+            "component_parameters": {
+              "filename": "Part 1 - Data Cleaning.ipynb",
+              "runtime_image": "docker.io/amancevice/pandas:1.1.1",
+              "outputs": [
+                "data/noaa-weather-data-jfk-airport/jfk_weather_cleaned.csv"
+              ],
+              "env_vars": [],
+              "dependencies": [],
+              "include_subdirectories": false
+            },
+            "label": "Part 1 - Data Cleaning",
             "ui_data": {
               "label": "Part 1 - Data Cleaning",
               "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
               "x_pos": 331.4868469238281,
               "y_pos": 299.0490417480469,
-              "description": "Notebook file"
+              "description": "Run notebook file"
             }
           },
           "inputs": [
@@ -115,18 +120,21 @@
           "type": "execution_node",
           "op": "execute-notebook-node",
           "app_data": {
-            "filename": "Part 2 - Data Analysis.ipynb",
-            "runtime_image": "amancevice/pandas:1.0.3",
-            "env_vars": [],
-            "include_subdirectories": false,
-            "dependencies": [],
-            "invalidNodeError": null,
+            "component_parameters": {
+              "filename": "Part 2 - Data Analysis.ipynb",
+              "runtime_image": "docker.io/amancevice/pandas:1.1.1",
+              "outputs": [],
+              "env_vars": [],
+              "dependencies": [],
+              "include_subdirectories": false
+            },
+            "label": "Part 2 - Data Analysis",
             "ui_data": {
               "label": "Part 2 - Data Analysis",
               "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
               "x_pos": 645,
               "y_pos": 221.78109741210938,
-              "description": "Notebook file"
+              "description": "Run notebook file"
             }
           },
           "inputs": [
@@ -162,18 +170,24 @@
           "type": "execution_node",
           "op": "execute-notebook-node",
           "app_data": {
-            "filename": "Part 3 - Time Series Forecasting.ipynb",
-            "runtime_image": "amancevice/pandas:1.0.3",
-            "env_vars": [],
-            "include_subdirectories": false,
-            "dependencies": [],
-            "invalidNodeError": null,
+            "component_parameters": {
+              "filename": "Part 3 - Time Series Forecasting.ipynb",
+              "runtime_image": "docker.io/amancevice/pandas:1.1.1",
+              "cpu": null,
+              "gpu": null,
+              "memory": null,
+              "outputs": [],
+              "env_vars": [],
+              "dependencies": [],
+              "include_subdirectories": false
+            },
+            "label": "Part 3 - Time Series Forecasting",
             "ui_data": {
               "label": "Part 3 - Time Series Forecasting",
               "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
               "x_pos": 639.7548217773438,
               "y_pos": 372.5849304199219,
-              "description": "Notebook file"
+              "description": "Run notebook file"
             }
           },
           "inputs": [
@@ -270,7 +284,12 @@
             }
           ]
         },
-        "version": 3
+        "version": 4,
+        "properties": {
+          "name": "analyze_NOAA_weather_data",
+          "runtime": "Generic",
+          "description": "Tutorial pipeline for generic components"
+        }
       },
       "runtime_ref": ""
     }

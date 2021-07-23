@@ -19,7 +19,7 @@ limitations under the License.
 # Elyra examples
 
 This repository provides a set of examples that explore some of the unique
-features provided by Elyra. All examples require Elyra version 2.3.x.
+features provided by Elyra. All examples require Elyra version 3.x.
 
 Examples for earlier releases:
  - [`v2.2.x`](https://github.com/elyra-ai/examples/tree/v2.2.x)

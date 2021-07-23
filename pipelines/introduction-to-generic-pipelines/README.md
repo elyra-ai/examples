@@ -117,7 +117,7 @@ To add a notebook or script to the pipeline:
 
    ![Select file to run](doc/images/select-file-to-run.png)
 
-1. As _Runtime Image_ choose `Pandas`. The runtime image identifies the container image that is used to execute the notebook or Python script when the pipeline is run on Kubeflows Pipelines or Apache Airflow. This setting must always be specified but is ignored when you run the pipeline locally.
+1. As _Runtime Image_ choose `Pandas`. The runtime image identifies the container image that is used to execute the notebook or Python script when the pipeline is run on Kubeflow Pipelines or Apache Airflow. This setting must always be specified but is ignored when you run the pipeline locally.
 
    ![Configure runtime image](doc/images/configure-runtime-image.png)
 
@@ -151,7 +151,7 @@ To add a notebook or script to the pipeline:
 
     If a notebook or script generates files that other notebooks or scripts require access to, specify them as _Output Files_. This setting is ignored if you are running a pipeline locally because all notebooks or scripts in a pipeline have access to the same shared file system. However, it is considered good practice to declare these files to make the pipeline also runnable in environments where notebooks or scripts are executed in isoluation from each other.
 
-1.  Declare an output file named `data/noaa-weather-data-jfk-airport/jfk_weather.csv`, which other notebooks in this pipeline process.
+1.  Declare an output file named `data/noaa-weather-data-jfk-airport/jfk_weather.csv`, which other notebooks in this pipeline consume.
 
     ![Configure output files](doc/images/configure-output-files.png)
 
@@ -221,7 +221,7 @@ A _local pipeline run_ produces the following output artifacts:
 - Each executed notebook is updated and includes the run results in the output cells.
 - If any notebook persists data/files they are stored in the local file system.
 
-You can access output artifacts from the _File Browser_. In the screen capture below the pipeline output artifacts are highlighted in green.
+You can access output artifacts from the _File Browser_. In the screen capture below the pipeline output artifacts are highlighted.
 
  ![View local pipeline run output artifacts](doc/images/review-pipeline-output-artifacts.png)
 
@@ -260,7 +260,7 @@ If you'd like you can extend the pipeline by adding two more notebooks, which ca
  - `Part 2 - Data Analysis.ipynb`
  - `Part 3 - Time Series Forecasting.ipynb`
 
-Each of the notebooks can run in the `Pandas` container image and doesn't have any input dependencies, doesn't require any environment variables and doesn't produce an additional output files.
+Each of the notebooks can run in the `Pandas` container image and doesn't have any input dependencies, doesn't require any environment variables and doesn't produce any additional output files.
 
  ![The completed tutorial pipeline](doc/images/completed-tutorial-pipeline.png)
 

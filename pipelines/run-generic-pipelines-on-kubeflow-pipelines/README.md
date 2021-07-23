@@ -110,7 +110,7 @@ You are ready to start the tutorial.
 
 ### Define a runtime environment configuration
 
-A [runtime configuration](https://elyra.readthedocs.io/en/stable/user_guide/runtime-conf.html) in Elyra contains connectivity information for a Kubeflow Pipelines instance and S3-compatible cloud storage. In this tutorial you will use the GUI to define theconfiguration, but you can also use the CLI.
+A [runtime configuration](https://elyra.readthedocs.io/en/stable/user_guide/runtime-conf.html) in Elyra contains connectivity information for a Kubeflow Pipelines instance and S3-compatible cloud storage. In this tutorial you will use the GUI to define the configuration, but you can also use the CLI.
 
 1. From the pipeline editor tool bar (or the JupyterLab sidebar on the left side) choose _Runtimes_ to open the runtime management panel.
 
@@ -195,7 +195,7 @@ Elyra does not provide a monitoring interface for Kubeflow Pipelines. However, i
 
    ![Monitor pipeline run progress](doc/images/review-component-execution-log.png)
 
-   Output that notebooks or scripts produce is captured by Elyra and automatically uploaded to the coud storage bucket you've specified in the runtime configuration.
+   Output that notebooks or scripts produce is captured by Elyra and automatically uploaded to the cloud storage bucket you've specified in the runtime configuration.
 
    If desired, you can visualize results directly in the Kubeflow Pipelines UI. For example, if a notebook trains a classification model, you could visualize its accuracy using a confusion matrix by producing metadata in Kubeflow Pipelines output viewer compatible format.
 

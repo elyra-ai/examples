@@ -43,8 +43,8 @@ The tutorial instructions were last updated using Elyra v3.0 and Kubeflow v1.3.0
 Collect the following information for your Kubeflow Pipelines installation:
 - API endpoint, e.g. `http://kubernetes-service.ibm.com/pipeline`
 - Namespace, for a multi-user, auth-enabled Kubeflow installation, e.g. `mynamespace`
-- Username for a multi-user, auth-enabled Kubeflow installation, e.g. `jdoe`
-- Password for a multi-user, auth-enabled Kubeflow installation, e.g. `passw0rd`
+- Username, for a multi-user, auth-enabled Kubeflow installation, e.g. `jdoe`
+- Password, for a multi-user, auth-enabled Kubeflow installation, e.g. `passw0rd`
 - Workflow engine type, which should be `Argo` or `Tekton`. Contact your administrator if you are unsure which engine your deployment utilizes.
 
 Elyra utilizes S3-compatible cloud storage to make data available to notebooks and scripts while they are executed. Any kind of cloud storage should work (e.g. IBM Cloud Object Storage or Minio) as long as it can be accessed from the machine where JupyterLab is running and from the Kubeflow Pipelines cluster. Collect the following information:
@@ -126,7 +126,7 @@ A [runtime configuration](https://elyra.readthedocs.io/en/stable/user_guide/runt
    - _Kubeflow Pipelines API endpoint_, e.g. `https://kubernetes-service.ibm.com/pipeline`
      > Do not specify the namespace in the API endpoint.
    - _User namespace_ used to run pipelines, e.g. `mynamespace`
-   - User credentials if the deployment is multi-user, auth enabled using [Dex](https://www.kubeflow.org/docs/started/k8s/kfctl-istio-dex/).
+   - User credentials if the deployment is multi-user, auth enabled using Dex.
    - Workflow _engine_ type, which is either `Argo` (default) or `Tekton`. Check with an administrator if you are unsure which workflow engine your deployment utilizes.
 
    ![Define Kubeflow Pipelines properties](doc/images/define-kfp-properties.png)
@@ -223,7 +223,7 @@ Pipelines that execute on Kubeflow Pipelines store the pipeline run outputs (com
 
    ![Review run output artifacts](doc/images/inspect-object-storage-bucket-content.png)
 
-   If pipeline execution completed successfully the bucket contains for each node the following artifacts:
+   The bucket contains for each node the following artifacts:
       - a `tar.gz` archive containing the original notebook or script and, if applicable, its declared file dependencies
       - if the node is associated with a notebook, the artifacts include the completed notebook with it's populated output cells and an HTML version of the completed notebook
       - if the node is associated with a script, the artifacts include the console output that the script produced
@@ -240,7 +240,7 @@ Pipelines that execute on Kubeflow Pipelines store the pipeline run outputs (com
 
 ## Export the pipeline to a Kubeflow Pipelines format
 
-When you run a pipeline from the pipeline, Elyra compiles the pipeline, uploads the compiled pipeline, creates an experiment, and runs the experiment. If you want to run the pipeline at a later time outside of Elyra, you can export it.
+When you run a pipeline from the pipeline editor, Elyra compiles the pipeline, uploads the compiled pipeline, creates an experiment, and runs the experiment. If you want to run the pipeline at a later time outside of Elyra, you can export it.
 
 1. Open the pipeline in the Pipeline Editor.
 1. Click the _Export Pipeline_ button.

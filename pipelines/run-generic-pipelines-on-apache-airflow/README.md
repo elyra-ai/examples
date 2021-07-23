@@ -116,7 +116,7 @@ You are ready to start the tutorial.
 
 ### Define a runtime environment configuration
 
-A [runtime configuration](https://elyra.readthedocs.io/en/stable/user_guide/runtime-conf.html) in Elyra contains connectivity information for an Apache Airflow instance and S3-compatible cloud storage. In this tutorial you will use the GUI to define theconfiguration, but you can also use the CLI.
+A [runtime configuration](https://elyra.readthedocs.io/en/stable/user_guide/runtime-conf.html) in Elyra contains connectivity information for an Apache Airflow instance and S3-compatible cloud storage. In this tutorial you will use the GUI to define the configuration, but you can also use the CLI.
 
 1. From the pipeline editor tool bar (or the JupyterLab sidebar on the left side) choose _Runtimes_ to open the runtime management panel.
 
@@ -218,7 +218,7 @@ Elyra does not automatically download the output artifacts to your JupyterLab en
 
    ![Review run output artifacts](doc/images/inspect-object-storage-bucket-content.png)
 
-   The bucket contains for each node the following artifacts, which are prefixed with the DAG name:
+   The bucket contains, for each node, the following artifacts, which are prefixed with the DAG name:
       - a `tar.gz` archive containing the notebook or script, and, if applicable, its declared input file dependencies
       - if the node is associated with a notebook, the artifacts include the completed notebook with it's populated output cells and an HTML version of the completed notebook
       - if the node is associated with a script, the artifacts include the console output that the script produced

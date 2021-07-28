@@ -15,9 +15,9 @@
           "app_data": {
             "component_parameters": {
               "notebook": "a-notebook.ipynb",
-              "parameters": "{'multiplier':2}",
+              "parameters": "{'multiplier':2, 'data_url': 'https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/kubeflow_pipelines_component_examples/run_notebook_component/data/data-1.csv'}",
               "packages_to_install": "['pandas']",
-              "input_data": "earth to notebook"
+              "input_data": "some string data"
             },
             "label": "",
             "component_source": "kfp/run_notebook_using_papermill/component.yaml",

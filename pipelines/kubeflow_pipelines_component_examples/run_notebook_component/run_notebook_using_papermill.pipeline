@@ -15,9 +15,9 @@
           "app_data": {
             "component_parameters": {
               "notebook": "a-notebook.ipynb",
-              "parameters": "{}",
-              "packages_to_install": "[]",
-              "input_data": ""
+              "parameters": "{'multiplier':2}",
+              "packages_to_install": "['pandas']",
+              "input_data": "earth to notebook"
             },
             "label": "",
             "component_source": "kfp/run_notebook_using_papermill/component.yaml",
@@ -66,10 +66,10 @@
               "id": "1a5d78a6-be2a-417f-8aaa-8dfb8917e170",
               "x_pos": 30,
               "y_pos": 30,
-              "width": 332,
+              "width": 249,
               "height": 59,
               "class_name": "d3-comment-rect",
-              "content": "Run the specified notebook using papermill",
+              "content": "Run the parametrized notebook using papermill",
               "associated_id_refs": [
                 {
                   "node_ref": "0eddd672-6ca5-4ff6-a230-c60562384892"

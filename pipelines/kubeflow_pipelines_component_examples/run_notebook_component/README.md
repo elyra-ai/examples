@@ -1,6 +1,6 @@
 ### Run notebook component
 
-Use the [_run notebook_ example component](https://github.com/elyra-ai/elyra/tree/master/elyra/pipeline/resources/kfp/run_notebook_using_papermill) to run a Jupyter notebook using [Papermill](https://papermill.readthedocs.io/en/latest/).
+Use the [_run notebook_ example component](https://github.com/elyra-ai/elyra/blob/master/etc/config/components/kfp/run_notebook_using_papermill.yaml) to run a Jupyter notebook using [Papermill](https://papermill.readthedocs.io/en/latest/).
 
 ### Prerequisites
 

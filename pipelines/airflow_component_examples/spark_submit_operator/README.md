@@ -10,5 +10,4 @@ Required Parameters:
 - num_executors 
 - application_args 
 
-This example uses the alpine Image. This example requires a Non Kerberos spark standalone deployment and the `spark_default`
-connection in Airflow to be configured correctly to the standalone deployment.
+This example requires a Non Kerberos spark standalone deployment and the `spark_default` connection in Airflow to be configured correctly to the standalone deployment.

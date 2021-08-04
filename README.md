@@ -35,6 +35,14 @@ Tutorials to get started with generic pipelines in Elyra:
 - [Run generic pipelines on Kubeflow Pipelines](pipelines/run-generic-pipelines-on-kubeflow-pipelines)
 - [Run generic pipelines on Apache Airflow](pipelines/run-generic-pipelines-on-apache-airflow)
 
+### Custom pipeline component examples
+
+Pipeline nodes are implemented using
+[components](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html). The following examples illustrate how to use custom components in runtime specific pipelines.
+
+- [Custom components for Kubeflow Pipelines](pipelines/kubeflow_pipelines_component_examples)
+- [Custom components for Apache Airflow](pipelines/airflow_component_examples)
+
 ### Example pipelines
 This repository includes the following example pipelines:
 - [Analyzing NOAA weather data](pipelines/dax_noaa_weather_data)

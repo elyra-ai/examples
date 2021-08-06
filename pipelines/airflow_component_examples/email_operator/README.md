@@ -1,7 +1,5 @@
 ## email_operator
 
-### Overview
-
 Use the [`email_operator`](https://airflow.apache.org/docs/apache-airflow/1.10.12/_api/airflow/operators/email_operator/index.html) to send an email alert.
 
 The example pipeline sends an email.
@@ -21,11 +19,15 @@ in the [`values.yaml`](https://github.com/helm/charts/blob/master/stable/airflow
 ```
 
 ### Parameters
-- Runtime image
-- Available Operators
-- to (recipient)
-- subject
-- html content
-- files (attachments)
-- cc
-- bcc
+- **to**. The recipient(s).
+- **subject**. The email subject.
+- **html content**. The email body. HTML tags may be used.
+- **files** (attachments)
+- **cc**. Carbon copy recipient(s).
+- **bcc**. Blind carbon copy recipient(s).
+- **mime_subtype**.
+- **mime_charset**
+
+### Outputs
+
+None.

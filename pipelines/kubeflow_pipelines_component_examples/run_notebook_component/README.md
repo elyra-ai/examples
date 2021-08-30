@@ -6,6 +6,12 @@ Use the [_run notebook_ example component](https://github.com/elyra-ai/elyra/blo
 
 To use this component, ensure that you create your pipeline with the accompanying `notebook` in your Jupyterlab workspace root directory.
 
+To review and run the example pipeline for this component, [clone the examples repository](https://github.com/elyra-ai/examples) and launch JupyterLab as shown below:
+
+```
+$ jupyter lab --NotebookApp.notebook_dir=examples/pipelines/kubeflow_pipelines_component_examples/run_notebook_component/
+```
+
 ### Parameters
 
 - **Notebook** (required). The Jupyter notebook to run.

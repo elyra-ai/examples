@@ -4,7 +4,7 @@ Use the [_run notebook_ example component](https://github.com/elyra-ai/elyra/blo
 
 ### Prerequisites
 
-To use this component, ensure that you create your pipeline with the accompanying `notebook` in your Jupyterlab workspace root directory.
+Ensure that you have the (Notebook) data downloaded and available via a download step prior to using this component.
 
 To review and run the example pipeline for this component, [clone the examples repository](https://github.com/elyra-ai/examples) and launch JupyterLab as shown below:
 

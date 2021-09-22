@@ -69,9 +69,65 @@ This tutorial uses the `run-pipelines-on-kubeflow-pipelines` sample from the htt
 
    ![Tutorial assets in File Browser](doc/images/tutorial-files.png)
    
-   The cloned repository includes a set of custom component specifications that you will add to the local component registry and utilize in a pipeline.
+   The cloned repository includes a set of custom component specifications that you will add to the Elyra component registry and utilize in a pipeline.
 
 You are ready to start the tutorial.
+
+### Add custom components to the registry
+
+Custom components are managed in Elyra using the **Pipeline components** panel. The 
+   - Selecting `Pipeline Components` from the JupyterLab sidebar.
+   - Clicking the `Open Pipeline Components` button in the pipeline editor toolbar.
+   - Searching for `Manage pipeline components` in the [JupyterLab command palette](https://jupyterlab.readthedocs.io/en/stable/user/commands.html).
+
+Elyra can utilize component specifications that are stored in the local file system or remotely. In this tutorial 'local' refers to the file system where JupyterLab/Elyra is running. For example, if you've installed Elyra on your laptop, local refers to the laptop's file system. If you've installed Elyra in a container image, local refers to the container's file system.
+
+#### Add components from local sources
+
+Elyra can load component specifications from the local file system. Use locally stored component specifications if there is no (immediate) need to share the specification with other users, such as during initial development. To add local component specifications:
+
+1. Open the **Pipeline components** panel.
+   ![Add component registry entry](doc/images/add-component-registry-entry.png)
+1. Add a new component registry entry by clicking `+`.
+1. Enter the following information:
+   - **Name**: `analyze data`
+   - **Description**: `analyze row based data`
+   - **Category**: `analyze`
+   - **Runtime**: `kfp`
+   - **Location type**: `Filename`
+   - **Path**: `.../examples/pipelines/run-pipelines-on-kubeflow-pipelines/components/count-lines.yaml` (on Windows: `...\examples\pipelines\run-pipelines-on-kubeflow-pipelines\components\count-lines.yaml`)
+
+     > Note: Replace `...` with the path to the location where you cloned the Elyra example repository. Path entries must specified as absolute paths or Elyra won't be able to locate the specified files.
+1. Save the component registry entry.
+
+There are two approaches you can take to add multiple _related_ component specifications to the registry:
+- Specify multiple `Path` values.
+- Store the related specifications in the same directory and use the `Directory` **Location type**. Elyra searches the directory (but not subdirectories) for specifications.
+
+Locally stored component specifications have the advantage that they can be quickly loaded by Elyra. However, they cannot be shared between multiple JupyterLab deployments and therefore require duplication. If you need to share component specifications consider storing them on a remote source.
+
+#### Add components from remote sources
+
+Remote component sources make it possible in Elyra to share component specifications between users that use different JupyterLab deployments. Initially Elyra only supports web resources that can be downloaded using HTTP `GET` requests that don't require authentication.   
+
+1. Open the **Pipeline components** panel.
+1. Add a new component registry.
+1. Enter the following information:
+   - **Name**: `download data`
+   - **Description**: `download data from public sources`
+   - **Category**: `download`
+   - **Runtime**: `kfp`
+   - **Location type**: `URL`
+   - **Path**: `https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-kubeflow-pipelines/components/download-file.yaml`
+1. Save the component registry entry.
+
+Next, you'll create a pipeline that utilizes the registered components.
+
+### Create a pipeline
+
+1. Open the JupyterLab Launcher.
+1. Click the `Kubeflow Pipelines pipeline editor` tile to open the Visual Pipeline Editor for Kubeflow Pipelines.
+1. Expand the palette panel.
 
 ### Run the pipeline
 

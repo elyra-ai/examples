@@ -1,0 +1,24 @@
+name: Count lines
+description: Counts the number of lines in the input file
+
+inputs:
+- {name: Input 1, type: String, optional: false, description: 'Data for input 1'}
+
+outputs:
+- {name: Output 1, type: String, description: 'Output 1 data.'}
+
+implementation:
+  container:
+    image: quay.io/ptitzler/kfp-count-lines@sha256:a881dc7c291b162f2b8c0c7dd30b7bb6ca686fa5d74b1b1cc7c8533cd3cf3b82
+    # command is a list of strings (command-line arguments). 
+    # The YAML language has two syntaxes for lists and you can use either of them. 
+    # Here we use the "flow syntax" - comma-separated strings inside square brackets.
+    command: [
+      python3, 
+      # Path of the program inside the container
+      /pipelines/component/src/count-lines.py,
+      --input1-path,
+      {inputPath: Input 1},
+      --output1-path, 
+      {outputPath: Output 1},
+    ]

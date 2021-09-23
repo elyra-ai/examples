@@ -27,11 +27,11 @@ A _generic pipeline_ comprises nodes that are implemented using _generic compone
 
 The [_Introduction to generic pipelines_ tutorial](../introduction-to-generic-pipelines) outlines how to create a generic pipeline using the Visual Pipeline Editor. 
 
+In this intermediate tutorial you will learn how to add custom Kubeflow components to Elyra and how to utilize them in pipelines.
+
 ![The completed tutorial pipeline](doc/images/completed-tutorial-pipeline.png)
 
-In this intermediate tutorial you will learn how to add custom Kubeflow components to Elyra component and how to utilize them in pipelines.
-
-The tutorial instructions were last updated using Elyra v3.1.1 and Kubeflow v1.3.0.
+The tutorial instructions were last updated using Elyra v3.2.0 and Kubeflow v1.3.0.
 
 ### Prerequisites
 
@@ -69,16 +69,18 @@ This tutorial uses the `run-pipelines-on-kubeflow-pipelines` sample from the htt
 
    ![Tutorial assets in File Browser](doc/images/tutorial-files.png)
    
-   The cloned repository includes a set of custom component specifications that you will add to the Elyra component registry and utilize in a pipeline.
+   The cloned repository includes a set of custom component specifications that you will add to the Elyra component registry and use in a pipeline. The `Download File` component downloads a file from a web resource. The `Count Lines` component counts the lines in a row-based file. For illustrative purposes the source for both tutorial components is also included in the `components` directory.
 
 You are ready to start the tutorial.
 
 ### Add custom components to the registry
 
-Custom components are managed in Elyra using the **Pipeline components** panel. The 
+Custom components are [managed in the JupyterLab UI](https://elyra.readthedocs.io/en/latest/user_guide/pipeline-components.html#managing-pipeline-components) using the **Pipeline components** panel. You access the panel by:
    - Selecting `Pipeline Components` from the JupyterLab sidebar.
    - Clicking the `Open Pipeline Components` button in the pipeline editor toolbar.
    - Searching for `Manage pipeline components` in the [JupyterLab command palette](https://jupyterlab.readthedocs.io/en/stable/user/commands.html).
+
+> To automate the tasks in this tutorial use the [`elyra-metadata install component-registry` CLI command](https://elyra.readthedocs.io/en/latest/user_guide/pipeline-components.html#managing-custom-components-using-the-elyra-cli). 
 
 Elyra can utilize component specifications that are stored in the local file system or remotely. In this tutorial 'local' refers to the file system where JupyterLab/Elyra is running. For example, if you've installed Elyra on your laptop, local refers to the laptop's file system. If you've installed Elyra in a container image, local refers to the container's file system.
 
@@ -125,13 +127,38 @@ Next, you'll create a pipeline that utilizes the registered components.
 
 ### Create a pipeline
 
+Once components were added to the registry you can access them from the pipeline editor's palette. 
+
 1. Open the JupyterLab Launcher.
-1. Click the `Kubeflow Pipelines pipeline editor` tile to open the Visual Pipeline Editor for Kubeflow Pipelines.
-1. Expand the palette panel.
+1. Click the `Kubeflow pipeline editor` tile to open the Visual Pipeline Editor for Kubeflow Pipelines.
+1. Expand the palette panel. Two new component categories are displayed (`analyze` and `download`), each containing one component entry:
+   ![Palette with custom components](doc/images/palette-with-custom-components.png)
+1. Drag the `Download File` component onto the canvas to create the first pipeline node.
+1. Drag the `Count Lines` component onto the canvas to create a second node and connect the two nodes as shown.
+   ![Pipeline with two custom components](doc/images/wip-tutorial-pipeline.png)
+   Note the problem icons that are attached to each node. Hover over each node and review the error messages: they require input values that you need to specify.
+1. Open the properties of the `Download File` node (right click on the node and select `Open Properties`).
+1. This node requires one input - the URL of a file. Enter `https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-kubeflow-pipelines/data/data.csv`.
+   ![Configure download node](doc/images/configure-download-node.png)
+1. Open the properties of the `Count Lines` node.
+1. This node also requires one input - the content of a file to be analyzed. TODO (requires [PR 2094](https://github.com/elyra-ai/elyra/pull/2094))
+   ![Configure count lines node](doc/images/configure-count-lines-node.png)
+
+1. Save the pipeline.
+   ![Save the pipeline](doc/images/save-the-pipeline.png)
+
+1. Rename the pipeline to something meaningful. (Right click on the pipeline editor tab and select `Rename Pipeline...`.)
+   ![Rename the pipeline](doc/images/rename-the-pipeline.png)
+
+Next, you run the pipeline.
 
 ### Run the pipeline
 
-Lorem Ipsum
+1. Click the `Run` button in the pipeline editor toolbar.
+   ![Run the pipeline](doc/images/run-the-pipeline.png)
+1. In the run dialog select the runtime configuration you've created when you've completed the setup for this tutorial.
+1. Run the pipeline and monitor it's execution progress in the Kubeflow Pipelines Central Dashboard.
+   ![Monitor the pipeline](doc/images/monitor-the-pipeline.png)
 
 ### Next steps
 

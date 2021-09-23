@@ -90,6 +90,7 @@ Elyra can load component specifications from the local file system. Use locally 
 
 1. Open the **Pipeline components** panel.
    ![Add component registry entry](doc/images/add-component-registry-entry.png)
+   Note that the registry already includes a few example entries. These examples are included for illustrative purposes to help you get started but we won't use them in this tutorial.
 1. Add a new component registry entry by clicking `+`.
 1. Enter the following information:
    - **Name**: `analyze data`

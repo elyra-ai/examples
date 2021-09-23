@@ -19,13 +19,15 @@ limitations under the License.
 
 A [pipeline](https://elyra.readthedocs.io/en/stable/user_guide/pipelines.html) comprises one or more nodes that are (in many cases) connected to define execution dependencies. Each node is implemented by a [component](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html) and typically performs only a single task, such as loading data, processing data, training a model, or sending an email.
 
-![A basic pipeline](doc/images/pipelines-nodes.png)
-
 A _generic pipeline_ comprises nodes that are implemented using _generic components_. In the current release Elyra includes generic components that run Jupyter notebooks, Python scripts, and R scripts. Generic components have in common that they are supported in every Elyra pipelines runtime environment: local/JupyterLab, Kubeflow Pipelines, and Apache Airflow.
 
-![Generic pipelines and supported runtime environments](doc/images/pipeline-runtimes-environments.png)
+The following tutorials cover generic pipelines:
+- [Introduction to generic pipelines](../introduction-to-generic-pipelines)
+- [Run generic pipelines on Kubeflow Pipelines](../run-generic-pipelines-on-kubeflow-pipelines)
+- [Run generic pipelines on Apache Airflow](../run-generic-pipelines-on-apache-airflow)
 
-The [_Introduction to generic pipelines_ tutorial](../introduction-to-generic-pipelines) outlines how to create a generic pipeline using the Visual Pipeline Editor. 
+A _runtime specific_ pipeline comprises nodes that are implemented using generic components or _custom components_. Custom components are runtime specific and user-provided.
+
 
 In this intermediate tutorial you will learn how to add custom Kubeflow components to Elyra and how to utilize them in pipelines.
 
@@ -89,7 +91,9 @@ Elyra can utilize component specifications that are stored in the local file sys
 Elyra can load component specifications from the local file system. Use locally stored component specifications if there is no (immediate) need to share the specification with other users, such as during initial development. To add local component specifications:
 
 1. Open the **Pipeline components** panel.
+
    ![Add component registry entry](doc/images/add-component-registry-entry.png)
+
    Note that the registry already includes a few example entries. These examples are included for illustrative purposes to help you get started but we won't use them in this tutorial.
 1. Add a new component registry entry by clicking `+`.
 1. Enter the following information:
@@ -124,7 +128,11 @@ Remote component sources make it possible in Elyra to share component specificat
    - **Path**: `https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-kubeflow-pipelines/components/download-file.yaml`
 1. Save the component registry entry.
 
-Next, you'll create a pipeline that utilizes the registered components.
+The registry now includes the custom components you'll use in the tutorial pipeline.
+
+![Tutorial pipeline components in registry](doc/images/populated-component-registry.png)
+
+Next, you'll create a pipeline that leverages the registered components.
 
 ### Create a pipeline
 
@@ -136,11 +144,15 @@ Once components were added to the registry you can access them from the pipeline
    ![Palette with custom components](doc/images/palette-with-custom-components.png)
 1. Drag the `Download File` component onto the canvas to create the first pipeline node.
 1. Drag the `Count Lines` component onto the canvas to create a second node and connect the two nodes as shown.
+
    ![Pipeline with two custom components](doc/images/wip-tutorial-pipeline.png)
-   Note the problem icons that are attached to each node. Hover over each node and review the error messages: they require input values that you need to specify.
+
+   Note the problem icons that are attached to each node. Hover over each node and review the error messages: there are required property values you need to specify to render the node functional.
 1. Open the properties of the `Download File` node (right click on the node and select `Open Properties`).
 1. This node requires one input - the URL of a file. Enter `https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-kubeflow-pipelines/data/data.csv`.
+
    ![Configure download node](doc/images/configure-download-node.png)
+
 1. Open the properties of the `Count Lines` node.
 1. This node also requires one input - the content of a file to be analyzed. TODO (requires [PR 2094](https://github.com/elyra-ai/elyra/pull/2094))
    ![Configure count lines node](doc/images/configure-count-lines-node.png)

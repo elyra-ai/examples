@@ -63,8 +63,8 @@
           "app_data": {
             "component_parameters": {
               "text": {
-                "node_id": "74580e2e-9a59-4ffe-aa57-6dd15da778cf",
-                "output_key": "elyra_output_data",
+                "value": "74580e2e-9a59-4ffe-aa57-6dd15da778cf",
+                "option": "elyra_output_data",
                 "label": "Download data: (Output) Data"
               },
               "pattern": "odd",

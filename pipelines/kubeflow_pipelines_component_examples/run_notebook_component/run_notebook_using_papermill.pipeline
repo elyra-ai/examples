@@ -63,8 +63,8 @@
           "app_data": {
             "component_parameters": {
               "notebook": {
-                "node_id": "5093aaa3-7ce0-4654-93c8-ea67ebe3fb83",
-                "output_key": "elyra_output_data",
+                "value": "5093aaa3-7ce0-4654-93c8-ea67ebe3fb83",
+                "option": "elyra_output_data",
                 "label": "Download data: (Output) Data"
               },
               "parameters": "{'multiplier':2, 'data_url': 'https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/kubeflow_pipelines_component_examples/run_notebook_component/data/data-1.csv'}",

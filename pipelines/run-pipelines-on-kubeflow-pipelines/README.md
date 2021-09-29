@@ -28,13 +28,13 @@ The following tutorials cover generic pipelines:
 
 A _runtime specific_ pipeline comprises nodes that are implemented using generic components or _custom components_. Custom components are runtime specific and user-provided.
 
-In this intermediate tutorial you will learn how to add [Kubeflow components](https://www.kubeflow.org/docs/components/pipelines/sdk/component-development/) to Elyra and how to utilize them in pipelines.
+In this intermediate tutorial you will learn how to add [Kubeflow Pipelines components](https://www.kubeflow.org/docs/components/pipelines/sdk/component-development/) to Elyra and how to utilize them in pipelines.
 
 ![The completed tutorial pipeline](doc/images/completed-tutorial-pipeline.png)
 
 The features described in this tutorial require Elyra v3.2.0. The tutorial instructions were last updated using Elyra v3.2.0 and Kubeflow v1.3.0.
 
-> Elyra v.3.2.0 does not support [Kubeflow Pipelines Python components](https://www.kubeflow.org/docs/components/pipelines/sdk/python-function-components/).
+> Elyra v.3.2.0 does not support [Kubeflow Pipelines Python function-based components](https://www.kubeflow.org/docs/components/pipelines/sdk/python-function-components/).
 
 ### Prerequisites
 
@@ -74,13 +74,13 @@ This tutorial uses the `run-pipelines-on-kubeflow-pipelines` sample from the htt
 
    ![Tutorial assets in File Browser](doc/images/tutorial-files.png)
    
-   The cloned repository includes a set of custom component specifications that you will add to the Elyra component registry and use in a pipeline. The `Download File` component downloads a file from a web resource. The `Count Rows` component counts the lines in a row-based file.
+   The cloned repository includes a set of custom component specifications that you will add to the Elyra component registry and use in a pipeline. The '`Download File`' component downloads a file from a web resource. The '`Count Rows`' component counts the lines in a row-based file.
 
 You are ready to start the tutorial.
 
 ### Add custom components to the registry
 
-Elyra stores information about custom components in the component registry and makes those components available in the Visual Pipeline Editor. Components can be grouped into categories to make them more easily discoverable.
+Elyra stores information about custom components in the component registry and makes those components available in the Visual Pipeline Editor's palette. Components can be grouped into categories to make them more easily discoverable.
 
 ![Pipeline editor palette with components](doc/images/palette-in-pipeline-editor.png)
 
@@ -154,13 +154,13 @@ The pipeline editor's palette is populated from the component registry. To use t
 1. Click the `Kubeflow pipeline editor` tile to open the Visual Pipeline Editor for Kubeflow Pipelines.
 1. Expand the palette panel. Two new component categories are displayed (`analyze` and `download`), each containing one component entry that you added:
    ![Palette with custom components](doc/images/palette-with-custom-components.png)
-1. Drag the `Download File` component onto the canvas to create the first pipeline node.
-1. Drag the `Count Rows` component onto the canvas to create a second node and connect the two nodes as shown.
+1. Drag the '`Download File`' component onto the canvas to create the first pipeline node.
+1. Drag the '`Count Rows`' component onto the canvas to create a second node and connect the two nodes as shown.
 
    ![Pipeline with two custom components](doc/images/wip-tutorial-pipeline.png)
 
    Note that each node is tagged with an error icon. Hover over each node and review the error messages. The components require inputs, which you need to specify to render the nodes functional.
-1. Open the properties of the `Download File` node (right click on the node and select `Open Properties`).
+1. Open the properties of the '`Download File`' node (right click on the node and select `Open Properties`).
 1. Review the node properties. The properties are a combination of Elyra-specific properties and information that was extracted from the [underlying component's specification](https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-kubeflow-pipelines/components/download-file.yaml):
    ```
    name: Download File
@@ -174,7 +174,7 @@ The pipeline editor's palette is populated from the component registry. To use t
    ...
    ```
 
-   - `Label`: If specified, the value is used as node name in the pipeline instead of the component name. Use labels to resolve naming conflicts that might arise if a pipeline uses the same component multiple times. For example, if a pipeline utilizes  the `Download File` component to download two files, you could override the node name by specifying `Download labels` and `Download observations` as labels:
+   - `Label`: If specified, the value is used as node name in the pipeline instead of the component name. Use labels to resolve naming conflicts that might arise if a pipeline uses the same component multiple times. For example, if a pipeline utilizes  the '`Download File`' component to download two files, you could override the node name by specifying `Download labels` and `Download observations` as labels:
 
       ![Use labels to produce unique node names](doc/images/label-example.png)
    - `Component source`: A read-only property that identifies the location from where the component specification was loaded. This property is displayed for informational purposes only.
@@ -186,7 +186,7 @@ The pipeline editor's palette is populated from the component registry. To use t
       The pipeline editor renders it using an editable widget, such as a text box, and, if specified, the description.
 
       ![Rendering of a component input in the pipeline editor](doc/images/rendering-of-a-component-input.png) 
-   - `downloaded file`: This is an output that the `Download File` component specification defines:
+   - `downloaded file`: This is an output that the '`Download File`' component specification defines:
       ```
       outputs:
       - {name: downloaded file, type: String, description: 'Content of the downloaded file.'}
@@ -199,7 +199,7 @@ The pipeline editor's palette is populated from the component registry. To use t
 
    ![Configure download node](doc/images/configure-download-node.png)
 
-1. Open the properties of the `Count Rows` node. The [specification for the underlying component looks as follows](https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-kubeflow-pipelines/components/count-rows/count-rows.yaml):
+1. Open the properties of the '`Count Rows`' node. The [specification for the underlying component looks as follows](https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-kubeflow-pipelines/components/count-rows/count-rows.yaml):
    ```
    name: Count Rows
    description: Count the number of rows in the input file
@@ -232,7 +232,7 @@ The pipeline editor's palette is populated from the component registry. To use t
 
    ![Configure Count Rows node](doc/images/configure-count-rows-node.png)
 
-   Since the `Count Rows` node is only connected to one upstream node ('`Download File`'), you can only choose from the outputs of that node. If a node is connected to multiple upstream nodes, you can choose the output of any of these nodes as input, as shown in this example:
+   Since the '`Count Rows`' node is only connected to one upstream node ('`Download File`'), you can only choose from the outputs of that node. (An upstream node is a node that is connected to the node and executed before the node.) If a node is connected to multiple upstream nodes, you can choose the output of any of these nodes as input, as shown in this example:
 
    ![Selecting outputs from upstream nodes](doc/images/upstream-nodes-example.png) 
 
@@ -255,11 +255,11 @@ Next, you run the pipeline.
 1. Click the `Run` button in the pipeline editor toolbar.
 
    ![Run the pipeline](doc/images/run-the-pipeline.png)
-1. In the run dialog select the runtime configuration you've created when you completed the setup for this tutorial.
+1. In the _run pipeline_ dialog select the runtime configuration you've created when you completed the setup for this tutorial.
 1. Run the pipeline and monitor it's execution progress in the Kubeflow Pipelines Central Dashboard.
 
    ![Monitor the pipeline](doc/images/monitor-the-pipeline.png)
-1. Review the outputs for each pipeline task. The output of the `Count Rows` node should indicate that the downloaded file contains five rows.
+1. Review the outputs for each pipeline task. The output of the '`Count Rows`' node should indicate that the downloaded file contains five rows.
 
    ![Review task outputs](doc/images/review-task-output.png)
 
@@ -272,4 +272,4 @@ This concludes the _Run pipelines on Kubeflow Pipelines_ tutorial. You've learne
 ### Resources
 
 - [_Pipelines_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/pipelines.html)
-- [_Pipeline components_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html)s
+- [_Pipeline components_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html)

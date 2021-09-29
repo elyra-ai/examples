@@ -28,13 +28,13 @@ The following tutorials cover generic pipelines:
 
 A _runtime specific_ pipeline comprises nodes that are implemented using generic components or _custom components_. Custom components are runtime specific and user-provided.
 
-In this intermediate tutorial you will learn how to add [Kubeflow components](TODO-LINK) to Elyra and how to utilize them in pipelines.
+In this intermediate tutorial you will learn how to add [Kubeflow components](https://www.kubeflow.org/docs/components/pipelines/sdk/component-development/) to Elyra and how to utilize them in pipelines.
 
 ![The completed tutorial pipeline](doc/images/completed-tutorial-pipeline.png)
 
 The features described in this tutorial require Elyra v3.2.0. The tutorial instructions were last updated using Elyra v3.2.0 and Kubeflow v1.3.0.
 
-> Elyra v.3.2.0 does not support [Kubeflow Pipelines Python components](TODO-LINK).
+> Elyra v.3.2.0 does not support [Kubeflow Pipelines Python components](https://www.kubeflow.org/docs/components/pipelines/sdk/python-function-components/).
 
 ### Prerequisites
 
@@ -152,7 +152,7 @@ The pipeline editor's palette is populated from the component registry. To use t
 
 1. Open the JupyterLab Launcher.
 1. Click the `Kubeflow pipeline editor` tile to open the Visual Pipeline Editor for Kubeflow Pipelines.
-1. Expand the palette panel. Two new component categories are displayed (`analyze` and `download`), each containing one component entry that you've added:
+1. Expand the palette panel. Two new component categories are displayed (`analyze` and `download`), each containing one component entry that you added:
    ![Palette with custom components](doc/images/palette-with-custom-components.png)
 1. Drag the `Download File` component onto the canvas to create the first pipeline node.
 1. Drag the `Count Rows` component onto the canvas to create a second node and connect the two nodes as shown.
@@ -161,14 +161,84 @@ The pipeline editor's palette is populated from the component registry. To use t
 
    Note that each node is tagged with an error icon. Hover over each node and review the error messages. The components require inputs, which you need to specify to render the nodes functional.
 1. Open the properties of the `Download File` node (right click on the node and select `Open Properties`).
-1. This node requires one input - the URL of a file. Enter `https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-kubeflow-pipelines/data/data.csv`.
+1. Review the node properties. The properties are a combination of Elyra-specific properties and information that was extracted from the [underlying component's specification](https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-kubeflow-pipelines/components/download-file.yaml):
+   ```
+   name: Download File
+   description: Downloads a file from a public HTTP/S URL using a GET request.
+
+   inputs:
+   - {name: URL, type: String, optional: false, description: 'File URL'}
+
+   outputs:
+   - {name: downloaded file, type: String, description: 'Content of the downloaded file.'}
+   ...
+   ```
+
+   - `Label`: If specified, the value is used as node name in the pipeline instead of the component name. Use labels to resolve naming conflicts that might arise if a pipeline uses the same component multiple times. For example, if a pipeline utilizes  the `Download File` component to download two files, you could override the node name by specifying `Download labels` and `Download observations` as labels:
+
+      ![Use labels to produce unique node names](doc/images/label-example.png)
+   - `Component source`: A read-only property that identifies the location from where the component specification was loaded. This property is displayed for informational purposes only.
+   - `URL`: This is a required input that the `Download File` component specification defines:
+      ```
+      inputs:
+      - {name: URL, type: String, optional: false, description: 'File URL'}
+      ```
+      The pipeline editor renders it using an editable widget, such as a text box, and, if specified, the description.
+
+      ![Rendering of a component input in the pipeline editor](doc/images/rendering-of-a-component-input.png) 
+   - `downloaded file`: This is an output that the `Download File` component specification defines:
+      ```
+      outputs:
+      - {name: downloaded file, type: String, description: 'Content of the downloaded file.'}
+      ```
+      The pipeline editor renders outputs using read-only widgets.
+
+      ![Rendering of a component output in the pipeline editor](doc/images/rendering-of-a-component-output.png) 
+
+1. Enter `https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-kubeflow-pipelines/data/data.csv` as value for the `URL` input property.
 
    ![Configure download node](doc/images/configure-download-node.png)
 
-1. Open the properties of the `Count Rows` node.
-1. This node also requires one input - the content of a file to be analyzed. TODO (requires [PR 2094](https://github.com/elyra-ai/elyra/pull/2094))
+1. Open the properties of the `Count Rows` node. The [specification for the underlying component looks as follows](https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-kubeflow-pipelines/components/count-rows/count-rows.yaml):
+   ```
+   name: Count Rows
+   description: Count the number of rows in the input file
+
+   inputs:
+   - {name: input file, type: String, optional: false, description: 'Row-based file to be analyzed'}
+
+   outputs:
+   - {name: row count, type: String, description: 'Number of rows in the input file.'}
+   ...
+   implementation:
+   ...
+    command: [
+      python3, 
+      /pipelines/component/src/count-rows.py,
+      --input-file-path,
+      {inputPath: input file},
+   ...
+   ```
+
+   The component requires one input ('`input file`') and produces one output ('`row count`'), which is the number of rows in this file.
+
+   Note that Kubeflow Pipelines passes the input the the implementing Python script as a file handle:
+   ```
+   --input-file-path,
+      {inputPath: input file},
+   ```   
+
+   The pipeline editor takes this as a cue and renders a selector widget for this input:
 
    ![Configure Count Rows node](doc/images/configure-count-rows-node.png)
+
+   Since the `Count Rows` node is only connected to one upstream node ('`Download File`'), you can only choose from the outputs of that node. If a node is connected to multiple upstream nodes, you can choose the output of any of these nodes as input, as shown in this example:
+
+   ![Selecting outputs from upstream nodes](doc/images/upstream-nodes-example.png) 
+
+   The output of the second download node ('`Download metadata`') cannot be consumed by the `Count Rows` node, because the two nodes are not connected in this pipeline. 
+   
+   > Elyra intentionally only supports explicit dependencies between nodes to avoid potential usability issues.
 
 1. Save the pipeline.
 

@@ -1,1 +1,0 @@
-This directory contains Kubeflow Pipelines component specifications that this tutorial is based on.

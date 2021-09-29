@@ -16,7 +16,7 @@ implementation:
     command: [
       python3, 
       # Path of the program inside the container
-      /pipelines/component/src/count-lines.py,
+      /pipelines/component/src/count-rows.py,
       --input-file-path,
       {inputPath: input file},
       --row-count-path, 

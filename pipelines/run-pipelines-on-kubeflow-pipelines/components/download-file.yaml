@@ -1,0 +1,24 @@
+name: Download File
+description: Downloads a file from a public HTTP/S URL using a GET request.
+
+inputs:
+- {name: URL, type: String, optional: false, description: 'File URL'}
+
+outputs:
+- {name: downloaded file, type: String, description: 'Content of the downloaded file.'}
+
+implementation:
+  container:
+    image: quay.io/elyra/kfp-tutorial-download-file-component@sha256:499c6e687ab94babb67664b99562f199289e081edb2f38f26a13bc198aa5cfb9
+    # command is a list of strings (command-line arguments). 
+    # The YAML language has two syntaxes for lists and you can use either of them. 
+    # Here we use the "flow syntax" - comma-separated strings inside square brackets.
+    command: [
+      python3, 
+      # Path of the program inside the container
+      /pipelines/component/src/download-file.py,
+      --file-url,
+      {inputValue: URL},
+      --downloaded-file-path, 
+      {outputPath: downloaded file}
+    ]

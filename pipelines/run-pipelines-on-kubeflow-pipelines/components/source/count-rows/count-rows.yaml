@@ -1,0 +1,24 @@
+name: Count Rows
+description: Count the number of rows in the input file
+
+inputs:
+- {name: input file, type: String, optional: false, description: 'Row-based file to be analyzed'}
+
+outputs:
+- {name: row count, type: String, description: 'Number of rows in the input file.'}
+
+implementation:
+  container:
+    image: quay.io/elyra/kfp-tutorial-count-rows-component@sha256:8b9f58b52ee26ea8aa48eb7b8b04da95cc9bb5b57ad11b554afb250235fcefb8
+    # command is a list of strings (command-line arguments). 
+    # The YAML language has two syntaxes for lists and you can use either of them. 
+    # Here we use the "flow syntax" - comma-separated strings inside square brackets.
+    command: [
+      python3, 
+      # Path of the program inside the container
+      /pipelines/component/src/count-rows.py,
+      --input-file-path,
+      {inputPath: input file},
+      --row-count-path, 
+      {outputPath: row count},
+    ]

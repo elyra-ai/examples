@@ -16,7 +16,7 @@
             "component_parameters": {
               "curl_options": "--location",
               "output_data": "",
-              "url": "https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/kubeflow_pipelines_component_examples/filter_file_component/data.csv/samples/test_notebook.ipynb"
+              "url": "https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/kubeflow_pipelines_component_examples/filter_file_component/data.csv"
             },
             "label": "",
             "component_source": "https://raw.githubusercontent.com/kubeflow/pipelines/1.6.0/components/web/Download/component.yaml",

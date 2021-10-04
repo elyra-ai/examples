@@ -19,7 +19,7 @@ limitations under the License.
 
 A [pipeline](https://elyra.readthedocs.io/en/stable/user_guide/pipelines.html) comprises one or more nodes that are (in many cases) connected to define execution dependencies. Each node is implemented by a [component](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html) and typically performs only a single task, such as loading data, processing data, training a model, or sending an email.
 
-A _generic pipeline_ comprises nodes that are implemented using _generic components_ Elyra includes generic components that run Jupyter notebooks, Python scripts, and R scripts. Generic components have in common that they are supported in every Elyra pipelines runtime environment: local/JupyterLab, Kubeflow Pipelines, and Apache Airflow.
+A _generic pipeline_ comprises nodes that are implemented using _generic components_. Elyra includes generic components that run Jupyter notebooks, Python scripts, and R scripts. Generic components have in common that they are supported in every Elyra pipelines runtime environment: local/JupyterLab, Kubeflow Pipelines, and Apache Airflow.
 
 The following tutorials cover generic pipelines:
 - [Introduction to generic pipelines](../introduction-to-generic-pipelines)
@@ -38,10 +38,10 @@ The features described in this tutorial require Elyra v3.2.0. The tutorial instr
 
 ### Prerequisites
 
-- [JupyterLab 3.x with the Elyra extension v3.x (or newer) installed](https://elyra.readthedocs.io/en/stable/getting_started/installation.html).
-- Access to a [local](https://elyra.readthedocs.io/en/stable/recipes/deploying-kubeflow-locally-for-dev.html) or [cloud](https://www.kubeflow.org/docs/started/cloud/) Kubeflow Pipelines deployment.
+- [JupyterLab 3.x with the Elyra extension v3.2 (or newer) installed](https://elyra.readthedocs.io/en/stable/getting_started/installation.html).
+- Access to a [local](https://elyra.readthedocs.io/en/stable/recipes/deploying-kubeflow-locally-for-dev.html) or [cloud](https://www.kubeflow.org/docs/started/installing-kubeflow/) Kubeflow Pipelines deployment.
 
-Some familiarity with Kubeflow Pipelines and Kubeflow Pipeline components is required to complete the tutorial. If you are new to Elyra, please review the [_Run generic pipelines on Kubeflow Pipelines_](../run-generic-pipelines-on-kubeflow-pipelines) tutorial. It introduces concepts and tasks that are used in this tutorial, but not explained to avoid content duplication.
+Some familiarity with Kubeflow Pipelines and Kubeflow Pipeline components is required to complete the tutorial. If you are new to Elyra, please review the [_Run generic pipelines on Kubeflow Pipelines_](../run-generic-pipelines-on-kubeflow-pipelines) tutorial. It introduces concepts and tasks that are used in this tutorial, but not explained here to avoid content duplication.
 
 #### Information to collect before starting
 
@@ -179,7 +179,7 @@ The pipeline editor's palette is populated from the component registry. To use t
    ...
    ```
 
-   The component requires one input ('`URL`') and produces one output ('`download file`'), which is the content of the downloaded file.
+   The component requires one input ('`URL`') and produces one output ('`downloaded file`'), which is the content of the downloaded file.
 
    The node properties include:
 
@@ -233,7 +233,8 @@ The pipeline editor's palette is populated from the component registry. To use t
 
    The component requires one input ('`input file`') and produces one output ('`row count`'), which is the number of rows in this file.
 
-   Note that Kubeflow Pipelines passes the input the the implementing Python script as a file handle:
+   Note that Kubeflow Pipelines passes the input to the implementing Python script as a file handle:
+
    ```
    --input-file-path,
       {inputPath: input file},
@@ -242,9 +243,9 @@ The pipeline editor's palette is populated from the component registry. To use t
    The pipeline editor takes this as a cue and renders a selector widget for this input:
 
    ![Configure Count Rows node](doc/images/configure-count-rows-node.png)
-
-   Since the '`Count Rows`' node is only connected to one upstream node ('`Download File`'), you can only choose from the outputs of that node. (An upstream node is a node that is connected to the node and executed before the node.) 
    
+   Since the '`Count Rows`' node is only connected to one upstream node ('`Download File`'), you can only choose from the outputs of that node. (An upstream node is a node that is connected to and executed before the node in question.) 
+
    If a node is connected to multiple upstream nodes, you can choose the output of any of these nodes as input, as shown in this example:
 
    ![Selecting outputs from upstream nodes](doc/images/upstream-nodes-example.png) 

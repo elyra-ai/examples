@@ -52,7 +52,9 @@ Collect the following information for your Kubeflow Pipelines installation:
 - Password, for a multi-user, auth-enabled Kubeflow installation, e.g. `passw0rd`
 - Workflow engine type, which should be `Argo` or `Tekton`. Contact your administrator if you are unsure which engine your deployment utilizes.
 
-Elyra utilizes S3-compatible cloud storage to make data available to notebooks and scripts while they are executed. Any kind of cloud storage should work (e.g. IBM Cloud Object Storage or Minio) as long as it can be accessed from the machine where JupyterLab is running and from the Kubeflow Pipelines cluster. Collect the following information:
+Elyra utilizes S3-compatible cloud storage to make data available to notebooks and scripts while they are executed. Any kind of S3-based cloud storage should work (e.g. IBM Cloud Object Storage or Minio) as long as it can be accessed from the machine where JupyterLab/Elyra is running and from the Kubeflow Pipelines cluster. 
+
+Collect the following information:
 - S3 compatible object storage endpoint, e.g. `http://minio-service.kubernetes:9000`
 - S3 object storage username, e.g. `minio`
 - S3 object storage password, e.g. `minio123`

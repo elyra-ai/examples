@@ -34,6 +34,7 @@ Tutorials to get started with generic pipelines in Elyra:
 - [Introduction to generic pipelines](pipelines/introduction-to-generic-pipelines)
 - [Run generic pipelines on Kubeflow Pipelines](pipelines/run-generic-pipelines-on-kubeflow-pipelines)
 - [Run generic pipelines on Apache Airflow](pipelines/run-generic-pipelines-on-apache-airflow)
+- [Run runtime-specific pipelines on Kubeflow Pipelines](pipelines/run-pipelines-on-kubeflow-pipelines)
 
 ### Custom pipeline component examples
 

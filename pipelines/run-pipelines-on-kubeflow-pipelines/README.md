@@ -155,7 +155,9 @@ The pipeline editor's palette is populated from the component registry. To use t
 1. Open the JupyterLab Launcher.
 1. Click the `Kubeflow pipeline editor` tile to open the Visual Pipeline Editor for Kubeflow Pipelines.
 1. Expand the palette panel. Two new component categories are displayed (`analyze` and `download`), each containing one component entry that you added:
+
    ![Palette with custom components](doc/images/palette-with-custom-components.png)
+   
 1. Drag the '`Download File`' component onto the canvas to create the first pipeline node.
 1. Drag the '`Count Rows`' component onto the canvas to create a second node and connect the two nodes as shown.
 

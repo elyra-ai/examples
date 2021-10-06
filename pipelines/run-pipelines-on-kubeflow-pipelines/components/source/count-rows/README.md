@@ -16,3 +16,4 @@ $ make publish-container-image
 ### Customize the component YAML file
 
 In [`count-rows.yaml`](count-rows.yaml) update the value of `implementation.container.image` as required.
+

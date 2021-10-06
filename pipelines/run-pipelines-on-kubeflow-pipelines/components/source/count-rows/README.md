@@ -15,10 +15,4 @@ $ make publish-container-image
 
 ### Customize the component YAML file
 
-In [`component.yaml`](component.yaml) update the value of `implementation.container.image` as required.
-
-### Create and run pipeline
-
-```
-$ python create_and_run_as_pipeline.py http://.../pipeline [<namespace>] [<kf-uid> <kf-password>]
-```
+In [`count-rows.yaml`](count-rows.yaml) update the value of `implementation.container.image` as required.

@@ -1,0 +1,27 @@
+name: Split File
+description: Split file into two
+
+inputs:
+- {name: input file, type: String, optional: false, description: 'Row-based file to be splitted'}
+
+outputs:
+- {name: split file 1, type: String, description: 'Contains ~ 50% of the rows of the input file'}
+- {name: split file 2, type: String, description: 'Contains the other ~ 50% of the rows of the input file'}
+
+implementation:
+  container:
+    image: uay.io/elyra/kfp-tutorial-split-file-component@sha256:836f64670866f248cc20e348a902cb14bc16e3e60b9858a5afbe898e6f9760ef
+    # command is a list of strings (command-line arguments). 
+    # The YAML language has two syntaxes for lists and you can use either of them. 
+    # Here we use the "flow syntax" - comma-separated strings inside square brackets.
+    command: [
+      python3, 
+      # Path of the program inside the container
+      /pipelines/component/src/split-file.py,
+      --input-file-path,
+      {inputPath: input file},
+      --split-file-1-path, 
+      {outputPath: split file 1},
+      --split-file-2-path, 
+      {outputPath: split file 2}      
+    ]

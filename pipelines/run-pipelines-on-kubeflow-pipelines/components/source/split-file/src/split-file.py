@@ -26,8 +26,12 @@ print(args)
 
 # Create the directory where the output file is created (the directory
 # may or may not exist).
-output_dir = Path(args.input_file_path).parent
 try:
+    output_dir = Path(args.input_file_path).parent
+    output_dir.mkdir(parents=True, exist_ok=True)
+    output_dir = Path(args.split_file_1_path).parent
+    output_dir.mkdir(parents=True, exist_ok=True)
+    output_dir = Path(args.split_file_2_path).parent
     output_dir.mkdir(parents=True, exist_ok=True)
 except Exception as ex:
     raise RuntimeError(f'Error creating output directory {output_dir}: {ex}')

@@ -10,7 +10,7 @@ outputs:
 
 implementation:
   container:
-    image: quay.io/elyra/kfp-tutorial-split-file-component@sha256:836f64670866f248cc20e348a902cb14bc16e3e60b9858a5afbe898e6f9760ef
+    image: quay.io/elyra/kfp-tutorial-split-file-component@sha256:50ee925d46c27cc57f46f355c34c12f9fdd5a099ef8956b5bc96961cb96e1cd4
     # command is a list of strings (command-line arguments). 
     # The YAML language has two syntaxes for lists and you can use either of them. 
     # Here we use the "flow syntax" - comma-separated strings inside square brackets.

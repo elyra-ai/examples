@@ -15,4 +15,4 @@ $ make publish-container-image
 
 ### Customize the component YAML file
 
-In [`download-file.yaml`](download-file.yaml) update the value of `implementation.container.image` as required.
+In [`truncate-file.yaml`](truncate-file.yaml) update the value of `implementation.container.image` as required.

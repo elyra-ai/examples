@@ -1,0 +1,27 @@
+name: Truncate File
+description: Truncate file after X number of rows
+
+inputs:
+- {name: input file, type: String, optional: false, description: 'Row-based file to be truncated'}
+- {name: max rows, type: Integer, default: '100', optional: true, description: 'Number of rows to retain'}
+
+outputs:
+- {name: truncated file, type: String, description: 'Content of the truncated file.'}
+
+implementation:
+  container:
+    image: quay.io/elyra/kfp-tutorial-truncate-file-component@sha256:46beebb5bdaf1eea494246064f29b835860141e42f30d122776c60e1da585f2b
+    # command is a list of strings (command-line arguments). 
+    # The YAML language has two syntaxes for lists and you can use either of them. 
+    # Here we use the "flow syntax" - comma-separated strings inside square brackets.
+    command: [
+      python3, 
+      # Path of the program inside the container
+      /pipelines/component/src/truncate-file.py,
+      --input-file-path,
+      {inputPath: input file},
+      --max-rows-value,
+      {inputValue: max rows},
+      --truncated-file-path, 
+      {outputPath: truncated file}
+    ]

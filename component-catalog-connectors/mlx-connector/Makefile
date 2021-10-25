@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-.PHONY: help lint package-connector
+.PHONY: help lint test-dependencies test-install
 
 SHELL:=/bin/bash
 
@@ -27,3 +27,6 @@ test-dependencies:
 
 lint: test-dependencies
 	flake8 src/.
+
+test-install: lint  ## install MLX component connector package from source 
+	pip install -e .

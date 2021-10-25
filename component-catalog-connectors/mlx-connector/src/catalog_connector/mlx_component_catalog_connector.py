@@ -14,10 +14,10 @@
 # limitations under the License.
 #
 
-from http import HTTPStatus
-from io import BytesIO
 import re
 import tarfile
+from http import HTTPStatus
+from io import BytesIO
 from tempfile import TemporaryFile
 from typing import Any
 from typing import Dict
@@ -25,9 +25,9 @@ from typing import List
 from typing import Optional
 from urllib.parse import urlparse
 
-import requests
-
 from elyra.pipeline.catalog_connector import ComponentCatalogConnector
+
+import requests
 
 
 class MLXComponentCatalogConnector(ComponentCatalogConnector):

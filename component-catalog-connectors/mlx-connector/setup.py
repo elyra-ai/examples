@@ -39,7 +39,7 @@ setup_args = dict(
     data_files=[('schema', 'src/schema/mlx-catalog.json')],
     packages=find_packages(),
     install_requires=[
-        'elyra',
+        'elyra==3.3.0.dev0',
         'requests'
     ],
     include_package_data=True,

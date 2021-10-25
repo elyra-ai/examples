@@ -43,6 +43,14 @@ setup_args = dict(
         'requests'
     ],
     include_package_data=True,
+    entry_points={
+        'metadata.schemas_providers': [
+            'component-registries = catalog_connector.mlx_component_catalog_connector:MLXSchemasProvider'
+        ],
+        'elyra.component.catalog_types': [
+            'mlx-catalog = catalog_connector.mlx_component_catalog_connector:MLXComponentCatalogConnector'
+        ],
+    },
     classifiers=(
         'Development Status :: 4 - Beta',
         'License :: OSI Approved :: Apache Software License',

@@ -70,7 +70,15 @@
           "uihints": {
             "category": "Source"
           }
-        }
+        },
+        "filter": {
+          "title": "Component name filter",
+          "description": "Only return components that match the specified name filter expression. * and ? are valid wildcards.",
+          "type": "string",
+          "uihints": {
+            "category": "Source"
+          }
+        }        
       },
       "required": ["runtime", "mlx_api_url"]
     }

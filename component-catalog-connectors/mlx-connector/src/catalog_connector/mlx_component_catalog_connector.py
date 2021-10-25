@@ -16,6 +16,7 @@
 
 from http import HTTPStatus
 from io import BytesIO
+import re
 import tarfile
 from tempfile import TemporaryFile
 from typing import Any
@@ -26,7 +27,7 @@ from urllib.parse import urlparse
 
 import requests
 
-from elyra.pipeline.component_reader import ComponentCatalogConnector
+from elyra.pipeline.catalog_connector import ComponentCatalogConnector
 
 
 class MLXComponentCatalogConnector(ComponentCatalogConnector):
@@ -53,7 +54,6 @@ class MLXComponentCatalogConnector(ComponentCatalogConnector):
             # return empty component specification list
             return component_list
 
-        # TODO: if runtime type is not kfp
         if catalog_metadata.get('runtime') != 'kfp':
             self.log.error(f'MLX catalog {mlx_api_url} only supports Kubeflow Pipelines.')
             # return empty component specification list
@@ -84,12 +84,26 @@ class MLXComponentCatalogConnector(ComponentCatalogConnector):
             # "components": [
             #    {
             #      "id": "component-id-used-for-retrieval",
+            #      "name": "user friendly component name"
             #      ...
             #    }
             # ]
+
+            # create component filter regex if a filter condition was
+            # specified by the user
+            filter_expression = catalog_metadata.get('filter', '').strip()
+            regex = None
+            if len(filter_expression) > 0:
+                regex = filter_expression.replace('*', '.*').replace('?', '.?')
+
+            # post-process the component list by applying the filter regex, if
+            # one was specified
             for component in res.json().get('components', []):
-                # TODO apply filtering, if an expression was provided
-                component_list.append({'mlx_component_id': component.get('id')})
+                if regex:
+                    if re.fullmatch(regex, component.get('name', ''), flags=re.IGNORECASE):
+                        component_list.append({'mlx_component_id': component.get('id')})
+                else:
+                    component_list.append({'mlx_component_id': component.get('id')})
 
         except Exception as ex:
             self.log.warning(f'Error fetching component list from MLX catalog {mlx_api_url}: {ex}')

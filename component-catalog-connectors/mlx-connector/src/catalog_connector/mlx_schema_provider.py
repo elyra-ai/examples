@@ -33,7 +33,7 @@ class MLXSchemasProvider(SchemasProvider):
         """
         mlx_catalog_schema_defs = []
         try:
-            mlx_catalog_connector_schema_file = Path(__file__) / 'schema' / 'mlx-catalog.json'
+            mlx_catalog_connector_schema_file = Path(__file__) / '..' / 'schema' / 'mlx-catalog.json'
             print(f'Reading MLX catalog connector schema from {mlx_catalog_connector_schema_file}')
             with open(mlx_catalog_connector_schema_file, 'r') as fp:
                 mlx_catalog_connector_schema = json.load(fp)

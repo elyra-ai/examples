@@ -31,10 +31,10 @@ test-dependencies:
 	@pip install -q -r test_requirements.txt
 
 lint: test-dependencies
-	flake8 catalog_connector
+	flake8 mlx_catalog_connector
 
 dist: clean lint  ## Build distribution
 	python setup.py bdist_wheel sdist	
 
 test-install: lint  ## install MLX component connector package from source 
-	pip install -e .
+	pip install .

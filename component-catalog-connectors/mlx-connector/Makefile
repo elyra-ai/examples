@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-.PHONY: help lint test-dependencies test-install
+.PHONY: help clean lint test-dependencies test-install dist
 
 SHELL:=/bin/bash
 
@@ -22,11 +22,19 @@ help:
 # http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
+clean:
+	rm -rf dist/
+	rm -rf build/
+	rm -rf *.egg-info
+
 test-dependencies:
 	@pip install -q -r test_requirements.txt
 
 lint: test-dependencies
-	flake8 src/.
+	flake8 catalog_connector
+
+dist: clean lint  ## Build distribution
+	python setup.py bdist_wheel sdist	
 
 test-install: lint  ## install MLX component connector package from source 
 	pip install -e .

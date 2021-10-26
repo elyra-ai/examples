@@ -24,9 +24,8 @@ long_desc = """
 here = os.path.abspath(os.path.dirname(__file__))
 
 version_ns = {}
-with open(os.path.join(here, 'src', '_version.py')) as f:
+with open(os.path.join(here, 'mlx_catalog_connector', '_version.py')) as f:
     exec(f.read(), {}, version_ns)
-
 
 setup_args = dict(
     name="mlx-component-catalog-connector",
@@ -36,22 +35,22 @@ setup_args = dict(
     long_description=long_desc,
     author="Elyra Maintainers",
     license="Apache License Version 2.0",
-    data_files=[('schema', 'src/schema/mlx-catalog.json')],
     packages=find_packages(),
     install_requires=[
         'elyra==3.3.0.dev0',
         'requests'
     ],
+    setup_requires=['flake8'],
     include_package_data=True,
     entry_points={
         'metadata.schemas_providers': [
-            'component-registries = catalog_connector.mlx_schema_provider:MLXSchemasProvider'
+            'component-registries = mlx_catalog_connector.mlx_schema_provider:MLXSchemasProvider'
         ],
         'elyra.component.catalog_types': [
-            'mlx-catalog = catalog_connector.mlx_component_catalog_connector:MLXComponentCatalogConnector'
+            'mlx-catalog = mlx_catalog_connector.mlx_component_catalog_connector:MLXComponentCatalogConnector'
         ],
     },
-    classifiers=(
+    classifiers=[
         'Development Status :: 4 - Beta',
         'License :: OSI Approved :: Apache Software License',
         'Operating System :: OS Independent',
@@ -64,7 +63,7 @@ setup_args = dict(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
-    )
+    ]
 )
 
 

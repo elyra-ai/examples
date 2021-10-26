@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/elyra-ai/elyra/master/elyra/metadata/schemas/meta-schema.json",
-  "$id": "https://raw.githubusercontent.com/kiersten-stokes/elyra/registry-updates/elyra/metadata/schemas/url-catalog.json",
+  "$id": "https://raw.githubusercontent.com/elyra-ai/examples/master/component-catalog-connectors/mlx-connector/mlx_catalog_connector/mlx-catalog.json",
   "title": "Machine Learning Exchange Component Catalog",
   "name": "mlx-catalog",
   "display_name": "Machine Learning Exchange Component Catalog",
@@ -44,7 +44,7 @@
           "description": "The runtime associated with this Component Catalog",
           "type": "string",
           "$comment": "This enum is dynamically generated to contain the available runtime values.",
-          "enum": ["{currently-configured-runtimes}"],
+          "enum": ["kfp"],
           "uihints": {
             "field_type": "dropdown"
           }

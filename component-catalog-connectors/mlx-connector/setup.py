@@ -44,7 +44,7 @@ setup_args = dict(
     include_package_data=True,
     entry_points={
         'metadata.schemas_providers': [
-            'component-registries = mlx_catalog_connector.mlx_schema_provider:MLXSchemasProvider'
+            'mlx-catalog-schema = mlx_catalog_connector.mlx_schema_provider:MLXSchemasProvider'
         ],
         'elyra.component.catalog_types': [
             'mlx-catalog = mlx_catalog_connector.mlx_component_catalog_connector:MLXComponentCatalogConnector'

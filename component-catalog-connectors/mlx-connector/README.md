@@ -4,14 +4,26 @@ This catalog connector enables Elyra to load Kubeflow Pipelines components from 
 
 ### Install the connector
 
-1. [Install Elyra](https://elyra.readthedocs.io/en/stable/getting_started/installation.html) (version 3.3 and above).
-1. Install the MLX catalog connector from source code
+You can install the MLX catalog connector from PyPI or source code. Note that a **rebuild of JupyterLab is not required**.
+
+**Prerequisites**
+
+- [Install Elyra](https://elyra.readthedocs.io/en/stable/getting_started/installation.html) (version 3.3 and above).
+- [Machine Learning Exchange deployment](https://github.com/machine-learning-exchange/mlx) ([quickstart guide](https://github.com/machine-learning-exchange/mlx/tree/main/quickstart))
+
+**Install from PyPI**
+
+  ```
+  $ pip install mlx-component-catalog-connector
+  ```
+
+**Install from source code**
+
    ```
    $ git clone https://github.com/elyra-ai/examples.git
    $ cd examples/component-catalog-connectors/mlx-connector/
    $ make source-install
    ```
-> Note: A rebuild of JupyterLab is not required!
 
 ### Use the connector
 

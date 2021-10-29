@@ -36,6 +36,12 @@ Tutorials to get started with generic pipelines in Elyra:
 - [Run generic pipelines on Apache Airflow](pipelines/run-generic-pipelines-on-apache-airflow)
 - [Run runtime-specific pipelines on Kubeflow Pipelines](pipelines/run-pipelines-on-kubeflow-pipelines)
 
+### Pipeline component catalog connectors
+
+Elyra loads [custom components](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html) from component catalogs:
+- [Find catalog connectors](component-catalog-connectors/connector-directory.md)
+- [Build a custom catalog connector](component-catalog-connectors/build-a-custom-connector.md)
+
 ### Custom pipeline component examples
 
 Pipeline nodes are implemented using

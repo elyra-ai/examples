@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-.PHONY: help clean lint test-dependencies test-install dist
+.PHONY: help clean lint test-dependencies source-install install dist
 
 SHELL:=/bin/bash
 
@@ -36,5 +36,8 @@ lint: test-dependencies
 dist: clean lint  ## Build distribution
 	python setup.py bdist_wheel sdist	
 
-test-install: lint  ## install MLX component connector package from source 
+source-install: dist  ## Install MLX component connector package from source 
 	pip install .
+
+install:  ## Install MLX component connector package from PyPI
+	pip install mlx-component-catalog-connector

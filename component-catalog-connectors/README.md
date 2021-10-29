@@ -1,3 +1,3 @@
-## Bring your own component catalog connector
+## Component catalog connectors
 
-Lorem Ipsum
+This content is under development.

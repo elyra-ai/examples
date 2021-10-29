@@ -45,6 +45,7 @@
           "type": "string",
           "$comment": "This enum is dynamically generated to contain the available runtime values.",
           "enum": ["kfp"],
+          "default": "kfp",
           "uihints": {
             "field_type": "dropdown"
           }

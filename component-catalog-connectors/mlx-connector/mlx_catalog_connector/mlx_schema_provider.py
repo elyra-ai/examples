@@ -15,6 +15,7 @@
 #
 
 import json
+import logging
 from pathlib import Path
 from typing import Dict
 from typing import List
@@ -31,14 +32,17 @@ class MLXSchemasProvider(SchemasProvider):
         """
         Return the MLX catalog connector schema
         """
+        # use Elyra logger
+        log = logging.getLogger('ElyraApp')
         mlx_catalog_schema_defs = []
         try:
+            # load MLX catalog schema definition
             mlx_catalog_connector_schema_file = Path(__file__).parent / 'mlx-catalog.json'
-            print(f'Reading MLX catalog connector schema from {mlx_catalog_connector_schema_file}')
+            log.debug(f'Reading MLX catalog connector schema from {mlx_catalog_connector_schema_file}')
             with open(mlx_catalog_connector_schema_file, 'r') as fp:
                 mlx_catalog_connector_schema = json.load(fp)
                 mlx_catalog_schema_defs.append(mlx_catalog_connector_schema)
         except Exception as ex:
-            print(f'Error reading MLX catalog connector schema {mlx_catalog_connector_schema_file}: {ex}')
+            log.error(f'Error reading MLX catalog connector schema {mlx_catalog_connector_schema_file}: {ex}')
 
         return mlx_catalog_schema_defs

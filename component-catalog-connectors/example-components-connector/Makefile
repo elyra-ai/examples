@@ -26,6 +26,7 @@ clean:
 	rm -rf dist/
 	rm -rf build/
 	rm -rf *.egg-info
+	- pip uninstall -y elyra-example-components-catalog
 
 test-dependencies:
 	@pip install -q -r test_requirements.txt

@@ -47,7 +47,7 @@ setup_args = dict(
             'examples-catalog-schema = elyra_examples_connector.examples_schema_provider:ExamplesSchemasProvider'
         ],
         'elyra.component.catalog_types': [
-            'examples-catalog = elyra_examples_connector.examples_connector:ExamplesCatalogConnector'
+            'elyra-examples-catalog = elyra_examples_connector.examples_connector:ExamplesCatalogConnector'
         ],
     },
     classifiers=[

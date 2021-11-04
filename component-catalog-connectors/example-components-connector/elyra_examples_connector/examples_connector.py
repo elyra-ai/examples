@@ -14,7 +14,6 @@
 # limitations under the License.
 #
 
-from glob import glob
 from pathlib import Path
 from typing import Any
 from typing import Dict
@@ -32,13 +31,16 @@ class ExamplesCatalogConnector(ComponentCatalogConnector):
     """
     config = {
         'kfp': {
-            'root_dir': 'kfp_examples_components',
+            'root_dir': 'kfp_example_components',
             'file_filter': '*.yaml'
+        },
+        'airflow': {
+            'root_dir': 'airflow_example_components',
+            'file_filter': '*.py'
         }
     }
 
     def get_catalog_entries(self, catalog_metadata: Dict[str, Any]) -> List[Dict[str, Any]]:
-
         """
         Returns Elyra example custom components for the selected runtime (Kubeflow Pipelines
         and Apache Airflow only)
@@ -46,25 +48,26 @@ class ExamplesCatalogConnector(ComponentCatalogConnector):
         """
         component_list = []
 
-        if catalog_metadata.get('runtime') not in ExamplesCatalogConnector.config.keys():
-            self.log.error('Example custom components are only available for Kubeflow Pipelines '
-                           'and Apache Airflow.')
+        runtime_id = catalog_metadata.get('runtime')
+
+        if runtime_id not in ExamplesCatalogConnector.config.keys():
+            self.log.error(f'Cannot retrieve component list for runtime \'{runtime_id}\': '
+                           f'only {list(ExamplesCatalogConnector.config.keys())} are supported.')
             # return empty component specification list
             return component_list
 
         try:
-            root_dir = Path(__file__).parent / ExamplesCatalogConnector.config[catalog_metadata.get('runtime')]
-            self.log.info(f"Retrieving component list for runtime '{catalog_metadata.get('runtime')}' from "
-                          f'{root_dir}')
-            file_spec = ExamplesCatalogConnector.config[catalog_metadata.get('runtime')].get('file_filter', '*')
-            for file in glob.iglob(root_dir / '**' / file_spec):
-                component_list.append({'component-id': file})
-
-            self.log.info(f'Component list: {component_list}')
-
+            root_dir = Path(__file__).parent / ExamplesCatalogConnector.config[runtime_id]['root_dir']
+            self.log.debug(f"Retrieving component list for runtime '{catalog_metadata.get('runtime')}' from "
+                           f'{root_dir}')
+            pattern = ExamplesCatalogConnector.config[runtime_id].get('file_filter', '*')
+            self.log.debug(f'Pattern: {pattern}')
+            for file in root_dir.glob(f'**/{pattern}'):
+                component_list.append({'component-id': str(file)[len(str(root_dir)) + 1:]})
+            self.log.debug(f'Component list: {component_list}')
         except Exception as ex:
-            self.log.warning(f"Error retrieving component list for runtime '{catalog_metadata.get('runtime')}'"
-                             f" from {root_dir}: {ex}")
+            self.log.error(f"Error retrieving component list for runtime '{catalog_metadata.get('runtime')}'"
+                           f" from {root_dir}: {ex}")
 
         return component_list
 
@@ -72,29 +75,34 @@ class ExamplesCatalogConnector(ComponentCatalogConnector):
                            catalog_entry_data: Dict[str, Any],
                            catalog_metadata: Dict[str, Any]) -> Optional[str]:
         """
-        Read a component definition for a single catalog entry using the its data (as returned from
-        get_catalog_entries()) and the catalog metadata, if needed
+        Retrieves a component from the catalog that is identified using
+        the information provided in catalog_entry_data.
 
-        :param catalog_entry_data: a dictionary that contains the information needed to read the content
-                                   of the component definition
-        :param catalog_metadata: the metadata associated with the catalog in which this catalog entry is
-                                 stored; in addition to catalog_entry_data, catalog_metadata may also be
-                                 needed to read the component definition for certain types of catalogs
-
-        :returns: the requested component specification, if it exists
+        :param catalog_entry_data: an entry that was returned by get_catalog_entries
+        :type catalog_entry_data: Dict[str, Any]
+        :param catalog_metadata: the schema instance metadata, as defined in elyra-examples-catalog.json
+        :type catalog_metadata: Dict[str, Any]
+        :return: the component specification, if found
+        :rtype: Optional[str]
         """
-
-        component_id = catalog_entry_data['component-id']
+        component_id = catalog_entry_data.get('component-id')
         if component_id is None:
-            self.log.error('Cannot retrieve example component specification: '
+            self.log.error('Cannot retrieve component specification: '
                            'A component id must be provided.')
             return None
 
+        runtime_id = catalog_metadata.get('runtime')
+        if runtime_id not in ExamplesCatalogConnector.config.keys():
+            self.log.error(f'Cannot fetch component \'{component_id}\': '
+                           f'only {list(ExamplesCatalogConnector.config.keys())} are supported.')
+            return None
+
         try:
-            with open(component_id, 'r') as fp:
+            root_dir = Path(__file__).parent / ExamplesCatalogConnector.config[runtime_id]['root_dir']
+            with open(root_dir / component_id, 'r') as fp:
                 return fp.read()
         except Exception as e:
-            self.log.error(f'Failed to download component specification {component_id} '
+            self.log.error(f'Failed to fetch component \'{component_id}\' '
                            f': {str(e)}')
             return None
 

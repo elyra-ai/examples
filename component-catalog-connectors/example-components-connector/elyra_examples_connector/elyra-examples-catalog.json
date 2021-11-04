@@ -1,0 +1,71 @@
+{
+  "$schema": "https://raw.githubusercontent.com/elyra-ai/elyra/master/elyra/metadata/schemas/meta-schema.json",
+  "$id": "https://raw.githubusercontent.com/elyra-ai/examples/master/component-catalog-connectors/elyra_examples_connector/elyra-examples-catalog.json",
+  "title": "Elyra examples component catalog",
+  "name": "elyra-examples-catalog",
+  "display_name": "Elyra examples component catalog",
+  "schemaspace": "component-registries",
+  "schemaspace_id": "ae79159a-489d-4656-83a6-1adfbc567c70",
+  "metadata_class_name": "elyra.pipeline.component_metadata.ComponentCatalogMetadata",
+  "uihints": {
+    "title": "Elyra examples component catalog",
+    "icon": "",
+    "reference_url": "https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html"
+  },
+  "properties": {
+    "schema_name": {
+      "title": "Schema Name",
+      "description": "The schema associated with this instance",
+      "type": "string",
+      "const": "elyra-examples-catalog"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "description": "Display name of this Component Catalog",
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "title": "Version",
+      "description": "The version associated with this instance",
+      "type": "integer",
+      "const": 1
+    },
+    "metadata": {
+      "description": "Additional data specific to this metadata",
+      "type": "object",
+      "properties": {
+        "description": {
+          "title": "Description",
+          "description": "Description of this Component Catalog",
+          "type": "string"
+        },
+        "runtime": {
+          "title": "Runtime",
+          "description": "The runtime associated with this Component Catalog",
+          "type": "string",
+          "enum": ["kfp", "airflow"],
+          "default": "kfp",
+          "uihints": {
+            "field_type": "dropdown"
+          }
+        },
+        "categories": {
+          "title": "Category Names",
+          "description": "Category names associated with this Component Catalog (the components defined in this registry will be organized in the component palette according to these categories)",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 18
+          },
+          "uihints": {
+            "field_type": "array",
+            "category": "Component Categories"
+          }
+        }
+      },
+      "required": ["runtime"]
+    }
+  },
+  "required": ["schema_name", "display_name", "version", "metadata"]
+}

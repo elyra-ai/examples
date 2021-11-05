@@ -37,8 +37,8 @@ lint: test-dependencies
 dist: clean lint  ## Build distribution
 	python setup.py bdist_wheel sdist	
 
-source-install: dist  ## Install example pipeline components package from source 
+source-install: dist  ## Install pipeline components examples package from source 
 	pip install .
 
-install:  ## Install example pipeline components package from PyPI
+install:  ## Install pipeline components examples package from PyPI
 	pip install elyra-example-components-catalog

@@ -1,16 +1,16 @@
 {
   "$schema": "https://raw.githubusercontent.com/elyra-ai/elyra/master/elyra/metadata/schemas/meta-schema.json",
   "$id": "https://raw.githubusercontent.com/elyra-ai/examples/master/component-catalog-connectors/elyra_examples_connector/elyra-examples-catalog.json",
-  "title": "Elyra examples component catalog",
+  "title": "Elyra component examples catalog",
   "name": "elyra-examples-catalog",
-  "display_name": "Elyra examples component catalog",
+  "display_name": "Elyra component examples catalog",
   "schemaspace": "component-registries",
   "schemaspace_id": "ae79159a-489d-4656-83a6-1adfbc567c70",
   "metadata_class_name": "elyra.pipeline.component_metadata.ComponentCatalogMetadata",
   "uihints": {
-    "title": "Elyra examples component catalog",
+    "title": "Elyra component examples catalog",
     "icon": "",
-    "reference_url": "https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html"
+    "reference_url": "https://github.com/elyra-ai/examples/tree/master/component-catalog-connectors/example-components-connector"
   },
   "properties": {
     "schema_name": {
@@ -37,12 +37,13 @@
       "properties": {
         "description": {
           "title": "Description",
-          "description": "Description of this Component Catalog",
-          "type": "string"
+          "description": "Description of this catalog entry.",
+          "type": "string",
+          "default": "Example pipeline components"
         },
         "runtime": {
           "title": "Runtime",
-          "description": "The runtime associated with this Component Catalog",
+          "description": "The runtime for which to load the example components.",
           "type": "string",
           "enum": ["kfp", "airflow"],
           "default": "kfp",
@@ -52,7 +53,7 @@
         },
         "categories": {
           "title": "Category Names",
-          "description": "Category names associated with this Component Catalog (the components defined in this registry will be organized in the component palette according to these categories)",
+          "description": "The example components will be added to the specified categories in the pipeline editor palette.",
           "type": "array",
           "items": {
             "type": "string",

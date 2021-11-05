@@ -61,7 +61,7 @@ class ExamplesCatalogConnector(ComponentCatalogConnector):
             self.log.debug(f"Retrieving component list for runtime '{catalog_metadata.get('runtime')}' from "
                            f'{root_dir}')
             pattern = ExamplesCatalogConnector.config[runtime_id].get('file_filter', '*')
-            self.log.debug(f'Pattern: {pattern}')
+            self.log.debug(f'Component file pattern: {pattern}')
             for file in root_dir.glob(f'**/{pattern}'):
                 component_list.append({'component-id': str(file)[len(str(root_dir)) + 1:]})
             self.log.debug(f'Component list: {component_list}')

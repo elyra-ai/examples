@@ -3,7 +3,9 @@
 # https://flake8.readthedocs.io/en/latest/user/configuration.html
 # https://flake8.readthedocs.io/en/latest/user/error-codes.html
 # https://docs.openstack.org/hacking/latest/user/hacking.html
-exclude = __init__.py
+exclude = 
+    __init__.py
+    elyra_examples_connector/airflow_example_components/  
 ignore =
     # Import formatting
     E4,

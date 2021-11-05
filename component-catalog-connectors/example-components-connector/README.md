@@ -1,10 +1,10 @@
 ## Elyra pipeline component examples catalog
 
-This catalog connector enables Elyra to load example pipeline components.
+This catalog connector provides access to example pipeline components for Kubeflow Pipelines and Apache Airflow.
 
-### Install the connector
+### Install the component examples
 
-You can install the example component connector from PyPI or source code. Note that a **rebuild of JupyterLab is not required**.
+You can install the component examples from PyPI or source code. Note that a **rebuild of JupyterLab is not required**.
 
 **Prerequisites**
 
@@ -27,11 +27,11 @@ You can install the example component connector from PyPI or source code. Note t
 ### Use the connector
 
 1. Launch JupyterLab.
-1. [Open the `Manage Components` panel](
+1. [Open the '`Manage Components`' panel](
 https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html#managing-custom-components-using-the-jupyterlab-ui).
 1. Add a new component examples catalog ('`+`' > '`New Elyra examples component catalog`').
-1. Specify a catalog name, e.g. '`Elyra example components`'.
-1. Select a runtime from the list.
+1. Specify a catalog name, e.g. '`Elyra example components for Kubeflow`'.
+1. Select the desired runtime from the list.
 1. (Optional) Specify a category under which the example components will be organized in the palette.
 1. Save the catalog entry.
 1. Open the Visual Pipeline Editor for the chosen runtime and expand the palette. The example components are displayed.
@@ -48,4 +48,5 @@ https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html#manag
 ### Troubleshooting
 
 **Q: No example components are displayed in the Visual Pipeline Editor palette.**
+
 A: Verify that you imported the examples for the correct runtime environment and check the JupyterLab log file for error messages.

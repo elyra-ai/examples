@@ -36,4 +36,4 @@ recursive-exclude * *.py[co]
 
 include elyra_examples_connector/elyra-examples-catalog.json
 include elyra_examples_connector/kfp_example_components/*.yaml
-recursive-include elyra_examples_connector
+recursive-include elyra_examples_connector *.py

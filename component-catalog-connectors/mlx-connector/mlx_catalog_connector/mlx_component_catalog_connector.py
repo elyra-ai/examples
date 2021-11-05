@@ -51,17 +51,16 @@ class MLXComponentCatalogConnector(ComponentCatalogConnector):
 
         if mlx_api_url is None:
             self.log.error('Cannot connect to MLX catalog: An API endpoint URL must be provided.')
-            # return empty component specification list
+            # return empty component list
             return component_list
 
         if catalog_metadata.get('runtime') != 'kfp':
             self.log.error(f'MLX catalog {mlx_api_url} only supports Kubeflow Pipelines.')
-            # return empty component specification list
+            # return empty component list
             return component_list
 
         try:
-            # invoke endpoint to retrieve list of component specifications from
-            # the catalog
+            # invoke endpoint to retrieve component list from the catalog
             self.log.debug(f'Retrieving component list from MLX catalog \'{mlx_api_url}\'.')
             u = urlparse(mlx_api_url)
             # assemble MLX component list endpoint URL
@@ -114,8 +113,8 @@ class MLXComponentCatalogConnector(ComponentCatalogConnector):
                            catalog_entry_data: Dict[str, Any],
                            catalog_metadata: Dict[str, Any]) -> Optional[str]:
         """
-        Read a component definition for a single catalog entry using the its data (as returned from
-        get_catalog_entries()) and the catalog metadata, if needed
+        Fetch the component that is identified by catalog_entry_data from
+        the MLX catalog.
 
         :param catalog_entry_data: a dictionary that contains the information needed to read the content
                                    of the component definition
@@ -174,9 +173,10 @@ class MLXComponentCatalogConnector(ComponentCatalogConnector):
 
     def get_hash_keys(self) -> List[Any]:
         """
-        Provides a list of keys available in the 'catalog_entry_data' dictionary whose values
-        will be used to construct a unique hash id for each entry with the given catalog type
+        Identifies the unique MLX catalog key that read_catalog_entry can use
+        to fetch an entry from the catalog. Method get_catalog_entries retrieves
+        the list of available key values.
 
-        :returns: a list of keys
+        :returns: a list of keys, which is for MLX the component id
       """
         return ['mlx_component_id']

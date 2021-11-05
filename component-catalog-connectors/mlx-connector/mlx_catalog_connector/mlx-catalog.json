@@ -10,7 +10,7 @@
   "uihints": {
     "title": "Machine Learning Exchange Component Catalog",
     "icon": "",
-    "reference_url": "https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html"
+    "reference_url": "https://github.com/elyra-ai/examples/tree/master/component-catalog-connectors/mlx-connector"
   },
   "properties": {
     "schema_name": {
@@ -38,13 +38,13 @@
         "description": {
           "title": "Description",
           "description": "Description of this Component Catalog",
-          "type": "string"
+          "type": "string",
+          "default": "Kubeflow Pipelines component catalog"
         },
         "runtime": {
           "title": "Runtime",
-          "description": "The runtime associated with this Component Catalog",
+          "description": "The Machine Learning Exchange only supports Kubeflow Pipeline components.",
           "type": "string",
-          "$comment": "This enum is dynamically generated to contain the available runtime values.",
           "enum": ["kfp"],
           "default": "kfp",
           "uihints": {
@@ -53,7 +53,7 @@
         },
         "categories": {
           "title": "Category Names",
-          "description": "Category names associated with this Component Catalog (the components defined in this registry will be organized in the component palette according to these categories)",
+          "description": "Assign the components in the catalog to one or more categories, to group them in the visual pipeline editor palette.",
           "type": "array",
           "items": {
             "type": "string",

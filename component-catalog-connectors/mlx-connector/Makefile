@@ -26,6 +26,7 @@ clean:
 	rm -rf dist/
 	rm -rf build/
 	rm -rf *.egg-info
+	- pip uninstall -y mlx-component-catalog-connector
 
 test-dependencies:
 	@pip install -q -r test_requirements.txt

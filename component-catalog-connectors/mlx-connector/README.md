@@ -28,7 +28,7 @@ You can install the MLX catalog connector from PyPI or source code. Note that a 
 ### Use the connector
 
 1. Launch JupyterLab.
-1. [Open the `Manage Components` panel](
+1. [Open the '`Manage Components`' panel](
 https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html#managing-custom-components-using-the-jupyterlab-ui).
 1. Add a new MLX component catalog ('`+`' > '`New Machine Learning Exchange Component Catalog`').
 1. Specify a catalog name, e.g. '`MLX dev catalog`'.
@@ -51,7 +51,7 @@ https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html#manag
 
 ### Troubleshooting
 
-**Problem: The palette does not diplay any components from the configured catalog.**
+**Problem: The palette does not display any components from the configured catalog.**
 
 **Solution:** If the the Elyra GUI does not display any error message indicating that a problem was encountered, inspect the JupyterLab log file.
 
@@ -60,4 +60,3 @@ Example error message (The specified MLX URL is invalid):
 ```
 Error fetching component list from MLX catalog http://localhost:8080: ... Failed to establish a new connection: [Errno 61] Connection refused'
 ```
-

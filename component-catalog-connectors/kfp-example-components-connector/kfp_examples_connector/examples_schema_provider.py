@@ -38,7 +38,7 @@ class ExamplesSchemasProvider(SchemasProvider):
         examples_catalog_schema_defs = []
         try:
             # load examples schema definition
-            examples_catalog_connector_schema_file = Path(__file__).parent / 'elyra-examples-catalog.json'
+            examples_catalog_connector_schema_file = Path(__file__).parent / 'elyra-kfp-catalog.json'
             log.debug(f'Reading examples catalog connector schema from {examples_catalog_connector_schema_file}')
             with open(examples_catalog_connector_schema_file, 'r') as fp:
                 examples_catalog_connector_schema = json.load(fp)

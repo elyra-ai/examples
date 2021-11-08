@@ -18,6 +18,8 @@
 
 SHELL:=/bin/bash
 
+PACKAGE_NAME=elyra-kfp-example-components-catalog
+
 help:
 # http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -26,13 +28,13 @@ clean:
 	rm -rf dist/
 	rm -rf build/
 	rm -rf *.egg-info
-	- pip uninstall -y elyra-example-components-catalog
+	- pip uninstall -y $(PACKAGE_NAME)
 
 test-dependencies:
 	@pip install -q -r test_requirements.txt
 
 lint: test-dependencies
-	flake8 elyra_examples_connector
+	flake8 .
 
 dist: clean lint  ## Build distribution
 	python setup.py bdist_wheel sdist	
@@ -41,4 +43,4 @@ source-install: dist  ## Install pipeline components examples package from sourc
 	pip install .
 
 install:  ## Install pipeline components examples package from PyPI
-	pip install elyra-example-components-catalog
+	pip install $(PACKAGE_NAME)

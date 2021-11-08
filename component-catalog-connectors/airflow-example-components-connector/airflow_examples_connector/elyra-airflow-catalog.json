@@ -1,23 +1,23 @@
 {
   "$schema": "https://raw.githubusercontent.com/elyra-ai/elyra/master/elyra/metadata/schemas/meta-schema.json",
   "$id": "https://raw.githubusercontent.com/elyra-ai/examples/master/component-catalog-connectors/elyra_examples_connector/elyra-examples-catalog.json",
-  "title": "Elyra component examples catalog",
-  "name": "elyra-examples-catalog",
-  "display_name": "Elyra component examples catalog",
+  "title": "Apache Airflow example components catalog",
+  "name": "elyra-airflow-examples-catalog",
+  "display_name": "Apache Airflow example components catalog",
   "schemaspace": "component-registries",
   "schemaspace_id": "ae79159a-489d-4656-83a6-1adfbc567c70",
   "metadata_class_name": "elyra.pipeline.component_metadata.ComponentCatalogMetadata",
   "uihints": {
-    "title": "Elyra component examples catalog",
+    "title": "Apache Airflow example components catalog",
     "icon": "",
-    "reference_url": "https://github.com/elyra-ai/examples/tree/master/component-catalog-connectors/example-components-connector"
+    "reference_url": "https://github.com/elyra-ai/examples/tree/master/component-catalog-connectors/airflow-example-components-connector"
   },
   "properties": {
     "schema_name": {
       "title": "Schema Name",
       "description": "The schema associated with this instance",
       "type": "string",
-      "const": "elyra-examples-catalog"
+      "const": "elyra-airflow-examples-catalog"
     },
     "display_name": {
       "title": "Display Name",
@@ -37,16 +37,16 @@
       "properties": {
         "description": {
           "title": "Description",
-          "description": "Description of this catalog entry.",
+          "description": "Curated collection of Apache Airflow components",
           "type": "string",
-          "default": "Example pipeline components"
+          "default": "Example pipeline components for Apache Airflow"
         },
         "runtime": {
           "title": "Runtime",
           "description": "The runtime for which to load the example components.",
           "type": "string",
-          "enum": ["kfp", "airflow"],
-          "default": "kfp",
+          "enum": ["airflow"],
+          "default": "airflow",
           "uihints": {
             "field_type": "dropdown"
           }

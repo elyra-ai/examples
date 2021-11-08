@@ -18,21 +18,21 @@ import os
 from setuptools import find_packages, setup
 
 long_desc = """
-            Elyra component catalog for example Kubeflow Pipelines
-            and Apache Airflow components.
+            Curated Elyra component catalog for example
+            Kubeflow Pipelines components.
             """
 
 here = os.path.abspath(os.path.dirname(__file__))
 
 version_ns = {}
-with open(os.path.join(here, 'elyra_examples_connector', '_version.py')) as f:
+with open(os.path.join(here, 'kfp_examples_connector', '_version.py')) as f:
     exec(f.read(), {}, version_ns)
 
 setup_args = dict(
-    name="elyra-example-components-catalog",
+    name="elyra-kfp-example-components-catalog",
     version=version_ns['__version__'],
     url="https://github.com/elyra-ai/examples",
-    description="Kubeflow Pipelines and Airflow example components for Elyra",
+    description="Curated Elyra component catalog for example Kubeflow Pipelines components.",
     long_description=long_desc,
     author="Elyra Maintainers",
     license="Apache License Version 2.0",
@@ -44,10 +44,10 @@ setup_args = dict(
     include_package_data=True,
     entry_points={
         'metadata.schemas_providers': [
-            'examples-catalog-schema = elyra_examples_connector.examples_schema_provider:ExamplesSchemasProvider'
+            'kfp-examples-catalog-schema = kfp_examples_connector.examples_schema_provider:ExamplesSchemasProvider'
         ],
         'elyra.component.catalog_types': [
-            'elyra-examples-catalog = elyra_examples_connector.examples_connector:ExamplesCatalogConnector'
+            'elyra-kfp-examples-catalog = kfp_examples_connector.examples_connector:ExamplesCatalogConnector'
         ],
     },
     classifiers=[
@@ -65,7 +65,6 @@ setup_args = dict(
         'Programming Language :: Python :: 3.9',
     ]
 )
-
 
 if __name__ == '__main__':
     setup(**setup_args)

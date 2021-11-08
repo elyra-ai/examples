@@ -26,47 +26,35 @@ from elyra.pipeline.catalog_connector import ComponentCatalogConnector
 
 class ExamplesCatalogConnector(ComponentCatalogConnector):
     """
-    Makes example components for Kubeflow Pipelines and Apache Airflow
-    available to Elyra.
+    Makes a curated set of components for Apache Airflow available to Elyra.
     """
-    config = {
-        'kfp': {
-            'root_dir': 'kfp_example_components',
-            'file_filter': '*.yaml'
-        },
-        'airflow': {
-            'root_dir': 'airflow_example_components',
-            'file_filter': '*.py'
-        }
-    }
 
     def get_catalog_entries(self, catalog_metadata: Dict[str, Any]) -> List[Dict[str, Any]]:
         """
-        Returns Elyra example custom components for the selected runtime (Kubeflow Pipelines
-        and Apache Airflow only)
+        Returns list of components that are stored in the '/resources' directory
         :param registry_metadata: the dictionary-form of the Metadata instance for a single registry
         """
         component_list = []
 
-        runtime_id = catalog_metadata.get('runtime')
+        runtime_type = catalog_metadata.get('runtime')
 
-        if runtime_id not in ExamplesCatalogConnector.config.keys():
-            self.log.error(f'Cannot retrieve component list for runtime \'{runtime_id}\': '
-                           f'only {list(ExamplesCatalogConnector.config.keys())} are supported.')
+        if runtime_type != 'airflow':
+            self.log.error(f'Cannot retrieve component list for runtime type \'{runtime_type}\': '
+                           'Only Apache Airflow is supported.')
             # return empty component specification list
             return component_list
 
         try:
-            root_dir = Path(__file__).parent / ExamplesCatalogConnector.config[runtime_id]['root_dir']
-            self.log.debug(f"Retrieving component list for runtime '{catalog_metadata.get('runtime')}' from "
-                           f'{root_dir}')
-            pattern = ExamplesCatalogConnector.config[runtime_id].get('file_filter', '*')
+            root_dir = Path(__file__).parent / 'resources'
+            self.log.debug(f'Retrieving component list for runtime type \'{runtime_type}\' from '
+                          f'{root_dir}')
+            pattern = '**/*.py'
             self.log.debug(f'Component file pattern: {pattern}')
-            for file in root_dir.glob(f'**/{pattern}'):
+            for file in root_dir.glob(pattern):
                 component_list.append({'component-id': str(file)[len(str(root_dir)) + 1:]})
             self.log.debug(f'Component list: {component_list}')
         except Exception as ex:
-            self.log.error(f"Error retrieving component list for runtime '{catalog_metadata.get('runtime')}'"
+            self.log.error(f"Error retrieving component list for runtime type '{runtime_type}'"
                            f" from {root_dir}: {ex}")
 
         return component_list
@@ -87,23 +75,24 @@ class ExamplesCatalogConnector(ComponentCatalogConnector):
         """
         component_id = catalog_entry_data.get('component-id')
         if component_id is None:
-            self.log.error('Cannot retrieve component specification: '
+            self.log.error('Cannot retrieve component: '
                            'A component id must be provided.')
             return None
 
-        runtime_id = catalog_metadata.get('runtime')
-        if runtime_id not in ExamplesCatalogConnector.config.keys():
-            self.log.error(f'Cannot fetch component \'{component_id}\': '
-                           f'only {list(ExamplesCatalogConnector.config.keys())} are supported.')
+        runtime_type = catalog_metadata.get('runtime')
+        if runtime_type != 'airflow':
+            self.log.error(f'Cannot retrieve component list for runtime type \'{runtime_type}\': '
+                           'Only Apache Airflow is supported.')
             return None
 
         try:
-            root_dir = Path(__file__).parent / ExamplesCatalogConnector.config[runtime_id]['root_dir']
+            # load component from resources directory
+            root_dir = Path(__file__).parent / 'resources'
             with open(root_dir / component_id, 'r') as fp:
                 return fp.read()
         except Exception as e:
             self.log.error(f'Failed to fetch component \'{component_id}\' '
-                           f': {str(e)}')
+                           f' from \'{root_dir}\': {str(e)}')
             return None
 
     def get_hash_keys(self) -> List[Any]:

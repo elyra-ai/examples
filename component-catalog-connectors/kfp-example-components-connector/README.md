@@ -20,7 +20,7 @@ You can install the component examples from PyPI or source code. Note that a **r
 
    ```
    $ git clone https://github.com/elyra-ai/examples.git
-   $ cd examples/component-catalog-connectors/kfp-examples-connector/
+   $ cd examples/component-catalog-connectors/kfp-example-components-connector/
    $ make clean source-install
    ```
 

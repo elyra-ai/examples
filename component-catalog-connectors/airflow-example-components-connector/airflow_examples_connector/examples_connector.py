@@ -22,6 +22,7 @@ from typing import Optional
 
 
 from elyra.pipeline.catalog_connector import ComponentCatalogConnector
+from elyra.pipeline.runtime_type import RuntimeProcessorType
 
 
 class ExamplesCatalogConnector(ComponentCatalogConnector):
@@ -36,25 +37,28 @@ class ExamplesCatalogConnector(ComponentCatalogConnector):
         """
         component_list = []
 
-        runtime_type = catalog_metadata.get('runtime')
+        runtime_type_name = catalog_metadata.get('runtime_type')
+        runtime_type = RuntimeProcessorType.get_instance_by_name(runtime_type_name)
+        # The runtime type's user-friendly display name
+        runtime_type_display_name = runtime_type.value
 
-        if runtime_type != 'airflow':
-            self.log.error(f'Cannot retrieve component list for runtime type \'{runtime_type}\': '
-                           'Only Apache Airflow is supported.')
+        if runtime_type != RuntimeProcessorType.APACHE_AIRFLOW:
+            self.log.error(f'Cannot retrieve component list for runtime type \'{runtime_type_display_name}\': '
+                           f'Only \'{RuntimeProcessorType.APACHE_AIRFLOW.value}\' is supported.')
             # return empty component specification list
             return component_list
 
         try:
             root_dir = Path(__file__).parent / 'resources'
-            self.log.debug(f'Retrieving component list for runtime type \'{runtime_type}\' from '
-                          f'{root_dir}')
+            self.log.debug(f'Retrieving component list for runtime type \'{runtime_type_display_name}\' from '
+                           f'{root_dir}')
             pattern = '**/*.py'
             self.log.debug(f'Component file pattern: {pattern}')
             for file in root_dir.glob(pattern):
                 component_list.append({'component-id': str(file)[len(str(root_dir)) + 1:]})
             self.log.debug(f'Component list: {component_list}')
         except Exception as ex:
-            self.log.error(f"Error retrieving component list for runtime type '{runtime_type}'"
+            self.log.error(f"Error retrieving component list for runtime type '{runtime_type_display_name}'"
                            f" from {root_dir}: {ex}")
 
         return component_list
@@ -79,15 +83,20 @@ class ExamplesCatalogConnector(ComponentCatalogConnector):
                            'A component id must be provided.')
             return None
 
-        runtime_type = catalog_metadata.get('runtime')
-        if runtime_type != 'airflow':
-            self.log.error(f'Cannot retrieve component list for runtime type \'{runtime_type}\': '
-                           'Only Apache Airflow is supported.')
-            return None
+        runtime_type_name = catalog_metadata.get('runtime_type')
+        runtime_type = RuntimeProcessorType.get_instance_by_name(runtime_type_name)
+        # The runtime type's user-friendly display name
+        runtime_type_display_name = runtime_type.value
+
+        if runtime_type != RuntimeProcessorType.APACHE_AIRFLOW:
+            self.log.error(f'Cannot retrieve component for runtime type \'{runtime_type_name}\': '
+                           f'Only \'{RuntimeProcessorType.APACHE_AIRFLOW.value}\' is supported.')
 
         try:
             # load component from resources directory
             root_dir = Path(__file__).parent / 'resources'
+            self.log.debug(f'Retrieving component of runtime type \'{runtime_type_display_name}\' from '
+                           f'{root_dir}')
             with open(root_dir / component_id, 'r') as fp:
                 return fp.read()
         except Exception as e:

@@ -41,12 +41,12 @@
           "type": "string",
           "default": "Example pipeline components for Kubeflow Pipelines"
         },
-        "runtime": {
-          "title": "Runtime",
+        "runtime_type": {
+          "title": "Runtime type",
           "description": "The runtime for which to load the example components.",
           "type": "string",
-          "enum": ["kfp"],
-          "default": "kfp",
+          "enum": ["KUBEFLOW_PIPELINES"],
+          "default": "KUBEFLOW_PIPELINES",
           "uihints": {
             "field_type": "dropdown"
           }
@@ -65,7 +65,7 @@
           }
         }
       },
-      "required": ["runtime"]
+      "required": ["runtime_type"]
     }
   },
   "required": ["schema_name", "display_name", "version", "metadata"]

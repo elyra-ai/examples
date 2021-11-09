@@ -41,12 +41,12 @@
           "type": "string",
           "default": "Example pipeline components for Apache Airflow"
         },
-        "runtime": {
-          "title": "Runtime",
+        "runtime_type": {
+          "title": "Runtime type",
           "description": "The runtime for which to load the example components.",
           "type": "string",
-          "enum": ["airflow"],
-          "default": "airflow",
+          "enum": ["APACHE_AIRFLOW"],
+          "default": "APACHE_AIRFLOW",
           "uihints": {
             "field_type": "dropdown"
           }
@@ -65,7 +65,7 @@
           }
         }
       },
-      "required": ["runtime"]
+      "required": ["runtime_type"]
     }
   },
   "required": ["schema_name", "display_name", "version", "metadata"]

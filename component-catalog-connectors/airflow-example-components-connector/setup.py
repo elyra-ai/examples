@@ -44,10 +44,12 @@ setup_args = dict(
     include_package_data=True,
     entry_points={
         'metadata.schemas_providers': [
-            'airflow-examples-catalog-schema = airflow_examples_connector.examples_schema_provider:ExamplesSchemasProvider'
+            'airflow-examples-catalog-schema =\
+                 airflow_examples_connector.examples_schema_provider:ExamplesSchemasProvider'
         ],
         'elyra.component.catalog_types': [
-            'elyra-airflow-examples-catalog = airflow_examples_connector.examples_connector:ExamplesCatalogConnector'
+            'elyra-airflow-examples-catalog =\
+                 airflow_examples_connector.examples_connector:ExamplesCatalogConnector'
         ],
     },
     classifiers=[

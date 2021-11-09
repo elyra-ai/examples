@@ -1,9 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/elyra-ai/elyra/master/elyra/metadata/schemas/meta-schema.json",
-  "$id": "https://raw.githubusercontent.com/elyra-ai/examples/master/component-catalog-connectors/elyra_examples_connector/elyra-examples-catalog.json",
+  "$id": "https://raw.githubusercontent.com/elyra-ai/examples/master/component-catalog-connectors/kfp-example-components-connector/kfp_examples_connector/elyra-kfp-catalog.json",
   "title": "Kubeflow Pipelines example components catalog",
   "name": "elyra-kfp-examples-catalog",
-  "display_name": "Kubeflow Pipelines example components catalog",
   "schemaspace": "component-registries",
   "schemaspace_id": "ae79159a-489d-4656-83a6-1adfbc567c70",
   "metadata_class_name": "elyra.pipeline.component_metadata.ComponentCatalogMetadata",

@@ -39,7 +39,7 @@ https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html#manag
 This connector utilizes an embedded catalog as storage and is therefore a static catalog. To customize the catalog content according to your needs:
 
 1. Clone or fork the `https://github.com/elyra-ai/examples` repository.
-1. Navigate to the [`kfp_examples_connector/resources`](kfp_examples_connector/resources) directory. This directory contains the Kubeflow Pipelines components that this connector makes available to Elyra.
+1. Navigate to the [`examples/component-catalog-connectors/kfp-example-components-connector/kfp_examples_connector/resources`](kfp_examples_connector/resources) directory. This directory contains the Kubeflow Pipelines components that this connector makes available to Elyra.
 1. Change the content of this directory as desired.
 1. Install the connector from source.
 

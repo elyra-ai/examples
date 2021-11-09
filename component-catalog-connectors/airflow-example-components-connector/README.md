@@ -39,7 +39,7 @@ https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html#manag
 This connector utilizes an embedded catalog as storage and is therefore a static catalog. To customize the catalog content according to your needs:
 
 1. Clone or fork the `https://github.com/elyra-ai/examples` repository.
-1. Navigate to the [`airflow_examples_connector/resources`](airflow_examples_connector/resources) directory. This directory contains the Apache Airflow operators that this connector makes available to Elyra. Note that the operator packages must be installed on the Apache Airflow cluster, or DAG execution will fail.
+1. Navigate to the [`examples/component-catalog-connectors/airflow-example-components-connector/airflow_examples_connector/resources`](airflow_examples_connector/resources) directory. This directory contains the Apache Airflow operators that this connector makes available to Elyra. Note that the operator packages must be installed on the Apache Airflow cluster, or DAG execution will fail.
 1. Change the content of this directory as desired.
 1. Install the customized connector from source.
 

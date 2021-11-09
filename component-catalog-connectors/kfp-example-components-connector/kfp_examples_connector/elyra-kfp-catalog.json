@@ -59,6 +59,7 @@
             "type": "string",
             "maxLength": 18
           },
+          "default": ["examples"],
           "uihints": {
             "field_type": "array",
             "category": "Component Categories"

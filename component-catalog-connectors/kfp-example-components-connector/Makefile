@@ -18,7 +18,7 @@
 
 SHELL:=/bin/bash
 
-PACKAGE_NAME=elyra-kfp-example-components-catalog
+PACKAGE_NAME=elyra-examples-kfp-catalog
 
 help:
 # http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html

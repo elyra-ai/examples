@@ -13,7 +13,7 @@ You can install the component examples from PyPI or source code. Note that a **r
 **Install from PyPI**
 
   ```
-  $ pip install elyra-airflow-example-components-catalog
+  $ pip install elyra-examples-airflow-catalog
   ```
 
 **Install from source code**
@@ -30,8 +30,7 @@ You can install the component examples from PyPI or source code. Note that a **r
 1. [Open the '`Manage Components`' panel](
 https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html#managing-custom-components-using-the-jupyterlab-ui).
 1. Add a new component examples catalog ('`+`' > '`New Apache Airflow example components catalog`').
-1. Specify a catalog name, e.g. '`Elyra example components for Kubeflow`'.
-1. (Optional) Specify a category under which the example components will be organized in the palette.
+1. Specify a catalog name, e.g. '`Example components for Apache Airflow`'.
 1. Save the catalog entry.
 1. Open the Visual Pipeline Editor for Apache Airflow and expand the palette. The example components are displayed.
 
@@ -48,13 +47,13 @@ This connector utilizes an embedded catalog as storage and is therefore a static
 
 1. Remove all example catalog entries from the '`Manage Components`' panel.
 1. Stop JupyterLab.
-1. Uninstall the `elyra-airflow-example-components-catalog` package.
+1. Uninstall the `elyra-examples-airflow-catalog` package.
    ```
-   $ pip uninstall -y elyra-airflow-example-components-catalog
+   $ pip uninstall -y elyra-examples-airflow-catalog
    ```
 
 ### Troubleshooting
 
 **Q: No example components are displayed in the Visual Pipeline Editor palette.**
 
-A: Verify that you imported the examples for the correct runtime environment and check the JupyterLab log file for error messages.
+A: Check the JupyterLab log file for error messages.

@@ -18,7 +18,7 @@
 
 SHELL:=/bin/bash
 
-PACKAGE_NAME=elyra-airflow-example-components-catalog
+PACKAGE_NAME=elyra-examples-airflow-catalog
 
 help:
 # http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html

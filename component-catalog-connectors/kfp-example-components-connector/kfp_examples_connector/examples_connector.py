@@ -41,12 +41,6 @@ class ExamplesCatalogConnector(ComponentCatalogConnector):
         # The runtime type's user-friendly display name
         runtime_type_display_name = runtime_type.value
 
-        if runtime_type != RuntimeProcessorType.KUBEFLOW_PIPELINES:
-            self.log.error(f'Cannot retrieve component list for runtime type \'{runtime_type_display_name}\': '
-                           f'Only \'{RuntimeProcessorType.KUBEFLOW_PIPELINES.value}\' is supported.')
-            # return empty component specification list
-            return component_list
-
         try:
             root_dir = Path(__file__).parent / 'resources'
             self.log.debug(f'Retrieving component list for runtime type \'{runtime_type_display_name}\' from '
@@ -86,10 +80,6 @@ class ExamplesCatalogConnector(ComponentCatalogConnector):
         runtime_type = RuntimeProcessorType.get_instance_by_name(runtime_type_name)
         # The runtime type's user-friendly display name
         runtime_type_display_name = runtime_type.value
-
-        if runtime_type != RuntimeProcessorType.KUBEFLOW_PIPELINES:
-            self.log.error(f'Cannot retrieve component for runtime type \'{runtime_type_display_name}\': '
-                           f'Only \'{RuntimeProcessorType.KUBEFLOW_PIPELINES.value}\' is supported.')
 
         try:
             # load component from resources directory

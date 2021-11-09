@@ -29,7 +29,7 @@ with open(os.path.join(here, 'airflow_examples_connector', '_version.py')) as f:
     exec(f.read(), {}, version_ns)
 
 setup_args = dict(
-    name="elyra-airflow-example-components-catalog",
+    name="elyra-examples-airflow-catalog",
     version=version_ns['__version__'],
     url="https://github.com/elyra-ai/examples",
     description="Curated Elyra component catalog for example Apache Airflow components.",
@@ -38,7 +38,7 @@ setup_args = dict(
     license="Apache License Version 2.0",
     packages=find_packages(),
     install_requires=[
-        'elyra==3.3.0.dev0'
+        'elyra>3.2'
     ],
     setup_requires=['flake8'],
     include_package_data=True,

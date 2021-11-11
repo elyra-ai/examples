@@ -15,6 +15,7 @@
 #
 
 .PHONY: help clean lint test-dependencies source-install install dist
+.PHONY: publish test-publish
 
 SHELL:=/bin/bash
 
@@ -44,3 +45,9 @@ source-install: dist  ## Install MLX component connector package from source
 
 install:  ## Install MLX component connector package from PyPI
 	pip install $(PACKAGE_NAME)
+
+test-publish:  dist ## Upload package to test PyPI
+	twine upload --repository testpypi dist/*
+
+publish:  dist ## Upload package to PyPI
+	twine upload dist/*

@@ -37,7 +37,6 @@ setup_args = dict(
     license="Apache License Version 2.0",
     packages=find_packages(),
     install_requires=[
-        'elyra>=3.2',
         'requests'
     ],
     setup_requires=['flake8'],

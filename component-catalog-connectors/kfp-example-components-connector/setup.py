@@ -31,7 +31,8 @@ with open(os.path.join(here, 'kfp_examples_connector', '_version.py')) as f:
 setup_args = dict(
     name="elyra-examples-kfp-catalog",
     version=version_ns['__version__'],
-    url="https://github.com/elyra-ai/examples",
+    url="https://github.com/elyra-ai/examples/"
+        "tree/master/component-catalog-connectors/kfp-example-components-connector",
     description="Curated Elyra component catalog for example Kubeflow Pipelines components.",
     long_description=long_desc,
     author="Elyra Maintainers",

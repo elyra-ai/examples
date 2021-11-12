@@ -1,3 +1,5 @@
+[![PyPI version](https://badge.fury.io/py/elyra-examples-airflow-catalog.svg)](https://badge.fury.io/py/elyra-examples-airflow-catalog)
+
 ## Elyra pipeline component examples catalog
 
 This catalog connector provides access to example pipeline components for Apache Airflow.

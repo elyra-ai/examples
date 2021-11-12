@@ -1,3 +1,5 @@
+[![PyPI version](https://badge.fury.io/py/mlx-component-catalog-connector.svg)](https://badge.fury.io/py/mlx-component-catalog-connector)
+
 ## Machine Learning Exchange catalog connector
 
 This catalog connector enables Elyra to load Kubeflow Pipelines components from [Machine Learning Exchange](https://github.com/machine-learning-exchange) (MLX) deployments.

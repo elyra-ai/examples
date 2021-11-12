@@ -31,7 +31,8 @@ with open(os.path.join(here, 'airflow_examples_connector', '_version.py')) as f:
 setup_args = dict(
     name="elyra-examples-airflow-catalog",
     version=version_ns['__version__'],
-    url="https://github.com/elyra-ai/examples/tree/master/component-catalog-connectors/airflow-example-components-connector",
+    url="https://github.com/elyra-ai/examples/"
+        "tree/master/component-catalog-connectors/airflow-example-components-connector",
     description="Curated Elyra component catalog for example Apache Airflow components.",
     long_description=long_desc,
     author="Elyra Maintainers",

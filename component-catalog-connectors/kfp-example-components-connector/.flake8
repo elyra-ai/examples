@@ -5,7 +5,6 @@
 # https://docs.openstack.org/hacking/latest/user/hacking.html
 exclude = 
     __init__.py
-    elyra_examples_connector/airflow_example_components/  
 ignore =
     # Import formatting
     E4,

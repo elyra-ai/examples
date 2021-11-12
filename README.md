@@ -44,6 +44,12 @@ Pipeline nodes are implemented using
 - [Custom components for Kubeflow Pipelines](pipelines/kubeflow_pipelines_component_examples)
 - [Custom components for Apache Airflow](pipelines/airflow_component_examples)
 
+### Pipeline component catalog connectors
+
+Elyra loads [custom components](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html) from component catalogs:
+- [Find catalog connectors](component-catalog-connectors/connector-directory.md)
+- [Build a custom catalog connector](component-catalog-connectors/build-a-custom-connector.md)
+
 ### Example pipelines
 This repository includes the following example pipelines:
 - [Analyzing NOAA weather data](pipelines/dax_noaa_weather_data)

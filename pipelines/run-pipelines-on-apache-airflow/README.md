@@ -64,8 +64,8 @@ Collect the following information:
 
 Create a runtime environment configuration for your Apache Airflow installation as described in [_Runtime configuration_ topic in the User Guide](https://elyra.readthedocs.io/en/stable/user_guide/runtime-conf.html) or the [_Run generic pipelines on Apache Airflow_ tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/run-generic-pipelines-on-apache-airflow).
 
-#### Configure the runtime configuration
-One of the components used in this tutorial utilizes a pre-configured `http_conn_id`, which is set in the example pipeline to `http_github`.
+#### Create a new connection id
+One of the components used in this tutorial utilizes a pre-configured `http_conn_id`, which is set in the completed tutorial pipeline to `http_github`.
 
 You must configure a connection with that id in order for the pipeline run to succeed:
  1. Open the Airflow GUI
@@ -75,8 +75,7 @@ You must configure a connection with that id in order for the pipeline run to su
     - Connection type: `HTTP`
     - Host: `https://api.github.com`
     - Schema: `https` 
-
-
+    
 #### Clone the tutorial artifacts
 This tutorial uses the `run-pipelines-on-apache-airflow` sample from the https://github.com/elyra-ai/examples GitHub repository.
 
@@ -100,7 +99,7 @@ Elyra stores information about custom components in component catalogs and makes
 Custom components are [managed in the JupyterLab UI](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html#managing-pipeline-components) using the **Pipeline components** panel. You access the panel by:
    - Selecting `Component Catalogs` from the JupyterLab sidebar.
    - Clicking the `Open Component Catalogs` button in the pipeline editor toolbar.
-   - Searching for `Manage URL Component Catalog` in the [JupyterLab command palette](https://jupyterlab.readthedocs.io/en/stable/user/commands.html).
+   - Searching for `Manage URL Component Catalog`, `Manage Filesystem Component Catalog`, or `Manage Directory Component Catalog` in the [JupyterLab command palette](https://jupyterlab.readthedocs.io/en/stable/user/commands.html).
 
 > You can automate the component management tasks using the [`elyra-metadata install component-catalog` CLI command](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html#managing-custom-components-using-the-elyra-cli). 
 
@@ -108,14 +107,14 @@ The component catalog can access component specifications that are stored in the
 
 #### Add components from local sources
 
-Use locally stored component specifications if there is no (immediate) need to share the specification with other users, such as during initial development. To add component specifications to the registry that are stored locally:
+To add component specifications to the registry that are stored locally:
 
 1. Open the **Component Catalogs** panel using one of the approaches mentioned above.
 
-   ![Add component registry entry](doc/images/add-component-registry-entry.png)
+   ![Add component registry entry](doc/images/add-component-catalog-entry.png)
 
 1. Add a new component registry entry by clicking `+` and selecting `New Filesystem Component Catalog`.
-   The first tutorial component you are adding to the registry makes an HTTP Request to the GitHub API.
+   The first tutorial component you are adding to the registry makes an HTTP Request.
 1. Enter or select the following:
    - **Name**: `request data`
    - **Description**: `request data from GitHub API`
@@ -142,7 +141,7 @@ In version 3.3 Elyra's `URL Component Catalog` type only supports web resources 
 To add component specifications to the catalog that are stored remotely:
 
 1. Open the **Pipeline components** panel.
-1. Add a second component catalog entry, this time selecting `New URL Component Catalog` from the dropdown menu. This component executes a bash command taken from the output of another component.
+1. Add a second component catalog entry, this time selecting `New URL Component Catalog` from the dropdown menu. This component executes a given bash command.
 1. Enter the following information:
    - **Name**: `run command`
    - **Description**: `run a shell script`
@@ -177,15 +176,7 @@ The pipeline editor's palette is populated from the component catalog. To use th
       - select the node and expand (&#8612;) the properties slideout panel on the right OR
       - right click on the node and select `Open Properties`
     
-   ![](doc/images/review-download-node-properties.png)
-    
-    In Apache Airflow, the output of a component can be used as a property value for any downstream. (A downstream node is a node that is connected to and executed after the node in question.)
-
-    The pipeline editor renders a selector widget for each property that allows you to choose between two options as a value:
-    - A raw value, entered manually
-    - The output of an upstream node; more here about xcoms??
-    
-    Include picture here TODO
+   ![](doc/images/review-http-node-properties.png)
 
 
 1. Review the node properties. The properties are a combination of Elyra metadata and information that was extracted from the [component's specification](https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-apache-airflow/components/http_operator.py):
@@ -213,7 +204,7 @@ The pipeline editor's palette is populated from the component catalog. To use th
 
    The Elyra properties include:
 
-   - `Label`: If specified, the value is used as node name in the pipeline instead of the component name. Use labels to resolve naming conflicts that might arise if a pipeline uses the same component multiple times. For example, if a pipeline utilizes  the '`SimpleHttpOperator`' component to make two requests, you could override the node name by specifying '`Request first file`' and '`Request second file`' as labels:
+   - `Label`: If specified, the value is used as node name in the pipeline instead of the component name. Use labels to resolve naming conflicts that might arise if a pipeline uses the same component multiple times. For example, if a pipeline utilizes  the '`SimpleHttpOperator`' component to make two requests, you could override the node name by specifying '`HTTP Request 1`' and '`HTTP Request 2`' as labels:
 
       ![Use labels to produce unique node names](doc/images/label-example.png)
 
@@ -222,6 +213,10 @@ The pipeline editor's palette is populated from the component catalog. To use th
 1. Enter the following values for the `SimpleHttpOperator` properties:
    
    - `endpoint` -> `/repos/elyra-ai/examples/content/pipelines/run-pipelines-on-apache-airflow/resources/command.txt`
+      - Since this property is implicity required in the operator specification file, the pipeline editor displays a red bar and enforces the constraint. 
+      
+      ![A required property](doc/images/required-property.png)
+     
    - `method` -> `GET`
    - `data` -> `{"ref": "master"}`
       - This information tells the GitHub API which branch to use when returning the file contents
@@ -235,7 +230,7 @@ The pipeline editor's palette is populated from the component catalog. To use th
       - This property was configured in the above section, _Configure the runtime configuration_ (link??)
 
 
-   ![Configure download node](doc/images/configure-download-node.png)
+   ![Configure request node](doc/images/configure-request-node.png)
 
 
 1. Open the properties of the '`BashOperator`' node. The [specification for the underlying component looks as follows](https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-apache-airflow/components/bash_operator.py):
@@ -262,18 +257,24 @@ The pipeline editor's palette is populated from the component catalog. To use th
    ...
    ```
 
-   ![Configure Count Rows node](doc/images/configure-count-rows-node.png)
+In Apache Airflow, the output of a component can be used as a property value for any downstream node. (A downstream node is a node that is connected to and executed after the node in question). The pipeline editor renders a selector widget for each property that allows you to choose between two options as a value:
+    - A raw value, entered manually
+    - The output of an upstream node
+    
+![Property value options for an Airflow node](doc/images/selection-widget.png)
 
-1. Open the properties panel for the `BashOperator` node. The contents of the file requested by the `SimpleHttpOperator` (and made available to the pipeline by setting the `xcom_push` property on `SimpleHttpOperator` to True) will be the value for the `bash_command` property. Select (TODO) and choose the `SimpleHttpOperator`. TODO sentence about xcom_push property not needing to be True??
+1. The contents of the file requested by the `SimpleHttpOperator` (and made available to the pipeline by setting the `xcom_push` property on `SimpleHttpOperator` to True) will be the value for the `bash_command` property. Select '`Please select an output from a parent :`' from the dropdown menu and choose the `SimpleHttpOperator`. 
    
    Since the '`BashOperator`' node is only connected to one upstream node ('`SimpleHttpOperator`'), you can only choose the output of that node. If a node is connected to multiple upstream nodes, you can choose the output of any of these nodes as input, as shown in this example:
 
    ![Selecting outputs from upstream nodes](doc/images/upstream-nodes-example.png) 
 
-   The output of the second request node ('`Request first file`') cannot be consumed by the '`BashOperator`' node, because the two nodes are not connected in this pipeline. 
+   The output of the `EmailOperator` node cannot be consumed by the '`SlackAPIPostOperator`' node, because the two nodes are not connected in this pipeline. 
    
    > Elyra intentionally only supports explicit dependencies between nodes to avoid potential usability issues.
 
+   ![Configure bash node](doc/images/configure-bash-node.png)
+   
 1. Save the pipeline.
 
    ![Save the pipeline](doc/images/save-the-pipeline.png)
@@ -303,8 +304,6 @@ To run the pipeline on Apache Airflow:
    ![Monitor the pipeline](doc/images/monitor-the-pipeline.png)
 
     You can also click the `GitHub Repository` link to inspect the DAG, if desired.
-
-    TODO add screenshot
 
 1. Review the logs of each pipeline task. The output of the '`BashOperator`' node should show that `Hello, World` is printed in the log.
 

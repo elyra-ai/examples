@@ -76,6 +76,8 @@ You must configure a connection with that id in order for the pipeline run to su
     - Host: `https://api.github.com`
     - Schema: `https` 
     
+![](doc/images/airflow-connection-id.png)
+    
 #### Clone the tutorial artifacts
 This tutorial uses the `run-pipelines-on-apache-airflow` sample from the https://github.com/elyra-ai/examples GitHub repository.
 
@@ -164,7 +166,7 @@ The pipeline editor's palette is populated from the component catalog. To use th
 1. Click the `Apache Airflow pipeline editor` tile to open the Visual Pipeline Editor for Apache Airflow.
 1. Expand the palette panel. Two new component categories are displayed (`request` and `scripting`), each containing one component entry that you added:
 
-   ![Palette with custom components](doc/images/palette-with-custom-components.png)
+   ![Palette with custom components](doc/images/palette-in-pipeline-editor.png)
    
 1. Drag the '`SimpleHttpOperator`' component onto the canvas to create the first pipeline node.
 1. Drag the '`BashOperator`' component onto the canvas to create a second node and connect the two nodes as shown.
@@ -208,7 +210,7 @@ The pipeline editor's palette is populated from the component catalog. To use th
 
       ![Use labels to produce unique node names](doc/images/label-example.png)
 
-   - `Component source`: A read-only property that identifies source information from where the component specification was loaded. This property is displayed for informational purposes only.
+   - `Component source`: A read-only property that identifies source information about a component, such as the type of catalog in which this component is stored and any unique identifying information. This property is displayed for informational purposes only.
 
 1. Enter the following values for the `SimpleHttpOperator` properties:
    
@@ -258,23 +260,25 @@ The pipeline editor's palette is populated from the component catalog. To use th
    ```
 
 In Apache Airflow, the output of a component can be used as a property value for any downstream node. (A downstream node is a node that is connected to and executed after the node in question). The pipeline editor renders a selector widget for each property that allows you to choose between two options as a value:
-    - A raw value, entered manually
-    - The output of an upstream node
+- A raw value, entered manually
+- The output of an upstream node
     
 ![Property value options for an Airflow node](doc/images/selection-widget.png)
 
-1. The contents of the file requested by the `SimpleHttpOperator` (and made available to the pipeline by setting the `xcom_push` property on `SimpleHttpOperator` to True) will be the value for the `bash_command` property. Select '`Please select an output from a parent :`' from the dropdown menu and choose the `SimpleHttpOperator`. 
+1. The contents of the file requested by the `SimpleHttpOperator` are made available to the downstream nodes in the pipeline by setting the `xcom_push` property of `SimpleHttpOperator` to True. This output value will be the input of the `bash_command` property. Choose '`Please select an output from a parent :`' from the dropdown menu and select `SimpleHttpOperator`. 
    
    Since the '`BashOperator`' node is only connected to one upstream node ('`SimpleHttpOperator`'), you can only choose the output of that node. If a node is connected to multiple upstream nodes, you can choose the output of any of these nodes as input, as shown in this example:
 
    ![Selecting outputs from upstream nodes](doc/images/upstream-nodes-example.png) 
 
-   The output of the `EmailOperator` node cannot be consumed by the '`SlackAPIPostOperator`' node, because the two nodes are not connected in this pipeline. 
+   The output of the `EmailOperator` node cannot be consumed by the '`SlackAPIPostOperator`' node, because the two nodes are not connected in this pipeline. Ensure that the `xcom_push` property is set to `True` for any node whose output will be used in a subsequent node.
    
    > Elyra intentionally only supports explicit dependencies between nodes to avoid potential usability issues.
+   
+1. The bash command requested and returned by the `SimpleHttpOperator` node includes an environment variable called `name` that can be set by the `env` property of the `BashOperator`. Enter `{'name': 'World'}` as the value for this field. You can use another name in place of 'World', if desired.
 
    ![Configure bash node](doc/images/configure-bash-node.png)
-   
+
 1. Save the pipeline.
 
    ![Save the pipeline](doc/images/save-the-pipeline.png)

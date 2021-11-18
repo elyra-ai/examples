@@ -36,7 +36,7 @@ The features described in this tutorial require Elyra v3.3.0. The tutorial instr
 
 ### Prerequisites
 
-- [JupyterLab 3.x with the Elyra extension v3.3 (or newer) installed](https://elyra.readthedocs.io/en/stable/getting_started/installation.html).
+- [JupyterLab 3.x with Elyra extension v3.3.0 (or newer) installed](https://elyra.readthedocs.io/en/stable/getting_started/installation.html).
 - Access to an [Apache Airflow deployment](https://elyra.readthedocs.io/en/stable/recipes/configure-airflow-as-a-runtime.html).
 
 Some familiarity with Apache Airflow and Apache Airflow operators (i.e., components) is required to complete the tutorial. If you are new to Elyra, please review the [_Run generic pipelines on Apache Airflow_](../run-generic-pipelines-on-apache-airflow) tutorial. It introduces concepts and tasks that are used in this tutorial, but not explained here to avoid content duplication.
@@ -49,6 +49,8 @@ Collect the following information for your Apache Airflow installation:
 - GitHub DAG repository name, e.g. `your-git-org/your-dag-repo`
 - GitHub DAG repository branch, e.g. `main`
 - GitHub access token, e.g. `4d79206e616d6520697320426f6e642e204a616d657320426f6e64`.
+
+Detailed instructions for setting up a DAG repository and generating an access token can be found in [the User Guide](https://elyra.readthedocs.io/en/latest/recipes/configure-airflow-as-a-runtime.html#setting-up-a-dag-repository-on-github).
 
 Elyra utilizes S3-compatible cloud storage to make data available to notebooks and scripts while they are executed. Any kind of S3-based cloud storage should work (e.g. IBM Cloud Object Storage or Minio) as long as it can be accessed from the machine where JupyterLab/Elyra is running and from the Apache Airflow cluster. 
 
@@ -138,7 +140,7 @@ Locally stored component specifications have the advantage that they can be quic
 
 #### Add components from remote sources
 
-In version 3.3 Elyra's `URL Component Catalog` type only supports web resources that can be downloaded using HTTP `GET` requests, which don't require authentication.
+In version 3.3.0 Elyra's `URL Component Catalog` type only supports web resources that can be downloaded using HTTP `GET` requests, which don't require authentication.
 
 To add component specifications to the catalog that are stored remotely:
 
@@ -152,7 +154,7 @@ To add component specifications to the catalog that are stored remotely:
    - **Path**: `https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-apache-airflow/components/bash_operator.py`
 1. Save the component catalog entry.
 
-The catalog now includes the custom components you'll use in the tutorial pipeline.
+The catalog is now populated with the custom components you'll use in the tutorial pipeline.
 
 ![Tutorial pipeline components in registry](doc/images/populated-component-registry.png)
 
@@ -289,7 +291,7 @@ In Apache Airflow, the output of a component can be used as a property value for
 
    ![Rename the pipeline](doc/images/rename-the-pipeline.png)
 
-Next, you run the pipeline.
+Next, let's run the pipeline!
 
 ### Run the pipeline
     

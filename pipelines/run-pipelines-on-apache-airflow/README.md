@@ -32,11 +32,11 @@ In this intermediate tutorial you will learn how to add [Apache Airflow componen
 
 ![The completed tutorial pipeline](doc/images/completed-tutorial-pipeline.png)
 
-The features described in this tutorial require Elyra v3.3.0. The tutorial instructions were last updated using Elyra v3.3.0 and Airflow v1.10.12.
+The features described in this tutorial require Elyra v3.3 or later. The tutorial instructions were last updated using Elyra v3.3.0 and Airflow v1.10.12.
 
 ### Prerequisites
 
-- [JupyterLab 3.x with Elyra extension v3.3.0 (or newer) installed](https://elyra.readthedocs.io/en/stable/getting_started/installation.html).
+- [JupyterLab 3.x with Elyra extension v3.3 (or later) installed](https://elyra.readthedocs.io/en/stable/getting_started/installation.html).
 - Access to an [Apache Airflow deployment](https://elyra.readthedocs.io/en/stable/recipes/configure-airflow-as-a-runtime.html).
 
 Some familiarity with Apache Airflow and Apache Airflow operators (i.e., components) is required to complete the tutorial. If you are new to Elyra, please review the [_Run generic pipelines on Apache Airflow_](../run-generic-pipelines-on-apache-airflow) tutorial. It introduces concepts and tasks that are used in this tutorial, but not explained here to avoid content duplication.
@@ -105,7 +105,7 @@ Custom components are [managed in the JupyterLab UI](https://elyra.readthedocs.i
    - Clicking the `Open Component Catalogs` button in the pipeline editor toolbar.
    - Searching for `Manage URL Component Catalog`, `Manage Filesystem Component Catalog`, or `Manage Directory Component Catalog` in the [JupyterLab command palette](https://jupyterlab.readthedocs.io/en/stable/user/commands.html).
 
-> You can automate the component management tasks using the [`elyra-metadata install component-catalog` CLI command](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html#managing-custom-components-using-the-elyra-cli). 
+> You can automate the component management tasks using the [`elyra-metadata install component-catalogs` CLI command](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html#managing-custom-components-using-the-elyra-cli). 
 
 The component catalog can access component specifications that are stored in the local file system or on remote sources. In this tutorial 'local' refers to the file system where JupyterLab/Elyra is running. For example, if you've installed Elyra on your laptop, local refers to the laptop's file system. If you've installed Elyra in a container image, local refers to the container's file system.
 
@@ -117,13 +117,13 @@ To add component specifications to the registry that are stored locally:
 
    ![Add component registry entry](doc/images/add-component-catalog-entry.png)
 
-1. Add a new component registry entry by clicking `+` and selecting `New Filesystem Component Catalog`.
+1. Add a new component catalog entry by clicking `+` and selecting `New Filesystem Component Catalog`.
    The first tutorial component you are adding to the registry makes an HTTP Request.
 1. Enter or select the following:
    - **Name**: `request data`
    - **Description**: `request data from GitHub API`
-   - **Category**: `request`
    - **Runtime**: `APACHE_AIRFLOW`
+   - **Category Names**: `request`
    - **Base Directory**: `.../examples/pipelines/run-pipelines-on-apache-airflow/components` (on Windows: `...\examples\pipelines\run-pipelines-on-apache-airflow\components`)
    - **Paths**: `http_operator.py` 
 
@@ -140,7 +140,7 @@ Locally stored component specifications have the advantage that they can be quic
 
 #### Add components from remote sources
 
-In version 3.3.0 Elyra's `URL Component Catalog` type only supports web resources that can be downloaded using HTTP `GET` requests, which don't require authentication.
+The `URL Component Catalog` type only supports web resources that can be downloaded using HTTP `GET` requests, which don't require authentication.
 
 To add component specifications to the catalog that are stored remotely:
 
@@ -149,8 +149,8 @@ To add component specifications to the catalog that are stored remotely:
 1. Enter the following information:
    - **Name**: `run command`
    - **Description**: `run a shell script`
-   - **Category**: `scripting`
    - **Runtime**: `APACHE_AIRFLOW`
+   - **Category Names**: `scripting`
    - **Path**: `https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-apache-airflow/components/bash_operator.py`
 1. Save the component catalog entry.
 
@@ -231,7 +231,7 @@ The pipeline editor's palette is populated from the component catalog. To use th
       - This property indicates to Airflow whether we want to pass on the output of this component (in this case, the file contents of our requested file) to be accessed by later nodes in the pipeline
    - `http_conn_id` -> `http_github`
       - This property tells the Airflow instance which `Connection` id it will use as the API base URL
-      - This property was configured in the above section, _Configure the runtime configuration_ (link??)
+      - This property was configured in the above section, [_Create a new connection id_ ](#create-a-new-connection-id)
 
 
    ![Configure request node](doc/images/configure-request-node.png)
@@ -261,9 +261,9 @@ The pipeline editor's palette is populated from the component catalog. To use th
    ...
    ```
 
-In Apache Airflow, the output of a component can be used as a property value for any downstream node. (A downstream node is a node that is connected to and executed after the node in question). The pipeline editor renders a selector widget for each property that allows you to choose between two options as a value:
-- A raw value, entered manually
-- The output of an upstream node
+   In Apache Airflow, the output of a component can be used as a property value for any downstream node. (A downstream node is a node that is connected to and executed after the node in question). The pipeline editor renders a selector widget for each property that allows you to choose between two options as a value:
+   - A raw value, entered manually
+   - The output of an upstream node
     
 ![Property value options for an Airflow node](doc/images/selection-widget.png)
 

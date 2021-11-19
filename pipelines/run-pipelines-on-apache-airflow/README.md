@@ -266,7 +266,7 @@ The pipeline editor's palette is populated from the component catalog. To use th
      
    - The output of an upstream node
     
-![Property value options for an Airflow node](doc/images/selection-widget.png)
+   ![Property value options for an Airflow node](doc/images/selection-widget.png)
 
 1. The contents of the file requested by the `SimpleHttpOperator` are made available to the downstream nodes in the pipeline by setting the `xcom_push` property of `SimpleHttpOperator` to True. This output value will be the input of the `bash_command` property. Choose '`Please select an output from a parent :`' from the dropdown menu and select `SimpleHttpOperator`. 
    

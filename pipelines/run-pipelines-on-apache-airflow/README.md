@@ -216,7 +216,7 @@ The pipeline editor's palette is populated from the component catalog. To use th
 
 1. Enter the following values for the `SimpleHttpOperator` properties:
    
-   - `endpoint` -> `/repos/elyra-ai/examples/content/pipelines/run-pipelines-on-apache-airflow/resources/command.txt`
+   - `endpoint` -> `/repos/elyra-ai/examples/contents/pipelines/run-pipelines-on-apache-airflow/resources/command.txt`
       - Since this property is implicity required in the operator specification file, the pipeline editor displays a red bar and enforces the constraint. 
       
       ![A required property](doc/images/required-property.png)

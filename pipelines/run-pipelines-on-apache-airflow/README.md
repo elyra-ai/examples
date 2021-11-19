@@ -329,5 +329,6 @@ This concludes the _Run pipelines on Apache Airflow_ tutorial. You've learned ho
 - [_Creating a custom operator_ topic in the Apache Airflow documentation](https://airflow.apache.org/docs/apache-airflow/stable/howto/custom-operator.html)
 - [_Pipelines_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/pipelines.html)
 - [_Pipeline components_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html)
+- [_Component catalog connector marketplace_](https://github.com/elyra-ai/examples/tree/master/component-catalog-connectors)
 - [_Requirements and best practices for custom pipeline components_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/best-practices-custom-pipeline-components.html)
 - [_Command line interface_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/command-line-interface.html)

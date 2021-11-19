@@ -238,11 +238,10 @@ The pipeline editor's palette is populated from the component catalog. To use th
 
 
 1. Open the properties of the '`BashOperator`' node. The [specification for the underlying component looks as follows](https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-apache-airflow/components/bash_operator.py):
-  ```
-  class BashOperator(BaseOperator):
+   ```
+   class BashOperator(BaseOperator):
     """
     Execute a Bash script, command or set of commands.
-
     ...
 
     :param bash_command: The command, set of commands or reference to a
@@ -260,7 +259,7 @@ The pipeline editor's palette is populated from the component catalog. To use th
     :type output_encoding: str
    ...
    ```
-
+   
    In Apache Airflow, the output of a component can be used as a property value for any downstream node. (A downstream node is a node that is connected to and executed after the node in question). The pipeline editor renders a selector widget for each property that allows you to choose between two options as a value:
    - A raw value, entered manually
    - The output of an upstream node

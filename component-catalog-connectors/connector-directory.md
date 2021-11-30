@@ -1,4 +1,4 @@
-## Component catalog connectors
+## Component catalog connector directory
 
 The following catalog connectors should work with Elyra version 3.3 and above. Connectors are provided as-is and, unless specified otherwise, are not maintained by the Elyra core committers. 
 

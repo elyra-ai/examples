@@ -151,7 +151,7 @@ To add component specifications to the catalog that are stored remotely:
    - **Description**: `run a shell script`
    - **Runtime**: `APACHE_AIRFLOW`
    - **Category Names**: `scripting`
-   - **Path**: `https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-apache-airflow/components/bash_operator.py`
+   - **URLs**: `https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-apache-airflow/components/bash_operator.py`
 1. Save the component catalog entry.
 
 The catalog is now populated with the custom components you'll use in the tutorial pipeline.

@@ -97,7 +97,7 @@ The component catalog can access component specifications that are stored in the
 
 #### Add components from the local file system
 
-Use locally stored component specifications if there is no (immediate) need to share the specification with other users, such as during initial development.
+Use locally stored component specifications if there is no (immediate) need to share the specification with other users, for example, during initial development and prototyping.
 
 1. Open the **Pipeline components** panel using one of the approaches mentioned above.
 

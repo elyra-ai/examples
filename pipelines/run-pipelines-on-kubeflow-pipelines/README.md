@@ -93,7 +93,7 @@ Custom components are [managed in the JupyterLab UI](https://elyra.readthedocs.i
 
 > You can automate the component management tasks using the [`elyra-metadata install component-catalog` CLI command](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html#managing-custom-components-using-the-elyra-cli). 
 
-The component catalog can access component specifications that are stored in the local file system or on remote sources. In this tutorial 'local' refers to the file system where JupyterLab/Elyra is running. For example, if you've installed Elyra on your laptop, local refers to the laptop's file system. If you've installed Elyra in a container image, local refers to the container's file system.
+The component catalog can access component specifications that are stored in the local file system or on remote sources. In this tutorial, 'local' refers to the file system where JupyterLab/Elyra is running. For example, if you've installed Elyra on your laptop, 'local' refers to the laptop's file system. If you've installed Elyra in a container image, 'local' refers to the container's file system.
 
 #### Add components from the local file system
 

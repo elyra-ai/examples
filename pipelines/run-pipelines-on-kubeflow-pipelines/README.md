@@ -103,7 +103,7 @@ Use locally stored component specifications if there is no (immediate) need to s
 
    ![Add component catalog entry](doc/images/add-component-catalog-entry.png)
 
-   Note that the palette might already [include a few example components](https://github.com/elyra-ai/examples/tree/master/component-catalog-connectors/kfp-example-components-connector), depending on how you installed Elyra. These examples are included for illustrative purposes to help you get started but you won't use them in this tutorial.
+   Note that the palette may already [include a few example components](https://github.com/elyra-ai/examples/tree/master/component-catalog-connectors/kfp-example-components-connector), depending on how you installed Elyra. These examples are included for illustrative purposes to help you get started but you won't use them in this tutorial.
 1. Add a new component catalog entry by clicking `+` and `New Filesystem Component Catalog`.
    The first tutorial component you are adding counts the number of rows in a file.
 1. Enter or select the following:

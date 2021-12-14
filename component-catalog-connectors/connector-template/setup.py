@@ -28,7 +28,7 @@ with open(os.path.join(here, 'todo_catalog_connector', '_version.py')) as f:
     exec(f.read(), {}, version_ns)
 
 setup_args = dict(
-    name="TODO-CATALOG-CONNECTOR-PACKAGE-NAME",
+    name="todo-component-catalog-connector",
     version=version_ns['__version__'],
     url="TODO-CATALOG-CONNECTOR-REPOSITORY-URL",
     description="TODO-CATALOG-CONNECTOR-DESCRIPTION",

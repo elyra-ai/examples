@@ -31,7 +31,7 @@ In this introductory tutorial you will learn how to create a generic pipeline an
 
  When you run a pipeline in your local environment, each Jupyter notebook or script is executed in a Kernel on the machine where JupyterLab is running, such as your laptop. Since resources on that machine might be limited local pipeline execution might not always be a viable option.
 
- The [Hello World Kubeflow Pipelines tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world_kubeflow_pipelines) and [Hello World Apache Airflow tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world_apache_airflow) are similar to this tutorial but run the pipeline on Kubeflow Pipelines or Apache Airflow, enabling you to take advantage of shared compute resources in the cloud that might dramatically reduce pipeline processing time or allow for processing of much larger data volumes.
+ The [Run generic pipelines on Kubeflow Pipelines tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/run-generic-pipelines-on-kubeflow-pipelines) and [Run generic pipelines on Apache Airflow tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/run-generic-pipelines-on-apache-airflow) are similar to this tutorial but run the pipeline on Kubeflow Pipelines or Apache Airflow, enabling you to take advantage of shared compute resources in the cloud that might dramatically reduce pipeline processing time or allow for processing of much larger data volumes.
 
 ### Prerequisites
 

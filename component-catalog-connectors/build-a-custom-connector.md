@@ -175,11 +175,40 @@ If you would like to share your connector with the community, follow the [instru
 Inspect the JupyterLab log file for error messages to troubleshoot connector issues during development. Below is a list of common problems we've observed during initial development. If you are unable to identify the root cause, [get in touch with us using one of these community channels](https://elyra.readthedocs.io/en/stable/getting_started/getting-help.html).
 
 **The catalog connector is not displayed in the new component catalog list.**
- - TODO
+
+  - Message:
+
+    ```
+    Error loading schemas for SchemasProvider 'my-catalog-schema' - module 'my_catalog_connector.my_schema_provider' has no attribute 'MySchemasProvider'
+    ```
+    Action: Verify the `metadata.schemas_providers` entrypoint in `setup.py`. The entrypoint object reference cannot be resolved to an existing Python class. 
+
+  - Message:
+ 
+    ```
+    Error loading schemas for SchemasProvider 'todo-catalog-schema' - No module named 'todo_catalog_connector'
+    ```
+    Action: Verify the `metadata.schemas_providers` entrypoint in `setup.py`. The entrypoint object reference is invalid. 
 
 **No catalog components are displayed in the Visual Pipeline Editor palette.**
-  - `No definition content found for catalog entry with identifying information: {'...': '...'}. Skipping...` - 
-  - TODO
+
+The JupyterLab log file should include an error message that explains what happened. If there is no message, make sure the connector implementation class's `get_catalog_entries` method returns results.
+
+  - Message:
+
+    ```
+    No entrypoint with name 'my-catalog' was found in group 'elyra.component.catalog_types' to match the 'schema_name' given in catalog 'mytestcatalog'. Skipping...
+    ```
+
+    Action:  Verify that `elyra.component.catalog_types` _entrypoint name_ ("my-catalog" in the example above) in `setup.py` matches the value of the `schema_name` property in the connector's schema file.
+   
+  - Message:
+
+    ```
+    No definition content found for catalog entry with identifying information: {'...': '...'}. Skipping... 
+    ```
+
+    Action: The connector implementation class's `read_catalog_entry` method did not return a component for the provided identifying information. This identifying information was returned by the connector implementation class's `get_catalog_entries` method. Make sure that the information is correct and that the component exists in the catalog.
 
 
 

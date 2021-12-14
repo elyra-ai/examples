@@ -52,7 +52,6 @@
             "type": "string",
             "maxLength": 18
           },
-          "default": "[]",
           "uihints": {
             "field_type": "array",
             "category": "Component Categories"
@@ -69,8 +68,7 @@
         "todo_optional_parm": {
           "title": "An optional catalog parameter, such as a filter expression.",
           "description": "The TODO connector consumes this parameter, if a value was provided.",
-          "type": "string",
-
+          "type": "string", 
           "uihints": {
             "category": "Source"
           }

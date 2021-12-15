@@ -55,7 +55,7 @@ Connector schemas can optionally also include custom public properties. For illu
 
 The quickstart connector default schema file `TODO-catalog.json` is located in the [`todo_catalog_connector`](/component-catalog-connectors/connector-template/todo_catalog_connector/) directory.
 1. Rename the file to reflect your catalog type.
-1. Using an IDE of your choice, find and replace all occurrences of '`TODO-catalog.json`' in all files in the `component-catalog-connectors/connector-template` directory. (There should be seven.)
+1. Using an IDE of your choice, find and replace all occurrences of '`TODO-catalog.json`' in all files in the `component-catalog-connectors/connector-template` directory. (There should be several.)
 1. Open the renamed `TODO-catalog.json` schema file in an editor.
 1. To avoid breaking the connector, do not: 
      - Remove existing properties, unless indicated otherwise in the comments

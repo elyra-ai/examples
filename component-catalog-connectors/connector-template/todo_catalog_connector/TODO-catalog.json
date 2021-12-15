@@ -52,6 +52,7 @@
             "type": "string",
             "maxLength": 18
           },
+          "default": ["todo-category"],
           "uihints": {
             "field_type": "array",
             "category": "Component Categories"

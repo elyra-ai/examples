@@ -62,7 +62,7 @@ The quickstart connector default schema file `TODO-catalog.json` is located in t
      - Change existing property names, unless indicated otherwise in the comments
      - Change existing property values, unless indicated otherwise in the comments
 1. Customize the following common catalog connector schema properties:
-   - `$ID`: replace the URL with a valid URL for the renamed schema file.
+   - `$id`: replace the URL with a valid URL for the renamed schema file.
    - `title`: Replace the placeholder value, as desired
    - `name`: Replace the placeholder value `todo-catalog` with a unique identifier for your catalog connector type.
    - `uihints.title`: Replace the placeholder value with the value of the `title` property.

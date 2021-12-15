@@ -1,0 +1,17 @@
+name: Echo text
+description: Echo the given text
+inputs:
+- {name: Text, optional: false, description: 'Text to be displayed'}
+metadata:
+  annotations:
+    author: Elyra Maintainers
+implementation:
+  container:
+    image: alpine
+    command:
+    - sh
+    - -ec
+    - |
+      text=$0
+      echo $text
+    - {inputValue: Text}

@@ -17,7 +17,7 @@ The Elyra examples repository includes two types of catalog connectors:
 
    ![package-based catalog connector](doc/images/package-based-catalog-connector.png)
 
-   The [Apache Airflow component examples connector](airflow-example-components-connector/) and the [Kubeflow Pipelines component examples connector](kfp-example-components-connector/) are two examples. They make a static set of components available.
+   The [Apache Airflow component examples connector](airflow-example-components-connector/) and the [Kubeflow Pipelines component examples connector](kfp-example-components-connector/) are two examples. Each connector provides a static set components for each respective runtime.
 
 Irrespective of which type of connector you plan to implement, you need to complete the following tasks:
  - create a catalog connector schema

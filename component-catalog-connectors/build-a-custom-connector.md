@@ -77,7 +77,7 @@ The quickstart connector default schema file `TODO-catalog.json` is located in t
    - Otherwise, customize the properties as desired. (You can add as many properties as necessary) You typically need to do this for connectors that access remote catalogs, such as the [MLX connector](/component-catalog-connectors/mlx-connector/mlx_catalog_connector/mlx-catalog.json).
 1. Specify which custom catalog connector schema properties are required. If marked required, the user must provide a non-empty input in the connector configuration.
    - `properties.metadata.required`: Update this list as appropriate, leaving `"runtime_type"` as is.
-1. Perform a case-insensitive search for `todo` in the file. If one or more matches are still present inthe file verify that you completed all instructions. 
+1. Perform a case-insensitive search for `todo` in the file. If one or more matches are still present in the file verify that you completed all instructions.
 1. Save the updated schema file.
 
 Next, you implement a schema provider that makes the content of the updated schema file available to Elyra.

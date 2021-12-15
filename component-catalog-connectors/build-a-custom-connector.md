@@ -158,7 +158,7 @@ Refer to the [_Troubleshooting_](#troubleshooting) section for a list of common 
 
 ### Update the user documentation
 
-A connector should include documentation that enables users to install and uninstall the connector and configure the connector in Elyra.
+A connector should include documentation that informs users how to: install and uninstall the connector, configure the connector, and any other important information you wish to relay to the user.
 
 1. Customize the `README.md` in the `connector-template` directory 
 

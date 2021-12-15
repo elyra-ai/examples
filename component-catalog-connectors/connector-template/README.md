@@ -34,7 +34,7 @@ https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html#manag
 1. Specify a catalog name, e.g. '`Test TODO catalog`'.
 1. (Optional) Specify a category under which the catalog's components will be organized in the palette.
 1. Configure the required `todo_required_parm`.
-1. COnfigure the optional `todo_optional_parm`.
+1. Configure the optional `todo_optional_parm`.
 1. Save the catalog entry.
 1. Open the Visual Pipeline Editor and expand the palette. The catalog components are displayed.
 

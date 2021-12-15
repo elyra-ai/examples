@@ -108,7 +108,7 @@ class TODOComponentCatalogConnector(ComponentCatalogConnector):
             self.log.error('Cannot connect to <TODO> catalog: todo_component_key must be provided.')
             return None
 
-        # TODO: Load component from catalog using the provided key
+        # load component from catalog using the provided key
         component_source = Path(__file__).parent / todo_component_key
         self.log.debug(f'Fetching component from {component_source}')
         with open(component_source, 'r') as dummy_component_fp:

@@ -13,5 +13,5 @@ implementation:
     - -ec
     - |
       text=$0
-      echo text
+      echo $text
     - {inputValue: Text}

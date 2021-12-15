@@ -47,7 +47,7 @@ The common public properties are:
  - catalog instance name
  - catalog instance description
  - runtime type filter, which governs the kind of components the connector makes available
- - component categories, which group the components in the pipeline editor
+ - component categories, which group the components together in the pipeline editor
 
 Connector schemas can optionally also include custom public properties. For illustrative purposes, the quickstart template connector defines a required custom property and an optional custom property. Required properties are typically used to collect catalog connectivity information, such as a server URL, or API token. 
 

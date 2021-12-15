@@ -13,7 +13,7 @@ The Elyra examples repository includes two types of catalog connectors:
 
    An example of such a connector is the [Machine Learning Exchange (MLX)](mlx-connector/) connector. This connector uses the MLX API to query the catalog and to retrieve the components that this catalog makes available.
 
- - Connectors with a built-in catalog: These connectors include a built-in static catalog, eliminating the need for network connectivity once they are installed. This makes them suitable for air gapped environments, but also rather inflexible because a catalog content refresh requires a connector rebuild.
+ - Connectors with a built-in catalog: These connectors include a built-in static catalog, eliminating the need for network connectivity once they are installed. This makes them suitable for air gapped environments, but also rather inflexible since any content changes in the catalog will require a connector rebuild.
 
    ![package-based catalog connector](doc/images/package-based-catalog-connector.png)
 

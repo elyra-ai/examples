@@ -200,7 +200,7 @@ The JupyterLab log file should include an error message that explains what happe
     No entrypoint with name 'my-catalog' was found in group 'elyra.component.catalog_types' to match the 'schema_name' given in catalog 'mytestcatalog'. Skipping...
     ```
 
-    Action:  Verify that `elyra.component.catalog_types` _entrypoint name_ ("my-catalog" in the example above) in `setup.py` matches the value of the `schema_name` property in the connector's schema file.
+    Action: Verify that `elyra.component.catalog_types` _entrypoint name_ ("my-catalog" in the example above) in `setup.py` matches the value of the `properties.schema_name.const` property in the connector's schema file.
    
   - Message:
 

@@ -247,7 +247,7 @@ When you run a pipeline from the pipeline editor, Elyra compiles the pipeline, u
 
    ![Export pipeline from the editor](doc/images/export-pipeline.png)
 
-1. Select _Kubeflow Pipelines_ as the runtime platform, then select the runtime configuration_ you've created. Export the pipeline.
+1. Select _Kubeflow Pipelines_ as the runtime platform, then select the runtime configuration you've created. Export the pipeline.
 
    ![Select pipeline export format](doc/images/choose-export-format.png)
 

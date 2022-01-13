@@ -238,7 +238,7 @@ Pipelines that execute on Kubeflow Pipelines store the pipeline run outputs (com
 
 1. Download the output artifacts to your local machine and inspect them.
 
-## Export the pipeline to a Kubeflow Pipelines format
+## Export the pipeline to a Kubeflow Pipelines Static Configuration File
 
 When you run a pipeline from the pipeline editor, Elyra compiles the pipeline, uploads the compiled pipeline, creates an experiment, and runs the experiment. If you want to run the pipeline at a later time outside of Elyra, you can export it.
 
@@ -247,18 +247,15 @@ When you run a pipeline from the pipeline editor, Elyra compiles the pipeline, u
 
    ![Export pipeline from the editor](doc/images/export-pipeline.png)
 
-1. Select _Kubeflow Pipelines_ as runtime platform, the runtime configuration you've created, and an export format:
+1. Select _Kubeflow Pipelines_ as the runtime platform, then select the runtime configuration you've created. Export the pipeline.
 
    ![Select pipeline export format](doc/images/choose-export-format.png)
 
-   - Choose the domain-specific language Python code if you are familiar with the [Kubeflow Pipelines SDK](https://www.kubeflow.org/docs/components/pipelines/sdk/) and want to customize the code or pipeline deployment options. The generated code includes the pipeline definition and client code that compiles the pipeline, uploads the compiled code to Kubeflow, creates an experiment, and runs it. 
-   - Choose the YAML-formatted static configuration file if you want to manually upload the pipeline using the Kubeflow Pipelines Dashboard. Elyra compiles the pipeline for the engine (`Argo` or `Tekton`) that you've defined in the runtime configuration.
+   > An exported pipeline comprises of two parts: the pipeline definition and the input artifact archives that were uploaded to cloud storage. 
+   
+   > In order to run the exported pipeline, the generated YAML-formatted static configuration file must be manually uploaded using the Kubeflow Pipelines Dashboard. Elyra compiles the pipeline for the engine (`Argo` or `Tekton`) that you've defined in the runtime configuration.
 
-1. Export the pipline in a format of your choice.
-
-   An exported pipeline comprises of two parts: the pipeline definition and the input artifact archives that were uploaded to cloud storage. 
-
-1. Locate the generated `hello-generic-world.py` Python script (or `hello-generic-world.yaml` configuration file) in the _File Browser_.
+1. Locate the generated `hello-generic-world.yaml` configuration file in the _File Browser_.
 
 1. Open the exported file and briefly review the content. 
 

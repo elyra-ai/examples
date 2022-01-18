@@ -64,7 +64,7 @@ class AirflowProviderPackageCatalogConnector(ComponentCatalogConnector):
         self.tmp_archive_dir = Path(mkdtemp())
 
         try:
-            self.log.warning(f'Downloading provider package from {provider_package_download_url} ...')
+            self.log.warning(f'Downloading provider package from \'{provider_package_download_url}\' ...')
 
             # download archive
             response = requests.get(provider_package_download_url,
@@ -72,12 +72,12 @@ class AirflowProviderPackageCatalogConnector(ComponentCatalogConnector):
             if response.status_code == 200:
                 # save archive
                 archive = str(self.tmp_archive_dir / Path(urlparse(provider_package_download_url).path).name)
-                self.log.warning(f'Saving provider package in {archive} ...')
+                self.log.warning(f'Saving provider package in \'{archive}\' ...')
                 with open(archive, 'wb') as archive_fh:
                     archive_fh.write(response.content)
 
                 # extract archive
-                self.log.warning(f'Extracting provider archive {archive} ...')
+                self.log.warning(f'Extracting provider archive \'{archive}\' ...')
                 with zipfile.ZipFile(archive, 'r') as zip_ref:
                     zip_ref.extractall(self.tmp_archive_dir)
 
@@ -86,7 +86,7 @@ class AirflowProviderPackageCatalogConnector(ComponentCatalogConnector):
                 pl = list(self.tmp_archive_dir.glob('**/get_provider_info.py'))
                 if len(pl) != 1:
                     # No such file or more than one file was found. Cannot proceed.
-                    self.log.error(f'Error. Provider archive {archive} '
+                    self.log.error(f'Error. Provider archive \'{archive}\' '
                                    'contains {len(pl)} '
                                    'file(s) named get_provider_info.py.')
                     # return empty list
@@ -104,7 +104,7 @@ class AirflowProviderPackageCatalogConnector(ComponentCatalogConnector):
                 except KeyError:
                     # no method with this name is defined in get_provider_info.py
                     self.log.error('Error. Cannot invoke get_provider_info method '
-                                   f'in {get_provider_info_file_location}.')
+                                   f'in \'{get_provider_info_file_location}\'.')
                     return operator_key_list
 
                 module_list = []
@@ -112,29 +112,66 @@ class AirflowProviderPackageCatalogConnector(ComponentCatalogConnector):
                     for m in operator_entry['python-modules']:
                         module_list.append(f'{m.replace(".", sep)}.py')
                 if len(module_list) == 0:
-                    self.log.info(f'Provider package {provider_package_name} '
+                    self.log.info(f'Provider package \'{provider_package_name}\' '
                                   'does not include any operator definitions.')
                     return operator_key_list
 
                 # Locate Python files in module_list that extend the
                 # Airflow BaseOperator class
+                extends_baseoperator = []  # list of str, containing classes that extend BaseOperator
+                classes_to_analyze = {}
                 for module in module_list:
                     with open(self.tmp_archive_dir / module, 'r') as mf:
                         # parse module
                         tree = ast.parse(mf.read())
                         for node in ast.walk(tree):
-                            # find class definitions
+                            # analyze classes
                             if isinstance(node, ast.ClassDef):
                                 # self.log.warning(f'{module} {node.name}')
-                                # verify that the class extends 'BaseOperator'
+                                # determine whether class directly extends 'BaseOperator'
+                                if len(node.bases) == 0:
+                                    # class does not extend other classes; nothing to do
+                                    continue
                                 for base in node.bases:
+                                    extends = False
                                     if base.id == 'BaseOperator':
+                                        extends = True
+                                        extends_baseoperator.append(node.name)
                                         operator_key_list.append(
-                                            {'file': module, 'class': node.name})
+                                            {'provider_package': provider_package_name,
+                                             'file': module,
+                                             'class': node.name})
+                                        continue
+                                if extends is False:
+                                    classes_to_analyze[node.name] = {
+                                        'node': node,
+                                        'file': module
+                                    }
+
+                # identify classes that indirectly extend BaseOperator
+                analysis_complete = len(classes_to_analyze.keys()) == 0
+                while analysis_complete is False:
+                    analysis_complete = True
+                    for class_name in list(classes_to_analyze.keys()):
+                        self.log.warning(f'Analyzing {class_name} from '
+                                         f"'{classes_to_analyze[class_name]['file']}\'... ")
+                        for base in classes_to_analyze[class_name]['node'].bases:
+                            if base.id in extends_baseoperator:
+                                extends_baseoperator.append(class_name)
+                                operator_key_list.append({
+                                    'provider_package': provider_package_name,
+                                    'file': classes_to_analyze[class_name]['file'],
+                                    'class': class_name})
+                                del classes_to_analyze[class_name]
+                                analysis_complete = False
+                                continue
         except Exception as ex:
             self.log.error('Error retrieving operator list from provider package '
                            f'{provider_package_download_url}: {ex}')
 
+        self.log.info(f'Identified {len(operator_key_list)} operators in '
+                      f'provider package \'{provider_package_download_url}\'.')
+        self.log.warning(f'Operator key list: {operator_key_list}')
         return operator_key_list
 
     def read_catalog_entry(self,
@@ -156,6 +193,7 @@ class AirflowProviderPackageCatalogConnector(ComponentCatalogConnector):
         self.log.warning(f'catalog_entry_data: {catalog_entry_data}')
 
         # Get operator key information from the catalog_entry_data dictionary.
+        # provider_package_name = catalog_entry_data.get('provider_package')
         operator_file_name = catalog_entry_data.get('file')
         # operator_class_name = catalog_entry_data.get('class')
 
@@ -182,4 +220,4 @@ class AirflowProviderPackageCatalogConnector(ComponentCatalogConnector):
 
         :returns: a list of keys
       """
-        return ['file', 'class']
+        return ['provider_package', 'file', 'class']

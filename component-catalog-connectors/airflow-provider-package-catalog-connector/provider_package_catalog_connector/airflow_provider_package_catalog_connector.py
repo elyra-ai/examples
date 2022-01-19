@@ -17,6 +17,7 @@
 import ast
 from os.path import sep
 from pathlib import Path
+import re
 import shutil
 from tempfile import mkdtemp
 from typing import Any
@@ -120,21 +121,44 @@ class AirflowProviderPackageCatalogConnector(ComponentCatalogConnector):
                 # Airflow BaseOperator class
                 extends_baseoperator = []  # list of str, containing classes that extend BaseOperator
                 classes_to_analyze = {}
+                imported_operator_classes = []  # list of str, identifying imported operator classes
                 for module in module_list:
                     with open(self.tmp_archive_dir / module, 'r') as mf:
                         # parse module
                         tree = ast.parse(mf.read())
                         for node in ast.walk(tree):
+                            # analyze imports
+                            if isinstance(node, ast.Import):
+                                for name in node.names:
+                                    self.log.warning(f'Detected an IMPORT: {name.name}')
+                            elif isinstance(node, ast.ImportFrom):
+                                node_module = node.module
+                                for name in node.names:
+                                    self.log.warning(f'Detected an IMPORT FROM: {node_module} -> {name.name}')
+                                    if 'airflow.models' == node_module and name.name == 'BaseOperator':
+                                        imported_operator_classes.append(name.name)
+                                    else:
+                                        # Look for package imports that match one of the following patters:
+                                        # airflow.providers.*.operators.
+                                        # airflow.operators.*
+                                        patterns = [r'airflow\.providers\.[a-z_]+\.operators',
+                                                    r'airflow\.operators\.']
+                                        for pattern in patterns:
+                                            match = re.match(pattern, node_module)
+                                            if match:
+                                                imported_operator_classes.append(name.name)
+                                                break
+
                             # analyze classes
-                            if isinstance(node, ast.ClassDef):
+                            elif isinstance(node, ast.ClassDef):
                                 # self.log.warning(f'{module} {node.name}')
-                                # determine whether class directly extends 'BaseOperator'
+                                # determine whether class extends one of the imported operator classes
                                 if len(node.bases) == 0:
                                     # class does not extend other classes; nothing to do
                                     continue
                                 for base in node.bases:
                                     extends = False
-                                    if base.id == 'BaseOperator':
+                                    if base.id in imported_operator_classes:
                                         extends = True
                                         extends_baseoperator.append(node.name)
                                         operator_key_list.append(

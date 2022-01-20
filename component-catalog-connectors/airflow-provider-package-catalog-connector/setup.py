@@ -30,7 +30,8 @@ with open(os.path.join(here, 'provider_package_catalog_connector', '_version.py'
 setup_args = dict(
     name="airflow-provider-package-catalog-connector",
     version=version_ns['__version__'],
-    url="https://github.com/elyra-ai/examples/tree/master/component-catalog-connectors/airflow-provider-package-catalog",
+    url="https://github.com/elyra-ai/examples/tree/master/"
+        "component-catalog-connectors/airflow-provider-package-catalog",
     description="Elyra catalog connector for Airflow providers",
     long_description=long_desc,
     author="Patrick Titzler",
@@ -43,10 +44,10 @@ setup_args = dict(
     include_package_data=True,
     entry_points={
         'metadata.schemas_providers': [
-            'airflow-provider-package-catalog-schema = provider_package_catalog_connector.airflow_provider_package_schema_provider:AirflowProviderPackageSchemasProvider'
+            'airflow-provider-package-catalog-schema = provider_package_catalog_connector.airflow_provider_package_schema_provider:AirflowProviderPackageSchemasProvider'  #noqa E501
         ],
         'elyra.component.catalog_types': [
-            'airflow-provider-package-catalog = provider_package_catalog_connector.airflow_provider_package_catalog_connector:AirflowProviderPackageCatalogConnector'
+            'airflow-provider-package-catalog = provider_package_catalog_connector.airflow_provider_package_catalog_connector:AirflowProviderPackageCatalogConnector'  #noqa E501
         ],
     },
     classifiers=[

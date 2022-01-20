@@ -44,10 +44,10 @@ setup_args = dict(
     include_package_data=True,
     entry_points={
         'metadata.schemas_providers': [
-            'airflow-provider-package-catalog-schema = provider_package_catalog_connector.airflow_provider_package_schema_provider:AirflowProviderPackageSchemasProvider'  #noqa E501
+            'airflow-provider-package-catalog-schema = provider_package_catalog_connector.airflow_provider_package_schema_provider:AirflowProviderPackageSchemasProvider'  # noqa: E501
         ],
         'elyra.component.catalog_types': [
-            'airflow-provider-package-catalog = provider_package_catalog_connector.airflow_provider_package_catalog_connector:AirflowProviderPackageCatalogConnector'  #noqa E501
+            'airflow-provider-package-catalog = provider_package_catalog_connector.airflow_provider_package_catalog_connector:AirflowProviderPackageCatalogConnector'  # noqa: E501
         ],
     },
     classifiers=[

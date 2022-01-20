@@ -1,22 +1,22 @@
 {
   "$schema": "https://raw.githubusercontent.com/elyra-ai/elyra/master/elyra/metadata/schemas/meta-schema.json",
-  "$id": "https://raw.githubusercontent.com/elyra-ai/examples/master/component-catalog-connectors/airflow-provider-package-catalog/airflow-provider-package-catalog.json",
-  "title": "Apache Airflow provider package operator catalog",
-  "name": "airflow-provider-package-catalog",
+  "$id": "https://raw.githubusercontent.com/elyra-ai/examples/master/component-catalog-connectors/airflow-package-catalog-connector/airflow-package-catalog.json",
+  "title": "Apache Airflow package operator catalog",
+  "name": "airflow-package-catalog",
   "schemaspace": "component-catalogs",
   "schemaspace_id": "8dc89ca3-4b90-41fd-adb9-9510ad346620",
   "metadata_class_name": "elyra.pipeline.component_metadata.ComponentCatalogMetadata",
   "uihints": {
-    "title": "Apache Airflow provider package operator catalog",
+    "title": "Apache Airflow provider component catalog",
     "icon": "",
-    "reference_url": "https://github.com/elyra-ai/examples/tree/master/component-catalog-connectors/airflow-provider-package-catalog"
+    "reference_url": "https://github.com/elyra-ai/examples/tree/master/component-catalog-connectors/airflow-provider-catalog"
   },
   "properties": {
     "schema_name": {
       "title": "Schema Name",
       "description": "The schema associated with this instance",
       "type": "string",
-      "const": "airflow-provider-package-catalog"
+      "const": "airflow-package-catalog"
     },
     "display_name": {
       "title": "Display Name",
@@ -32,7 +32,7 @@
           "title": "Description",
           "description": "Description of this Component Catalog",
           "type": "string",
-          "default": "Apache Airflow provider package operator catalog"
+          "default": "Airflow package component catalog"
         },
         "runtime_type": {
           "title": "Runtime",
@@ -46,28 +46,28 @@
         },
         "categories": {
           "title": "Category Names",
-          "description": "Assign the components in the catalog to one or more categories, to group them in the visual pipeline editor palette.",
+          "description": "Assign the operators in the catalog to one or more categories, to group them in the visual pipeline editor palette.",
           "type": "array",
           "items": {
             "type": "string",
             "maxLength": 18
           },
-          "default": ["provider packages"],
+          "default": ["Core packages"],
           "uihints": {
             "field_type": "array",
             "category": "Component Categories"
           }
         },
-        "provider_package_download_url": {
-          "title": "Provider package download URL",
-          "description": "URL where the provider package wheel can be downloaded.",
+        "airflow_package_download_url": {
+          "title": "Airflow package download URL",
+          "description": "URL where the Apache Airflow package wheel can be downloaded.",
           "type": "string",
           "uihints": {
             "category": "Source"
           }
         }      
       },
-      "required": ["runtime_type", "provider_package_download_url"]
+      "required": ["runtime_type", "airflow_package_download_url"]
     }
   },
   "required": ["schema_name", "display_name", "metadata"]

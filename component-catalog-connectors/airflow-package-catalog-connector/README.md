@@ -1,6 +1,6 @@
-## Airflow provider package catalog connector
+## Airflow package catalog connector
 
-This catalog connector enables Elyra to load pipelines components from [Apache Airflow provider packages](https://airflow.apache.org/docs/apache-airflow-providers/index.html).
+This catalog connector enables Elyra to load pipeline components from [Apache Airflow packages](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/operators/index.html).
 
 ### Install the connector
 
@@ -14,14 +14,14 @@ You can install this catalog connector from PyPI or source code. Note that a **r
 **Install from PyPI**
 
   ```
-  $ pip install airflow-provider-package-catalog-connector
+  $ pip install airflow-package-catalog-connector
   ```
 
 **Install from source code**
 
    ```
    $ git clone https://github.com/elyra-ai/examples.git
-   $ cd examples/component-catalog-connectors/airflow-provider-package-catalog-connector/
+   $ cd examples/component-catalog-connectors/airflow-package-catalog-connector/
    $ make source-install
    ```
 
@@ -30,10 +30,10 @@ You can install this catalog connector from PyPI or source code. Note that a **r
 1. Launch JupyterLab.
 1. [Open the '`Manage Components`' panel](
 https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html#managing-custom-components-using-the-jupyterlab-ui).
-1. Add a new Airflow provider package component catalog ('`+`' > '`New Apache Airflow provider package component catalog`').
-1. Specify a catalog name, e.g. '`Amazon provider package`'.
+1. Add a new Airflow package component catalog ('`+`' > '`New Apache Airflow package component catalog`').
+1. Specify a catalog name, e.g. '`Airflow 2.2.3 package`'.
 1. (Optional) Specify a category under which the catalog's components will be organized in the palette.
-1. Configure the `provider package download URL`. The URL must reference a location that Elyra can access using an HTTP GET request, without the need to authenticate. If the provider package is stored on PyPI:
+1. Configure the `Airflow package download URL`. The URL must reference a location that Elyra can access using an HTTP GET request, without the need to authenticate. If the Airflow package is stored on PyPI:
    1. Search for the provider package on PyPI.
    1. In the package's `Navigation` section open the `Download files` link.
    1. Copy the download link for the package's wheel.
@@ -43,11 +43,11 @@ https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html#manag
 
 ### Uninstall the connector
 
-1. Remove all TODO catalog entries from the '`Manage Components`' panel.
+1. Remove all 'Apache Airflow package component catalog' catalog entries from the '`Manage Components`' panel.
 1. Stop JupyterLab.
-1. Uninstall the `todo-component-catalog-connector` package.
+1. Uninstall the `airflow-package-catalog-connector` package.
    ```
-   $ pip uninstall -y todo-component-catalog-connector
+   $ pip uninstall -y airflow-package-catalog-connector
    ```
 
 ### Troubleshooting

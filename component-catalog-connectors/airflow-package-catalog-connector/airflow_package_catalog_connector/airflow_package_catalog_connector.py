@@ -82,7 +82,7 @@ class AirflowPackageCatalogConnector(ComponentCatalogConnector):
 
                 # Identify Python scripts in the operators directory
                 python_scripts = [str(s) for s in self.tmp_archive_dir.glob('airflow/operators/*.py')]
-                offset = len(str(self.tmp_archive_dir / 'airflow')) + 1
+                offset = len(str(self.tmp_archive_dir)) + 1
 
                 # Locate Python files in module_list that extend the
                 # Airflow BaseOperator class
@@ -91,7 +91,7 @@ class AirflowPackageCatalogConnector(ComponentCatalogConnector):
                 imported_operator_classes = []  # list of str, identifying imported operator classes
                 for script in python_scripts:
                     script_id = script[offset:]
-                    if script_id == 'operators/__init__.py':
+                    if script_id == 'airflow/operators/__init__.py':
                         continue
                     self.log.warning(f'Inspecting \'{script}\' ...')
                     with open(script, 'r') as source_code:
@@ -193,7 +193,7 @@ class AirflowPackageCatalogConnector(ComponentCatalogConnector):
             return None
 
         # load component source using the provided key
-        component_source = self.tmp_archive_dir / 'airflow' / operator_file_name
+        component_source = self.tmp_archive_dir / operator_file_name
         self.log.warning(f'Reading operator source \'{component_source}\' ...')
         with open(component_source, 'r') as source:
             return source.read()
@@ -203,10 +203,13 @@ class AirflowPackageCatalogConnector(ComponentCatalogConnector):
     def get_hash_keys(self) -> List[Any]:
         """
         Identifies the unique keys that method read_catalog_entry
-        can use to fetch a component from the Airflow provider package.
+        can use to fetch an operator from the Airflow provider package.
         Method get_catalog_entries retrieves the list of available key
         values from the package.
 
         :returns: a list of keys
       """
-        return ['airflow_package', 'file', 'class']
+        # Example key values:
+        # - file: operators/check_operator.py
+        # - class: IntervalCheckOperator
+        return ['file', 'class']

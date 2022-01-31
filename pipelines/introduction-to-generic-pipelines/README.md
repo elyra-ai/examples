@@ -45,7 +45,7 @@ This tutorial uses the `introduction to generic components` sample from the http
 1. Launch JupyterLab.
 1. Open the _Git clone_ wizard (Git > Clone A Repository).
 1. Enter `https://github.com/elyra-ai/examples.git` as _Clone URI_.
-1. In the _File Browser_ navigate to `examples/pipelines/introduction-to-generic-components`.
+1. In the _File Browser_ navigate to `examples/pipelines/introduction-to-generic-pipelines`.
 
    ![Tutorial assets in File Browser](doc/images/tutorial-directory.png)
    

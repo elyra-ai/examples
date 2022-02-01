@@ -41,7 +41,7 @@ In this introductory tutorial you will learn how to create a generic pipeline an
 
 ### Setup
 
-This tutorial uses the `introduction to generic components` sample from the https://github.com/elyra-ai/examples GitHub repository.
+This tutorial uses the `introduction to generic pipelines` sample from the https://github.com/elyra-ai/examples GitHub repository.
 1. Launch JupyterLab.
 1. Open the _Git clone_ wizard (Git > Clone A Repository).
 1. Enter `https://github.com/elyra-ai/examples.git` as _Clone URI_.

@@ -16,4 +16,8 @@ limitations under the License.
 {% endcomment %}
 -->
 
-The examples in this directory illustrate how to use airflow components in pipelines.
+## These examples are deprecated
+
+February 2022:
+ - The examples in this directory utilize the [Apache Airflow component examples catalog connector](/component-catalog-connectors/airflow-example-components-connector), which is deprecated.
+ - Refer to the connector's README for details.

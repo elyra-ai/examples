@@ -23,9 +23,9 @@ from tempfile import TemporaryFile
 from typing import Any
 from typing import Dict
 from typing import List
-from typing import Optional
 from urllib.parse import urlparse
 
+from elyra.pipeline.catalog_connector import CatalogEntry
 from elyra.pipeline.catalog_connector import ComponentCatalogConnector
 import requests
 
@@ -104,9 +104,9 @@ class MLXComponentCatalogConnector(ComponentCatalogConnector):
 
         return component_list
 
-    def read_catalog_entry(self,
-                           catalog_entry_data: Dict[str, Any],
-                           catalog_metadata: Dict[str, Any]) -> Optional[str]:
+    def get_component_definition(self,
+                                 catalog_entry_data: Dict[str, Any],
+                                 catalog_metadata: Dict[str, Any]) -> CatalogEntry:
         """
         Fetch the component that is identified by catalog_entry_data from
         the MLX catalog.
@@ -117,20 +117,22 @@ class MLXComponentCatalogConnector(ComponentCatalogConnector):
                                  stored; in addition to catalog_entry_data, catalog_metadata may also be
                                  needed to read the component definition for certain types of catalogs
 
-        :returns: the content of the given catalog entry's definition in string form
+        :returns: A CatalogEntry containing the definition, if found
         """
 
         # verify that the required inputs were provided
         mlx_api_url = catalog_metadata.get('mlx_api_url')
         if mlx_api_url is None:
             self.log.error('Cannot connect to MLX catalog: An API endpoint URL must be provided.')
-            return None
+            return CatalogEntry(None,
+                                catalog_entry_data)
 
         mlx_component_id = catalog_entry_data['mlx_component_id']
         if mlx_component_id is None:
             self.log.error(f'Cannot retrieve component specification from MLX catalog {mlx_api_url}: '
                            'A component id must be provided.')
-            return None
+            return CatalogEntry(None,
+                                catalog_entry_data)
 
         try:
             u = urlparse(mlx_api_url)
@@ -140,13 +142,15 @@ class MLXComponentCatalogConnector(ComponentCatalogConnector):
         except Exception as e:
             self.log.error(f'Failed to download component specification {mlx_component_id} '
                            f'from {mlx_api_url}: {str(e)}')
-            return None
+            return CatalogEntry(None,
+                                catalog_entry_data)
 
         if res.status_code != HTTPStatus.OK:
             self.log.error(f'Error fetching component specification {mlx_component_id} '
                            f'from MLX catalog {mlx_api_url}: '
                            f'Request: {endpoint} HTTP code: {res.status_code}.')
-            return None
+            return CatalogEntry(None,
+                                catalog_entry_data)
 
         # response type should be 'application/gzip'
         # Content-Disposition: attachment; filename=model-fairness-check.tgz
@@ -159,12 +163,13 @@ class MLXComponentCatalogConnector(ComponentCatalogConnector):
                 if len(tar.getnames()) > 1:
                     self.log.error(f'The response archive contains more than one member: {tar.getnames()}')
 
-                return tar.extractfile(tar.getnames()[0]).read()
+                return CatalogEntry(tar.extractfile(tar.getnames()[0]).read(),
+                                    catalog_entry_data)
             except Exception as ex:
                 # the response is not a tgz file
                 self.log.error(f'The MLX catalog response could not be processed: {ex}')
-
-        return None
+                return CatalogEntry(None,
+                                    catalog_entry_data)
 
     def get_hash_keys(self) -> List[Any]:
         """

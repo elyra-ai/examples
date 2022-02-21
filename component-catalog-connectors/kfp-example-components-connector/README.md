@@ -10,7 +10,7 @@ You can install the component examples from PyPI or source code. Note that a **r
 
 **Prerequisites**
 
-- [Install Elyra](https://elyra.readthedocs.io/en/stable/getting_started/installation.html) (version 3.3 and above).
+- [Install Elyra](https://elyra.readthedocs.io/en/stable/getting_started/installation.html) (version 3.6 and above). This connector version does not support Elyra versions below 3.6. 
 
 **Install from PyPI**
 

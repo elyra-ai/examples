@@ -1,0 +1,20 @@
+# Copyright 2021 The MLX Contributors
+#
+# SPDX-License-Identifier: Apache-2.0
+name: Echo Sample
+description: |
+  Sample component for testing
+inputs:
+  - {name: dummy_text,        description: 'Test empty input', default: 'hello world'}
+outputs:
+  - {name: dummy_output_path, description: 'Test unused output path'}
+implementation:
+  container:
+    image: alpine:latest
+    command: ['echo']
+    args: [
+      start,
+      {inputValue: dummy_text},
+      {outputPath: dummy_output_path},
+      end
+    ]

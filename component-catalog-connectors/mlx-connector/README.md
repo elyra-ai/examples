@@ -15,17 +15,33 @@ You can install the MLX catalog connector from PyPI or source code. Note that a 
 
 **Install from PyPI**
 
+To install the connector from PyPI:
+
   ```
   $ pip install mlx-component-catalog-connector
   ```
 
 **Install from source code**
 
+To install the connector from source:
+
    ```
    $ git clone https://github.com/elyra-ai/examples.git
    $ cd examples/component-catalog-connectors/mlx-connector/
    $ make source-install
    ```
+
+**Run connector unit tests**
+
+To run the unit tests:
+
+   ```
+   $ git clone https://github.com/elyra-ai/examples.git
+   $ cd examples/component-catalog-connectors/mlx-connector/
+   $ make test
+   ```
+
+Note: The tests don't require access to a running MLX instance.
 
 ### Use the connector
 

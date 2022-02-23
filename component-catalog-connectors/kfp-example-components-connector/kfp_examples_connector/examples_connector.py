@@ -76,8 +76,12 @@ class ExamplesCatalogConnector(ComponentCatalogConnector):
                            'A component id must be provided.')
             return None
 
-        runtime_type_name = catalog_metadata.get('runtime_type')
-        runtime_type = RuntimeProcessorType.get_instance_by_name(runtime_type_name)
+        runtime_type_name = catalog_metadata.get('runtime_type', 'KUBEFLOW_PIPELINES')
+        try:
+            runtime_type = RuntimeProcessorType.get_instance_by_name(runtime_type_name)
+        except KeyError:
+            runtime_type = RuntimeProcessorType.get_instance_by_name('KUBEFLOW_PIPELINES')
+
         # The runtime type's user-friendly display name
         runtime_type_display_name = runtime_type.value
 
@@ -87,7 +91,8 @@ class ExamplesCatalogConnector(ComponentCatalogConnector):
             self.log.debug(f'Retrieving component of runtime type \'{runtime_type_display_name}\' from '
                            f'{root_dir}')
             with open(root_dir / component_id, 'r') as fp:
-                return ComponentDefinition(fp.read())
+                return ComponentDefinition(definition=fp.read(),
+                                           identifier=catalog_entry_data)
         except Exception as e:
             self.log.error(f'Failed to fetch component \'{component_id}\' '
                            f' from \'{root_dir}\': {str(e)}')

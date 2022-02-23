@@ -14,16 +14,30 @@ You can install the component examples from PyPI or source code. Note that a **r
 
 **Install from PyPI**
 
+To install the connector from PyPI:
+
   ```
   $ pip install elyra-examples-kfp-catalog
   ```
 
 **Install from source code**
 
+To install the connector from source:
+
    ```
    $ git clone https://github.com/elyra-ai/examples.git
    $ cd examples/component-catalog-connectors/kfp-example-components-connector/
    $ make clean source-install
+   ```
+
+**Run connector unit tests**
+
+To run the unit tests:
+
+   ```
+   $ git clone https://github.com/elyra-ai/examples.git
+   $ cd examples/component-catalog-connectors/kfp-example-components-connector/
+   $ make test
    ```
 
 ### Use the connector

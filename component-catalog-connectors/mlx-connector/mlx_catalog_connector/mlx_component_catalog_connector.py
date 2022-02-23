@@ -15,10 +15,10 @@
 #
 
 
-from http import HTTPStatus
-from io import BytesIO
 import re
 import tarfile
+from http import HTTPStatus
+from io import BytesIO
 from tempfile import TemporaryFile
 from typing import Any
 from typing import Dict
@@ -27,6 +27,7 @@ from urllib.parse import urlparse
 
 from elyra.pipeline.catalog_connector import ComponentCatalogConnector
 from elyra.pipeline.catalog_connector import ComponentDefinition
+
 import requests
 
 

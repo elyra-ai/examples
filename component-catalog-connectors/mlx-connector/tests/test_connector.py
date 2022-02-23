@@ -16,13 +16,15 @@
 
 import io
 import json
-from pathlib import Path
 import tarfile
+from pathlib import Path
+
+from mlx_catalog_connector.mlx_component_catalog_connector import MLXComponentCatalogConnector
+
 import yaml
 
-from mlx_catalog_connector.mlx_component_catalog_connector import MLXComponentCatalogConnector 
-
 KFP_SUPPORTED_FILE_TYPES = [".yaml"]
+
 
 def test_invalid_get_catalog_entries(requests_mock):
     """
@@ -32,28 +34,28 @@ def test_invalid_get_catalog_entries(requests_mock):
 
     # The specified host is invalid
     requests_mock.get('http://no.such.host:8080/apis/v1alpha1/components', real_http=True)
-    ces = mlxc.get_catalog_entries({'mlx_api_url':'http://no.such.host:8080'})
+    ces = mlxc.get_catalog_entries({'mlx_api_url': 'http://no.such.host:8080'})
     assert len(ces) == 0
 
     # The specified URL returns something unexpected (e.g. is not an MLX server):
     # wrong content type (not JSON)
     requests_mock.get('http://not-an-mlx-server:8080/apis/v1alpha1/components',
                       text='some random text')
-    ces = mlxc.get_catalog_entries({'mlx_api_url':'http://not-an-mlx-server:8080'})
+    ces = mlxc.get_catalog_entries({'mlx_api_url': 'http://not-an-mlx-server:8080'})
     assert len(ces) == 0
 
     # The specified URL returns something unexpected (e.g. is not an MLX server):
     # correct content type (not matching the expected schema)
     requests_mock.get('http://not-an-mlx-server:8080/apis/v1alpha1/components',
                       json={'somekey': 1})
-    ces = mlxc.get_catalog_entries({'mlx_api_url':'http://not-an-mlx-server:8080'})
+    ces = mlxc.get_catalog_entries({'mlx_api_url': 'http://not-an-mlx-server:8080'})
     assert len(ces) == 0
 
     # The specified URL returns something unexpected (e.g. is not an MLX server):
     # correct content type (not matching the expected schema)
     requests_mock.get('http://not-an-mlx-server:8080/apis/v1alpha1/components',
                       json={'components': 42})
-    ces = mlxc.get_catalog_entries({'mlx_api_url':'http://not-an-mlx-server:8080'})
+    ces = mlxc.get_catalog_entries({'mlx_api_url': 'http://not-an-mlx-server:8080'})
     assert len(ces) == 0
 
 
@@ -67,7 +69,7 @@ def test_get_catalog_entries(requests_mock):
     requests_mock.get('http://mlx-server:8080/apis/v1alpha1/components',
                       text=json.dumps(dummy_json),
                       headers={'Content-Type': 'application/json'})
-    ces = mlxc.get_catalog_entries({'mlx_api_url':'http://mlx-server:8080'})
+    ces = mlxc.get_catalog_entries({'mlx_api_url': 'http://mlx-server:8080'})
     assert len(ces) == 1
     assert ces[0]['mlx_component_id'] == 'a-test-component-id'
 
@@ -82,7 +84,7 @@ def test_invalid_get_component_definition(requests_mock):
     mlx_component_id = 'a-bogus-component-id'
     requests_mock.get(f'http://no.such.host:8080/apis/v1alpha1/components/{mlx_component_id}/download', real_http=True)
     cd = mlxc.get_component_definition({'mlx_component_id': mlx_component_id},
-                                       {'mlx_api_url':'http://no.such.host:8080'})
+                                       {'mlx_api_url': 'http://no.such.host:8080'})
     assert cd is None
 
     # the specified server URL is invalid (not an MLX server)
@@ -93,7 +95,7 @@ def test_invalid_get_component_definition(requests_mock):
                       status_code=404,
                       headers={'Content-Type': 'text/html'})
     cd = mlxc.get_component_definition({'mlx_component_id': mlx_component_id},
-                                       {'mlx_api_url':'http://not-an-mlx-server:8080'})
+                                       {'mlx_api_url': 'http://not-an-mlx-server:8080'})
     assert cd is None
 
     # the specified server URL is invalid (not an MLX server)
@@ -103,7 +105,7 @@ def test_invalid_get_component_definition(requests_mock):
                       text='The endpoint returns something unexpected',
                       headers={'Content-Type': 'text/html'})
     cd = mlxc.get_component_definition({'mlx_component_id': mlx_component_id},
-                                       {'mlx_api_url':'http://not-an-mlx-server:8080'})
+                                       {'mlx_api_url': 'http://not-an-mlx-server:8080'})
     assert cd is None
 
     # the specified server URL is valid but the specified component id is unknown
@@ -113,8 +115,8 @@ def test_invalid_get_component_definition(requests_mock):
                       status_code=404,
                       headers={'Content-Type': 'application/gzip'})
     cd = mlxc.get_component_definition({'mlx_component_id': mlx_component_id},
-                                       {'mlx_api_url':'http://mlx-server:8080'})
-    assert cd is None    
+                                       {'mlx_api_url': 'http://mlx-server:8080'})
+    assert cd is None
 
 
 def test_get_component_definition(requests_mock):
@@ -142,10 +144,10 @@ def test_get_component_definition(requests_mock):
                       content=mocked_tarfile.getvalue(),
                       headers={'Content-Type': 'application/gzip'})
     cd = mlxc.get_component_definition({'mlx_component_id': mlx_component_id},
-                                       {'mlx_api_url':'http://mlx-server:8080'})
+                                       {'mlx_api_url': 'http://mlx-server:8080'})
     assert cd is not None
     assert cd.definition is not None
-    assert yaml.safe_load(cd.definition)['name'] == 'Echo Sample' 
+    assert yaml.safe_load(cd.definition)['name'] == 'Echo Sample'
     assert json.dumps(cd.identifier) == json.dumps({'mlx_component_id': mlx_component_id})
 
 

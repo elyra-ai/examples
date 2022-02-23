@@ -18,9 +18,10 @@ from pathlib import Path
 from typing import Any
 from typing import Dict
 from typing import List
+from typing import Optional
 
-from elyra.pipeline.catalog_connector import CatalogEntry
 from elyra.pipeline.catalog_connector import ComponentCatalogConnector
+from elyra.pipeline.catalog_connector import ComponentDefinition
 from elyra.pipeline.runtime_type import RuntimeProcessorType
 
 
@@ -58,7 +59,7 @@ class ExamplesCatalogConnector(ComponentCatalogConnector):
 
     def get_component_definition(self,
                                  catalog_entry_data: Dict[str, Any],
-                                 catalog_metadata: Dict[str, Any]) -> CatalogEntry:
+                                 catalog_metadata: Dict[str, Any]) -> Optional[ComponentDefinition]:
         """
         Retrieves a component from the catalog that is identified using
         the information provided in catalog_entry_data.
@@ -67,14 +68,13 @@ class ExamplesCatalogConnector(ComponentCatalogConnector):
         :type catalog_entry_data: Dict[str, Any]
         :param catalog_metadata: the schema instance metadata, as defined in elyra-examples-catalog.json
         :type catalog_metadata: Dict[str, Any]
-        :returns: A CatalogEntry containing the definition, if found
+        :returns: A ComponentDefinition, if found
         """
         component_id = catalog_entry_data.get('component-id')
         if component_id is None:
             self.log.error('Cannot retrieve component: '
                            'A component id must be provided.')
-            return CatalogEntry(None,
-                                catalog_entry_data)
+            return None
 
         runtime_type_name = catalog_metadata.get('runtime_type')
         runtime_type = RuntimeProcessorType.get_instance_by_name(runtime_type_name)
@@ -87,13 +87,11 @@ class ExamplesCatalogConnector(ComponentCatalogConnector):
             self.log.debug(f'Retrieving component of runtime type \'{runtime_type_display_name}\' from '
                            f'{root_dir}')
             with open(root_dir / component_id, 'r') as fp:
-                return CatalogEntry(fp.read(),
-                                    catalog_entry_data)
+                return ComponentDefinition(fp.read())
         except Exception as e:
             self.log.error(f'Failed to fetch component \'{component_id}\' '
                            f' from \'{root_dir}\': {str(e)}')
-            return CatalogEntry(None,
-                                catalog_entry_data)
+            return None
 
     def get_hash_keys(self) -> List[Any]:
         """

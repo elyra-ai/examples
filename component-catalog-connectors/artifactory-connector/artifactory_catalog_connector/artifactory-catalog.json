@@ -1,0 +1,170 @@
+{
+  "$schema": "https://raw.githubusercontent.com/elyra-ai/elyra/master/elyra/metadata/schemas/meta-schema.json",
+  "$id": "https://raw.githubusercontent.com/elyra-ai/examples/master/component-catalog-connectors/artifactory-connector/artifactory_catalog_connector/artifactory-catalog.json",
+  "title": "Artifactory Component Catalog",
+  "name": "artifactory-catalog",
+  "schemaspace": "component-catalogs",
+  "schemaspace_id": "8dc89ca3-4b90-41fd-adb9-9510ad346620",
+  "metadata_class_name": "elyra.pipeline.component_metadata.ComponentCatalogMetadata",
+  "uihints": {
+    "title": "Artifactory Component Catalog",
+    "icon": "",
+    "reference_url": "https://github.com/elyra-ai/examples/tree/master/component-catalog-connectors/artifactory-connector"
+  },
+  "properties": {
+    "schema_name": {
+      "title": "Schema Name",
+      "description": "The schema associated with this instance",
+      "type": "string",
+      "const": "artifactory-catalog"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "description": "Display name of this Component Catalog",
+      "type": "string",
+      "minLength": 1
+    },
+    "metadata": {
+      "description": "Additional data specific to this metadata",
+      "type": "object",
+      "properties": {
+        "description": {
+          "title": "Description",
+          "description": "Description of this Component Catalog",
+          "type": "string",
+          "default": "Artifactory component catalog"
+        },
+        "runtime_type": {
+          "title": "Runtime",
+          "description": "List of runtime types this catalog supports",
+          "type": "string",
+          "enum": [
+            "KUBEFLOW_PIPELINES"
+          ],
+          "default": "KUBEFLOW_PIPELINES",
+          "uihints": {
+            "field_type": "dropdown"
+          }
+        },
+        "categories": {
+          "title": "Category Names",
+          "description": "Assign the components in the catalog to one or more categories, to group them in the visual pipeline editor palette.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 18
+          },
+          "uihints": {
+            "field_type": "array",
+            "category": "Component Categories"
+          }
+        },
+        "artifactory_url": {
+          "title": "Artifactory URL",
+          "description": "URL of the Artifactory server",
+          "type": "string",
+          "format": "uri",
+          "uihints": {
+            "category": "Source",
+            "placeholder": "https://example.org/artifactory/"
+          }
+        },
+        "artifactory_username": {
+          "title": "Artifactory Username",
+          "description": "Username for the Artifactory server",
+          "type": "string",
+          "uihints": {
+            "category": "Source"
+          }
+        },
+        "artifactory_password": {
+          "title": "Artifactory Password/API-Key",
+          "description": "Password or API Key for the Artifactory server",
+          "type": "string",
+          "uihints": {
+            "secure": true,
+            "category": "Source"
+          }
+        },
+        "repository_name": {
+          "title": "Repository Name",
+          "description": "Name of the Artifactory repository",
+          "type": "string",
+          "pattern": "^[^\\/\\:|?*\"'<>+]+$",
+          "uihints": {
+            "category": "Source"
+          }
+        },
+        "repository_path": {
+          "title": "Repository Path",
+          "description": "Path of folder in repository to search under",
+          "type": "string",
+          "default": "/",
+          "uihints": {
+            "category": "Source"
+          }
+        },
+        "max_recursion_depth": {
+          "title": "Maximum Recursion Depth",
+          "description": "Maximum folder depth to recurse looking for '__COMPONENT__' files",
+          "type": "string",
+          "pattern": "^[0-9]+$",
+          "default": "0",
+          "uihints": {
+            "category": "Source"
+          }
+        },
+        "max_files_per_folder": {
+          "title": "Maximum Files Per Folder",
+          "description": "Maximum number of files returned from each folder. ('-1' is unlimited)",
+          "type": "string",
+          "pattern": "^-1|[0-9]+$",
+          "default": "-1",
+          "uihints": {
+            "category": "Source"
+          }
+        },
+        "file_filter": {
+          "title": "File Filter",
+          "description": "Unix-like file name filter. ('*' match everything; '?' any single character; '[seq]' character in seq; '[!seq]' character not in seq, '[0-9]' any number)",
+          "default": "*.yaml",
+          "type": "string",
+          "uihints": {
+            "category": "Source"
+          }
+        },
+        "file_ordering": {
+          "title": "File Ordering",
+          "description": "Order in which files are processed per folder",
+          "type": "string",
+          "enum": [
+            "NAME_ASCENDING",
+            "NAME_DESCENDING",
+            "VERSION_ASCENDING",
+            "VERSION_DESCENDING"
+          ],
+          "default": "VERSION_DESCENDING",
+          "uihints": {
+            "field_type": "dropdown",
+            "category": "Source"
+          }
+        }
+      },
+      "required": [
+        "runtime_type",
+        "artifactory_url",
+        "repository_name",
+        "repository_path",
+        "max_recursion_depth",
+        "max_files_per_folder",
+        "file_filter",
+        "file_ordering"
+      ]
+    }
+  },
+  "required": [
+    "schema_name",
+    "display_name",
+    "metadata"
+  ]
+}

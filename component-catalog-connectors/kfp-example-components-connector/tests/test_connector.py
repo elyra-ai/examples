@@ -16,6 +16,8 @@
 
 from pathlib import Path
 
+from elyra.pipeline.catalog_connector import KfpEntryData
+
 from kfp_examples_connector.examples_connector import ExamplesCatalogConnector
 
 KFP_SUPPORTED_FILE_TYPES = [".yaml"]
@@ -40,15 +42,14 @@ def test_get_hash_keys():
     """
     Verify that `get_hash_keys` returns the expected hash keys
     """
-    xc = ExamplesCatalogConnector(KFP_SUPPORTED_FILE_TYPES)
-    hc = xc.get_hash_keys()
+    hc = ExamplesCatalogConnector.get_hash_keys()
     assert len(hc) == 1
     assert hc[0] == 'component-id'
 
 
-def test_get_component_definition():
+def test_get_entry_data():
     """
-    Test various valid get_component_definition scenarios
+    Test various valid get_entry_data scenarios
     """
     xc = ExamplesCatalogConnector(KFP_SUPPORTED_FILE_TYPES)
 
@@ -56,36 +57,36 @@ def test_get_component_definition():
     example_files = [f for f in examples_resources_dir.glob('**/*.yaml')]
     # validate every definition
     for example in example_files:
-        cd = xc.get_component_definition({'component-id': example.name},
-                                         {'runtime_type': 'KUBEFLOW_PIPELINES'})
-        assert cd is not None
-        assert cd.identifier['component-id'] == example.name
+        ed = xc.get_entry_data({'component-id': example.name},
+                               {'runtime_type': 'KUBEFLOW_PIPELINES'})
+        assert ed is not None
+        assert isinstance(ed, KfpEntryData)
         with open(example, 'r') as component_source:
-            assert component_source.read() == cd.definition
+            assert component_source.read() == ed.definition
 
 
-def test_invalid_get_component_definition():
+def test_invalid_get_entry_data():
     """
-    Test various invalid get_component_definition scenarios
+    Test various invalid get_entry_data scenarios
     """
     xc = ExamplesCatalogConnector(KFP_SUPPORTED_FILE_TYPES)
 
     # no component id specified
-    cd = xc.get_component_definition({},
-                                     {'runtime_type': 'KUBEFLOW_PIPELINES'})
-    assert cd is None
+    ed = xc.get_entry_data({},
+                           {'runtime_type': 'KUBEFLOW_PIPELINES'})
+    assert ed is None
 
     # invalid component id specified and no runtime name
-    cd = xc.get_component_definition({'component-id': 'no-such-component.py'},
-                                     {})
-    assert cd is None
+    ed = xc.get_entry_data({'component-id': 'no-such-component.py'},
+                           {})
+    assert ed is None
 
     # invalid component id specified and invalid runtime name
-    cd = xc.get_component_definition({'component-id': 'no-such-component.py'},
-                                     {'runtime_type': 'NO-SUCH-RUNTIME'})
-    assert cd is None
+    ed = xc.get_entry_data({'component-id': 'no-such-component.py'},
+                           {'runtime_type': 'NO-SUCH-RUNTIME'})
+    assert ed is None
 
     # component does not exist
-    cd = xc.get_component_definition({'component-id': 'no-such-component.py'},
-                                     {'runtime_type': 'KUBEFLOW_PIPELINES'})
-    assert cd is None
+    ed = xc.get_entry_data({'component-id': 'no-such-component.py'},
+                           {'runtime_type': 'KUBEFLOW_PIPELINES'})
+    assert ed is None

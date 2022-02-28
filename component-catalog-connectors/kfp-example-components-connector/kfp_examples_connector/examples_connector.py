@@ -22,6 +22,7 @@ from typing import Optional
 
 from elyra.pipeline.catalog_connector import ComponentCatalogConnector
 from elyra.pipeline.catalog_connector import EntryData
+from elyra.pipeline.catalog_connector import KfpEntryData
 from elyra.pipeline.runtime_type import RuntimeProcessorType
 
 
@@ -91,7 +92,7 @@ class ExamplesCatalogConnector(ComponentCatalogConnector):
             self.log.debug(f'Retrieving component of runtime type \'{runtime_type_display_name}\' from '
                            f'{root_dir}')
             with open(root_dir / component_id, 'r') as fp:
-                return EntryData(definition=fp.read())
+                return KfpEntryData(definition=fp.read())
         except Exception as e:
             self.log.error(f'Failed to fetch component \'{component_id}\' '
                            f' from \'{root_dir}\': {str(e)}')

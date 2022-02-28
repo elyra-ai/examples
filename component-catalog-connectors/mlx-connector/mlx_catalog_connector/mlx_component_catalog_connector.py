@@ -14,20 +14,20 @@
 # limitations under the License.
 #
 
-
-import re
-import tarfile
 from http import HTTPStatus
 from io import BytesIO
+import re
+from tarfile import open
 from tempfile import TemporaryFile
 from typing import Any
 from typing import Dict
 from typing import List
+from typing import Optional
 from urllib.parse import urlparse
 
 from elyra.pipeline.catalog_connector import ComponentCatalogConnector
-from elyra.pipeline.catalog_connector import ComponentDefinition
-
+from elyra.pipeline.catalog_connector import EntryData
+from elyra.pipeline.catalog_connector import KfpEntryData
 import requests
 
 
@@ -113,9 +113,9 @@ class MLXComponentCatalogConnector(ComponentCatalogConnector):
 
         return component_list
 
-    def get_component_definition(self,
-                                 catalog_entry_data: Dict[str, Any],
-                                 catalog_metadata: Dict[str, Any]) -> ComponentDefinition:
+    def get_entry_data(self,
+                       catalog_entry_data: Dict[str, Any],
+                       catalog_metadata: Dict[str, Any]) -> Optional[EntryData]:
         """
         Fetch the component that is identified by catalog_entry_data from
         the MLX catalog.
@@ -126,7 +126,7 @@ class MLXComponentCatalogConnector(ComponentCatalogConnector):
                                  stored; in addition to catalog_entry_data, catalog_metadata may also be
                                  needed to read the component definition for certain types of catalogs
 
-        :returns: A ComponentDefinition containing the definition, if found
+        :returns: An EntryData, if the catalog entry was found
         """
 
         # verify that the required inputs were provided
@@ -169,21 +169,21 @@ class MLXComponentCatalogConnector(ComponentCatalogConnector):
             fp.write(res.content)
             fp.seek(0)
             try:
-                tar = tarfile.open(fileobj=BytesIO(fp.read()),
-                                   mode='r:gz')
+                tar = open(fileobj=BytesIO(fp.read()),
+                           mode='r:gz')
                 if len(tar.getnames()) > 1:
                     self.log.error(f'The response archive contains more than one member: {tar.getnames()}')
 
-                return ComponentDefinition(definition=tar.extractfile(tar.getnames()[0]).read(),
-                                           identifier=catalog_entry_data)
+                return KfpEntryData(definition=tar.extractfile(tar.getnames()[0]).read())
             except Exception as ex:
                 # the response is not a tgz file
                 self.log.error(f'The MLX catalog response could not be processed: {ex}')
                 return None
 
-    def get_hash_keys(self) -> List[Any]:
+    @classmethod
+    def get_hash_keys(cls) -> List[Any]:
         """
-        Identifies the unique MLX catalog key that read_catalog_entry can use
+        Identifies the unique MLX catalog key that get_entry_data can use
         to fetch an entry from the catalog. Method get_catalog_entries retrieves
         the list of available key values.
 

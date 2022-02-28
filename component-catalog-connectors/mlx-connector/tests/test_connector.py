@@ -19,6 +19,8 @@ import json
 import tarfile
 from pathlib import Path
 
+from elyra.pipeline.catalog_connector import KfpEntryData
+
 from mlx_catalog_connector.mlx_component_catalog_connector import MLXComponentCatalogConnector
 
 import yaml
@@ -74,18 +76,18 @@ def test_get_catalog_entries(requests_mock):
     assert ces[0]['mlx_component_id'] == 'a-test-component-id'
 
 
-def test_invalid_get_component_definition(requests_mock):
+def test_invalid_get_entry_data(requests_mock):
     """
-    Test various invalid get_component_definition scenarios
+    Test various invalid get_entry_data scenarios
     """
     mlxc = MLXComponentCatalogConnector(KFP_SUPPORTED_FILE_TYPES)
 
     # The specified host is invalid (no such host)
     mlx_component_id = 'a-bogus-component-id'
     requests_mock.get(f'http://no.such.host:8080/apis/v1alpha1/components/{mlx_component_id}/download', real_http=True)
-    cd = mlxc.get_component_definition({'mlx_component_id': mlx_component_id},
-                                       {'mlx_api_url': 'http://no.such.host:8080'})
-    assert cd is None
+    ed = mlxc.get_entry_data({'mlx_component_id': mlx_component_id},
+                             {'mlx_api_url': 'http://no.such.host:8080'})
+    assert ed is None
 
     # the specified server URL is invalid (not an MLX server)
     # the endpoint wasn't found
@@ -94,9 +96,9 @@ def test_invalid_get_component_definition(requests_mock):
                       text='There is no such endpoint',
                       status_code=404,
                       headers={'Content-Type': 'text/html'})
-    cd = mlxc.get_component_definition({'mlx_component_id': mlx_component_id},
-                                       {'mlx_api_url': 'http://not-an-mlx-server:8080'})
-    assert cd is None
+    ed = mlxc.get_entry_data({'mlx_component_id': mlx_component_id},
+                             {'mlx_api_url': 'http://not-an-mlx-server:8080'})
+    assert ed is None
 
     # the specified server URL is invalid (not an MLX server)
     # the endpoint returns something unexpected
@@ -104,9 +106,9 @@ def test_invalid_get_component_definition(requests_mock):
     requests_mock.get(f'http://not-an-mlx-server:8080/apis/v1alpha1/components/{mlx_component_id}/download',
                       text='The endpoint returns something unexpected',
                       headers={'Content-Type': 'text/html'})
-    cd = mlxc.get_component_definition({'mlx_component_id': mlx_component_id},
-                                       {'mlx_api_url': 'http://not-an-mlx-server:8080'})
-    assert cd is None
+    ed = mlxc.get_entry_data({'mlx_component_id': mlx_component_id},
+                             {'mlx_api_url': 'http://not-an-mlx-server:8080'})
+    assert ed is None
 
     # the specified server URL is valid but the specified component id is unknown
     mlx_component_id = 'a-bogus-component-id'
@@ -114,14 +116,14 @@ def test_invalid_get_component_definition(requests_mock):
                       text='Could not find component with id a-bogus-component-id',
                       status_code=404,
                       headers={'Content-Type': 'application/gzip'})
-    cd = mlxc.get_component_definition({'mlx_component_id': mlx_component_id},
-                                       {'mlx_api_url': 'http://mlx-server:8080'})
-    assert cd is None
+    ed = mlxc.get_entry_data({'mlx_component_id': mlx_component_id},
+                             {'mlx_api_url': 'http://mlx-server:8080'})
+    assert ed is None
 
 
-def test_get_component_definition(requests_mock):
+def test_get_entry_data(requests_mock):
     """
-    Test various valid get_component_definition scenarios
+    Test various valid get_entry_data scenarios
     """
     mlxc = MLXComponentCatalogConnector(KFP_SUPPORTED_FILE_TYPES)
 
@@ -143,19 +145,18 @@ def test_get_component_definition(requests_mock):
                       status_code=200,
                       content=mocked_tarfile.getvalue(),
                       headers={'Content-Type': 'application/gzip'})
-    cd = mlxc.get_component_definition({'mlx_component_id': mlx_component_id},
-                                       {'mlx_api_url': 'http://mlx-server:8080'})
-    assert cd is not None
-    assert cd.definition is not None
-    assert yaml.safe_load(cd.definition)['name'] == 'Echo Sample'
-    assert json.dumps(cd.identifier) == json.dumps({'mlx_component_id': mlx_component_id})
+    ed = mlxc.get_entry_data({'mlx_component_id': mlx_component_id},
+                             {'mlx_api_url': 'http://mlx-server:8080'})
+    assert ed is not None
+    assert isinstance(ed, KfpEntryData)
+    assert ed.definition is not None
+    assert yaml.safe_load(ed.definition)['name'] == 'Echo Sample'
 
 
 def test_get_hash_keys():
     """
     Verify that `get_hash_keys` returns the expected hash keys
     """
-    mlxc = MLXComponentCatalogConnector(KFP_SUPPORTED_FILE_TYPES)
-    hc = mlxc.get_hash_keys()
+    hc = MLXComponentCatalogConnector.get_hash_keys()
     assert len(hc) == 1
     assert hc[0] == 'mlx_component_id'

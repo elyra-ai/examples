@@ -21,7 +21,7 @@ from typing import List
 from typing import Optional
 
 from elyra.pipeline.catalog_connector import ComponentCatalogConnector
-from elyra.pipeline.catalog_connector import ComponentDefinition
+from elyra.pipeline.catalog_connector import EntryData
 from elyra.pipeline.runtime_type import RuntimeProcessorType
 
 
@@ -57,9 +57,9 @@ class ExamplesCatalogConnector(ComponentCatalogConnector):
 
         return component_list
 
-    def get_component_definition(self,
-                                 catalog_entry_data: Dict[str, Any],
-                                 catalog_metadata: Dict[str, Any]) -> Optional[ComponentDefinition]:
+    def get_entry_data(self,
+                       catalog_entry_data: Dict[str, Any],
+                       catalog_metadata: Dict[str, Any]) -> Optional[EntryData]:
         """
         Retrieves a component from the catalog that is identified using
         the information provided in catalog_entry_data.
@@ -68,7 +68,7 @@ class ExamplesCatalogConnector(ComponentCatalogConnector):
         :type catalog_entry_data: Dict[str, Any]
         :param catalog_metadata: the schema instance metadata, as defined in elyra-examples-catalog.json
         :type catalog_metadata: Dict[str, Any]
-        :returns: A ComponentDefinition, if found
+        :returns: An EntryData, if the catalog entry was found
         """
         component_id = catalog_entry_data.get('component-id')
         if component_id is None:
@@ -91,14 +91,14 @@ class ExamplesCatalogConnector(ComponentCatalogConnector):
             self.log.debug(f'Retrieving component of runtime type \'{runtime_type_display_name}\' from '
                            f'{root_dir}')
             with open(root_dir / component_id, 'r') as fp:
-                return ComponentDefinition(definition=fp.read(),
-                                           identifier=catalog_entry_data)
+                return EntryData(definition=fp.read())
         except Exception as e:
             self.log.error(f'Failed to fetch component \'{component_id}\' '
                            f' from \'{root_dir}\': {str(e)}')
             return None
 
-    def get_hash_keys(self) -> List[Any]:
+    @classmethod
+    def get_hash_keys(cls) -> List[Any]:
         """
         Identifies the key(s) that read_catalog_entry method
         requires to be present in the catalog_entry_data parameter

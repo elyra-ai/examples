@@ -44,7 +44,7 @@ In this introductory tutorial you will learn how to create a generic pipeline an
 This tutorial uses the `introduction to generic pipelines` sample from the https://github.com/elyra-ai/examples GitHub repository.
 1. Launch JupyterLab.    
    > **Note**: When you start JupyterLab using the `jupyter lab` command, it loads the contents of the current working directory.  
-   > For examples, we recommend starting JupyterLab from a new directory on your system that is not an existing git repository. This will make sure you can clone the repository as mentioned in the next step.
+   > For example, we recommend starting JupyterLab from a new directory on your system that is not an existing git repository. This will make sure you can clone the repository as mentioned in the next step.
 1. Open the _Git clone_ wizard (Git > Clone A Repository).
 1. Enter `https://github.com/elyra-ai/examples.git` as _Clone URI_.
 1. In the _File Browser_ navigate to `examples/pipelines/introduction-to-generic-pipelines`.

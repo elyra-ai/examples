@@ -91,7 +91,7 @@ class TODOComponentCatalogConnector(ComponentCatalogConnector):
             stored; in addition to catalog_entry_data, catalog_metadata may also be needed to read the
             component definition for certain types of catalogs
 
-        :returns: the content of the given catalog entry's definition in string form
+        :returns: An instance of EntryData, if the referenced catalog_entry_data was found
         """
 
         # Load user-provided catalog connector parameters.

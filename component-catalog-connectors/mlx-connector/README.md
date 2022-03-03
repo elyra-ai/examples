@@ -10,10 +10,12 @@ You can install the MLX catalog connector from PyPI or source code. Note that a 
 
 **Prerequisites**
 
-- [Install Elyra](https://elyra.readthedocs.io/en/stable/getting_started/installation.html) (version 3.3 and above).
+- [Install Elyra](https://elyra.readthedocs.io/en/stable/getting_started/installation.html) (version 3.7 and above). This connector version does not support Elyra versions below 3.6. 
 - [Machine Learning Exchange deployment](https://github.com/machine-learning-exchange/mlx) ([quickstart guide](https://github.com/machine-learning-exchange/mlx/tree/main/quickstart))
 
 **Install from PyPI**
+
+To install the connector from PyPI:
 
   ```
   $ pip install mlx-component-catalog-connector
@@ -21,11 +23,25 @@ You can install the MLX catalog connector from PyPI or source code. Note that a 
 
 **Install from source code**
 
+To install the connector from source:
+
    ```
    $ git clone https://github.com/elyra-ai/examples.git
    $ cd examples/component-catalog-connectors/mlx-connector/
    $ make source-install
    ```
+
+**Run connector unit tests**
+
+To run the unit tests:
+
+   ```
+   $ git clone https://github.com/elyra-ai/examples.git
+   $ cd examples/component-catalog-connectors/mlx-connector/
+   $ make test
+   ```
+
+Note: The tests don't require access to a running MLX instance.
 
 ### Use the connector
 

@@ -10,9 +10,11 @@ You can install the component examples from PyPI or source code. Note that a **r
 
 **Prerequisites**
 
-- [Install Elyra](https://elyra.readthedocs.io/en/stable/getting_started/installation.html) (version 3.3 and above).
+- [Install Elyra](https://elyra.readthedocs.io/en/stable/getting_started/installation.html) (version 3.7 and above). This connector version does not support Elyra versions below 3.7. 
 
 **Install from PyPI**
+
+To install the connector from PyPI:
 
   ```
   $ pip install elyra-examples-kfp-catalog
@@ -20,10 +22,22 @@ You can install the component examples from PyPI or source code. Note that a **r
 
 **Install from source code**
 
+To install the connector from source:
+
    ```
    $ git clone https://github.com/elyra-ai/examples.git
    $ cd examples/component-catalog-connectors/kfp-example-components-connector/
    $ make clean source-install
+   ```
+
+**Run connector unit tests**
+
+To run the unit tests:
+
+   ```
+   $ git clone https://github.com/elyra-ai/examples.git
+   $ cd examples/component-catalog-connectors/kfp-example-components-connector/
+   $ make test
    ```
 
 ### Use the connector

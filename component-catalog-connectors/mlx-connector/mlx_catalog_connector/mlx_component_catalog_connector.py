@@ -14,11 +14,10 @@
 # limitations under the License.
 #
 
-
 from http import HTTPStatus
 from io import BytesIO
 import re
-import tarfile
+from tarfile import open
 from tempfile import TemporaryFile
 from typing import Any
 from typing import Dict
@@ -27,6 +26,8 @@ from typing import Optional
 from urllib.parse import urlparse
 
 from elyra.pipeline.catalog_connector import ComponentCatalogConnector
+from elyra.pipeline.catalog_connector import EntryData
+from elyra.pipeline.catalog_connector import KfpEntryData
 import requests
 
 
@@ -64,13 +65,13 @@ class MLXComponentCatalogConnector(ComponentCatalogConnector):
             # Query MLX catalog components endpoint
             res = requests.get(endpoint)
             if res.status_code != HTTPStatus.OK:
-                self.log.warning(f'Error fetching component list from MLX catalog {mlx_api_url}: '
+                self.log.warning(f'Error fetching component list from MLX catalog \'{mlx_api_url}\': '
                                  f'Request: {endpoint} HTTP code: {res.status_code}.')
                 return component_list
 
-            if res.headers['Content-Type'] != 'application/json':
-                self.log.warning(f'Error fetching component list from MLX catalog {mlx_api_url}: '
-                                 f'Unexpected content type: {res.headers["Content-Type"]}.'
+            if res.headers.get('Content-Type') != 'application/json':
+                self.log.warning(f'Error fetching component list from MLX catalog \'{mlx_api_url}\': '
+                                 f'Unexpected response content type: {res.headers.get("Content-Type")}. '
                                  f'Content: {res.content}')
                 return component_list
 
@@ -83,6 +84,14 @@ class MLXComponentCatalogConnector(ComponentCatalogConnector):
             #    }
             # ]
 
+            json_response = res.json()
+            if json_response.get('components') is None or \
+               not isinstance(json_response['components'], list):
+                self.log.warning(f'Error fetching component list from MLX catalog \'{mlx_api_url}\': '
+                                 f'Unexpected JSON response: '
+                                 f'Content: {res.content}')
+                return component_list
+
             # create component filter regex if a filter condition was
             # specified by the user
             filter_expression = catalog_metadata.get('filter', '').strip()
@@ -92,7 +101,7 @@ class MLXComponentCatalogConnector(ComponentCatalogConnector):
 
             # post-process the component list by applying the filter regex, if
             # one was specified
-            for component in res.json().get('components', []):
+            for component in json_response.get('components', []):
                 if regex:
                     if re.fullmatch(regex, component.get('name', ''), flags=re.IGNORECASE):
                         component_list.append({'mlx_component_id': component.get('id')})
@@ -100,13 +109,13 @@ class MLXComponentCatalogConnector(ComponentCatalogConnector):
                     component_list.append({'mlx_component_id': component.get('id')})
 
         except Exception as ex:
-            self.log.warning(f'Error fetching component list from MLX catalog {mlx_api_url}: {ex}')
+            self.log.warning(f'Error fetching component list from MLX catalog \'{mlx_api_url}\': {ex}')
 
         return component_list
 
-    def read_catalog_entry(self,
-                           catalog_entry_data: Dict[str, Any],
-                           catalog_metadata: Dict[str, Any]) -> Optional[str]:
+    def get_entry_data(self,
+                       catalog_entry_data: Dict[str, Any],
+                       catalog_metadata: Dict[str, Any]) -> Optional[EntryData]:
         """
         Fetch the component that is identified by catalog_entry_data from
         the MLX catalog.
@@ -117,7 +126,7 @@ class MLXComponentCatalogConnector(ComponentCatalogConnector):
                                  stored; in addition to catalog_entry_data, catalog_metadata may also be
                                  needed to read the component definition for certain types of catalogs
 
-        :returns: the content of the given catalog entry's definition in string form
+        :returns: An EntryData, if the catalog entry was found
         """
 
         # verify that the required inputs were provided
@@ -128,7 +137,7 @@ class MLXComponentCatalogConnector(ComponentCatalogConnector):
 
         mlx_component_id = catalog_entry_data['mlx_component_id']
         if mlx_component_id is None:
-            self.log.error(f'Cannot retrieve component specification from MLX catalog {mlx_api_url}: '
+            self.log.error(f'Cannot retrieve component specification from MLX catalog \'{mlx_api_url}\': '
                            'A component id must be provided.')
             return None
 
@@ -139,13 +148,19 @@ class MLXComponentCatalogConnector(ComponentCatalogConnector):
             res = requests.get(endpoint)
         except Exception as e:
             self.log.error(f'Failed to download component specification {mlx_component_id} '
-                           f'from {mlx_api_url}: {str(e)}')
+                           f'from \'{mlx_api_url}\': {str(e)}')
             return None
 
         if res.status_code != HTTPStatus.OK:
-            self.log.error(f'Error fetching component specification {mlx_component_id} '
-                           f'from MLX catalog {mlx_api_url}: '
+            self.log.error(f'Error fetching component specification \'{mlx_component_id}\' '
+                           f'from MLX catalog \'{mlx_api_url}\': '
                            f'Request: {endpoint} HTTP code: {res.status_code}.')
+            return None
+
+        if res.headers.get('Content-Type') != 'application/gzip':
+            self.log.error(f'Error fetching component specification \'{mlx_component_id}\' '
+                           f'from MLX catalog \'{mlx_api_url}\': '
+                           f'Unexpected response content type: {res.headers.get("Content-Type")}.')
             return None
 
         # response type should be 'application/gzip'
@@ -154,21 +169,21 @@ class MLXComponentCatalogConnector(ComponentCatalogConnector):
             fp.write(res.content)
             fp.seek(0)
             try:
-                tar = tarfile.open(fileobj=BytesIO(fp.read()),
-                                   mode='r:gz')
+                tar = open(fileobj=BytesIO(fp.read()),
+                           mode='r:gz')
                 if len(tar.getnames()) > 1:
                     self.log.error(f'The response archive contains more than one member: {tar.getnames()}')
 
-                return tar.extractfile(tar.getnames()[0]).read()
+                return KfpEntryData(definition=tar.extractfile(tar.getnames()[0]).read())
             except Exception as ex:
                 # the response is not a tgz file
                 self.log.error(f'The MLX catalog response could not be processed: {ex}')
+                return None
 
-        return None
-
-    def get_hash_keys(self) -> List[Any]:
+    @classmethod
+    def get_hash_keys(cls) -> List[Any]:
         """
-        Identifies the unique MLX catalog key that read_catalog_entry can use
+        Identifies the unique MLX catalog key that get_entry_data can use
         to fetch an entry from the catalog. Method get_catalog_entries retrieves
         the list of available key values.
 

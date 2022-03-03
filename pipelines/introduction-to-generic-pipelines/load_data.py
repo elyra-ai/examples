@@ -14,10 +14,11 @@
 # limitations under the License.
 #
 import os
-from pathlib import Path
-import requests
 import tarfile
+from pathlib import Path
 from urllib.parse import urlparse
+
+import requests
 
 
 def download_from_public_url(url):

@@ -42,7 +42,9 @@ In this introductory tutorial you will learn how to create a generic pipeline an
 ### Setup
 
 This tutorial uses the `introduction to generic pipelines` sample from the https://github.com/elyra-ai/examples GitHub repository.
-1. Launch JupyterLab.
+1. Launch JupyterLab.    
+   > **Note**: When you start JupyterLab using the `jupyter lab` command, it loads the contents of the current working directory.  
+   > For example, we recommend starting JupyterLab from a new directory on your system that is not an existing git repository. This will make sure you can clone the repository as mentioned in the next step.
 1. Open the _Git clone_ wizard (Git > Clone A Repository).
 1. Enter `https://github.com/elyra-ai/examples.git` as _Clone URI_.
 1. In the _File Browser_ navigate to `examples/pipelines/introduction-to-generic-pipelines`.
@@ -139,7 +141,7 @@ To add a notebook or script to the pipeline:
 
    ![Scan file for environment variables](doc/images/scan-file.png)
 
-   It appears that `load_data` requires environment variable `DATASET_URL` to be set. This variable identifies the name and location of a data set file, which the notebook or script will download and decompress. 
+   It appears that `load_data` references two environment variables i.e `DATASET_URL` and `ELYRA_RUNTIME_ENV`. The `DATASET_URL` requires to be set. This variable identifies the name and location of a data set file, which the notebook or script will download and decompress. The `ELYRA_RUNTIME_ENV` is a read-only variable. For details refer to [Proprietary environment variables](https://elyra.readthedocs.io/en/stable/user_guide/best-practices-file-based-nodes.html#proprietary-environment-variables).
 
 1. Assign environment variable `DATASET_URL` the appropriate value as shown below:
 

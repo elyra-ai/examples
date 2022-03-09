@@ -21,6 +21,7 @@ from typing import List
 from typing import Optional
 
 from elyra.pipeline.catalog_connector import ComponentCatalogConnector
+from elyra.pipeline.catalog_connector import EntryData
 
 """
  Customize this template file as necessary. At a minimum all occurrences
@@ -61,7 +62,7 @@ class TODOComponentCatalogConnector(ComponentCatalogConnector):
 
             # Fetch components and add their keys to the component list.
             # Each 'todo_component_key_info' uniquely identifies a component in the catalog.
-            # Method read_catalog_entry has access to todo_component_key_info via the
+            # Method get_entry_data has access to todo_component_key_info via the
             # 'catalog_entry_data' parameter and uses it to retrieve the component from the catalog.
             todo_component_key_info = {
                 'TODO-COMPONENT-KEY': 'dummy-component.yaml'
@@ -75,20 +76,22 @@ class TODOComponentCatalogConnector(ComponentCatalogConnector):
 
         return component_list
 
-    def read_catalog_entry(self,
-                           catalog_entry_data: Dict[str, Any],
-                           catalog_metadata: Dict[str, Any]) -> Optional[str]:
+    def get_entry_data(self,
+                       catalog_entry_data: Dict[str, Any],
+                       catalog_metadata: Dict[str, Any]) -> Optional[EntryData]:
         """
-        Fetch the component that is identified by catalog_entry_data from
-        the <TODO> catalog.
+        Fetch the definition that is identified by catalog_entry_data for the <TODO> catalog and
+        create an EntryData object to represent it. If runtime-type-specific properties are required
+        (e.g. `package_name` for certain Airflow operators), a runtime-type-specific EntryData
+        object can be created, e.g. AirflowEntryData(definition=<...>, package_name=<...>)
 
         :param catalog_entry_data: a dictionary that contains the information needed to read the content
-                                   of the component definition
+            of the component definition
         :param catalog_metadata: the metadata associated with the catalog in which this catalog entry is
-                                 stored; in addition to catalog_entry_data, catalog_metadata may also be
-                                 needed to read the component definition for certain types of catalogs
+            stored; in addition to catalog_entry_data, catalog_metadata may also be needed to read the
+            component definition for certain types of catalogs
 
-        :returns: the content of the given catalog entry's definition in string form
+        :returns: An instance of EntryData, if the referenced catalog_entry_data was found
         """
 
         # Load user-provided catalog connector parameters.
@@ -113,13 +116,14 @@ class TODOComponentCatalogConnector(ComponentCatalogConnector):
         self.log.debug(f'Fetching component from {component_source}')
         with open(component_source, 'r') as dummy_component_fp:
             # read and return component
-            return dummy_component_fp.read()
+            return EntryData(definition=dummy_component_fp.read())
 
         return None
 
-    def get_hash_keys(self) -> List[Any]:
+    @classmethod
+    def get_hash_keys(cls) -> List[Any]:
         """
-        Identifies the unique TODO catalog key that method read_catalog_entry
+        Identifies the unique TODO catalog key that method get_entry_data
         can use to fetch a component from the catalog. Method get_catalog_entries
         retrieves the list of available key values from the catalog.
 

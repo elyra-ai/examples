@@ -17,7 +17,7 @@ The Elyra examples repository includes two types of catalog connectors:
 
    ![package-based catalog connector](doc/images/package-based-catalog-connector.png)
 
-   The [Apache Airflow component examples connector](airflow-example-components-connector/) and the [Kubeflow Pipelines component examples connector](kfp-example-components-connector/) are two examples. Each connector provides a static set components for each respective runtime.
+   The [Kubeflow Pipelines component examples connector](kfp-example-components-connector/) is an example of this type of catalog. Each connector provides a static set components for each respective runtime.
 
 Irrespective of which type of connector you plan to implement, you need to complete the following tasks:
  - create a catalog connector schema
@@ -27,11 +27,11 @@ Irrespective of which type of connector you plan to implement, you need to compl
 
 To get you started quickly with catalog connector development, the Elyra examples repository includes [quickstart catalog connector template files](connector-template/), which are referenced in the instructions below.
 
-The quickstart connector contains a built-in catalog, which contains only a single component. The aforementioned Kubeflow Pipelines and Apache Airflow component examples connectors are more flexible versions of this connector, which can serve many components.
+The quickstart connector contains a built-in catalog, which contains only a single component. The aforementioned Kubeflow Pipelines example connector is a more flexible version of this connector, which can serve many components.
 
 ### Prepare for development
 
-1. Install Elyra version 3.3 or later from PyPI or source.
+1. Install Elyra version 3.7 or later from PyPI or source.
 1. Clone or fork the [Elyra examples repository](https://github.com/elyra-ai/examples).
 1. Change into the `component-catalog-connectors/connector-template` directory. The directory contains a fully functional connector implementation that can be customized to meet your needs.
 1. Verify that the quickstart template connector works as expected by completing the [installation and usage instructions in the README](/component-catalog-connectors/connector-template/README.md).
@@ -47,9 +47,9 @@ The common public properties are:
  - catalog instance name
  - catalog instance description
  - runtime type filter, which governs the kind of components the connector makes available
- - component categories, which group the components together in the pipeline editor
+ - component categories, which group the components together in the pipeline editor palette
 
-Connector schemas can optionally also include custom public properties. For illustrative purposes, the quickstart template connector defines a required custom property and an optional custom property. Required properties are typically used to collect catalog connectivity information, such as a server URL, or API token. 
+Connector schemas can optionally also include custom public properties. For illustrative purposes, the quickstart template connector defines a required custom property and an optional custom property. Required properties are typically used to collect catalog connectivity information, such as a server URL or API token. 
 
 #### Customize the schema
 
@@ -97,7 +97,7 @@ Example `SchemasProvider` implementations:
 A catalog connector class implements the API that Elyra uses to query the component catalog and retrieve components. The quickstart connector class source code `todo_catalog_connector.py` is located in the [`todo_catalog_connector`](connector-template/todo_catalog_connector) directory.
 
 1. Customize the class name.
-1. Implement the `get_catalog_entries`, `read_catalog_entry`, and `get_hash_keys` methods.
+1. Implement the `get_catalog_entries`, `get_entry_data`, and `get_hash_keys` methods.
 
 Example catalog connector implementations:
  - [Kubeflow Pipelines example components connector](/component-catalog-connectors/kfp-example-components-connector/kfp_examples_connector/examples_connector.py)
@@ -208,7 +208,7 @@ The JupyterLab log file should include an error message that explains what happe
     No definition content found for catalog entry with identifying information: {'...': '...'}. Skipping... 
     ```
 
-    Action: The connector implementation class's `read_catalog_entry` method did not return a component for the provided identifying information. This identifying information was returned by the connector implementation class's `get_catalog_entries` method. Make sure that the information is correct and that the component exists in the catalog.
+    Action: The connector implementation class's `get_entry_data` method did not return an `EntryData` object or the returned object did not include a component definition for the provided identifying information. This identifying information was returned by the connector implementation class's `get_catalog_entries` method. Make sure that the information is correct and that the component exists in the catalog.
 
 
 

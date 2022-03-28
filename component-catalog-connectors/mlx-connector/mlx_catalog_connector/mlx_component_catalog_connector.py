@@ -174,7 +174,7 @@ class MLXComponentCatalogConnector(ComponentCatalogConnector):
                 if len(tar.getnames()) > 1:
                     self.log.error(f'The response archive contains more than one member: {tar.getnames()}')
 
-                return KfpEntryData(definition=tar.extractfile(tar.getnames()[0]).read())
+                return KfpEntryData(definition=tar.extractfile(tar.getnames()[0]).read().decode("utf-8"))
             except Exception as ex:
                 # the response is not a tgz file
                 self.log.error(f'The MLX catalog response could not be processed: {ex}')

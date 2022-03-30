@@ -284,7 +284,7 @@
             }
           ]
         },
-        "version": 4,
+        "version": 7,
         "properties": {
           "name": "analyze_NOAA_weather_data",
           "runtime": "Generic",

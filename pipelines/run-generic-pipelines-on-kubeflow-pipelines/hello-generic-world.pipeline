@@ -301,7 +301,7 @@
             }
           ]
         },
-        "version": 4,
+        "version": 7,
         "properties": {
           "name": "hello-generic-world",
           "runtime": "Generic",

@@ -78,13 +78,13 @@
             }
           ]
         },
-        "version": 4,
-        "runtime": "kfp",
+        "version": 7,
         "properties": {
           "name": "visualize_metrics",
           "runtime": "Kubeflow Pipelines",
           "description": "This pipeline illustrates how to generate and visualize metrics in Kubeflow Pipelines."
-        }
+        },
+        "runtime_type": "KUBEFLOW_PIPELINES"
       },
       "runtime_ref": ""
     }

@@ -32,7 +32,7 @@ setup_args = dict(
     name="elyra-examples-kfp-catalog",
     version=version_ns['__version__'],
     url="https://github.com/elyra-ai/examples/"
-        "tree/master/component-catalog-connectors/kfp-example-components-connector",
+        "tree/main/component-catalog-connectors/kfp-example-components-connector",
     description="Curated Elyra component catalog for example Kubeflow Pipelines components.",
     long_description=long_desc,
     author="Elyra Maintainers",

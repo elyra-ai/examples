@@ -64,7 +64,7 @@ Collect the following information:
 
 #### Create a runtime configuration
 
-Create a runtime environment configuration for your Kubeflow Pipelines installation as described in [_Runtime configuration_ topic in the User Guide](https://elyra.readthedocs.io/en/stable/user_guide/runtime-conf.html) or the [_Run generic pipelines on Kubeflow Pipelines_ tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/run-generic-pipelines-on-kubeflow-pipelines#define-a-runtime-environment-configuration).
+Create a runtime environment configuration for your Kubeflow Pipelines installation as described in [_Runtime configuration_ topic in the User Guide](https://elyra.readthedocs.io/en/stable/user_guide/runtime-conf.html) or the [_Run generic pipelines on Kubeflow Pipelines_ tutorial](https://github.com/elyra-ai/examples/tree/main/pipelines/run-generic-pipelines-on-kubeflow-pipelines#define-a-runtime-environment-configuration).
 
 #### Clone the tutorial artifacts
 This tutorial uses the `run-pipelines-on-kubeflow-pipelines` sample from the https://github.com/elyra-ai/examples GitHub repository.
@@ -103,7 +103,7 @@ Use locally stored component specifications if there is no (immediate) need to s
 
    ![Add component catalog entry](doc/images/add-component-catalog-entry.png)
 
-   Note that the palette may already [include a few example components](https://github.com/elyra-ai/examples/tree/master/component-catalog-connectors/kfp-example-components-connector), depending on how you installed Elyra. These examples are included for illustrative purposes to help you get started but you won't use them in this tutorial.
+   Note that the palette may already [include a few example components](https://github.com/elyra-ai/examples/tree/main/component-catalog-connectors/kfp-example-components-connector), depending on how you installed Elyra. These examples are included for illustrative purposes to help you get started but you won't use them in this tutorial.
 1. Add a new component catalog entry by clicking `+` and `New Filesystem Component Catalog`.
    The first tutorial component you are adding counts the number of rows in a file.
 1. Enter or select the following:
@@ -140,7 +140,7 @@ To add component specifications to the catalog that are stored on the web:
    - **Description**: `download data from public sources`
    - **Runtime**: `KUBEFLOW_PIPELINES`
    - **Category Names**: `download`
-   - **URLs**: `https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-kubeflow-pipelines/components/download-file.yaml`
+   - **URLs**: `https://raw.githubusercontent.com/elyra-ai/examples/main/pipelines/run-pipelines-on-kubeflow-pipelines/components/download-file.yaml`
 1. Save the component catalog entry.
 
 The catalog is now populated with the custom components you'll use in the tutorial pipeline.
@@ -171,7 +171,7 @@ The pipeline editor's palette is populated from the component catalog. To use th
 
    ![Review node properties](doc/images/review-download-node-properties.png)
 
-1. Review the node properties. The properties are a combination of Elyra metadata and information that was extracted from the [component's specification](https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-kubeflow-pipelines/components/download-file.yaml):
+1. Review the node properties. The properties are a combination of Elyra metadata and information that was extracted from the [component's specification](https://raw.githubusercontent.com/elyra-ai/examples/main/pipelines/run-pipelines-on-kubeflow-pipelines/components/download-file.yaml):
    ```
    name: Download File
    description: Downloads a file from a public HTTP/S URL using a GET request.
@@ -211,11 +211,11 @@ The pipeline editor's palette is populated from the component catalog. To use th
 
    - `Component source`: A read-only property that identifies the location from where the component specification was loaded. This property is displayed for informational purposes only.   
 
-1. Enter `https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-kubeflow-pipelines/data/data.csv` as value for the `URL` input property.
+1. Enter `https://raw.githubusercontent.com/elyra-ai/examples/main/pipelines/run-pipelines-on-kubeflow-pipelines/data/data.csv` as value for the `URL` input property.
 
    ![Configure download node](doc/images/configure-download-node.png)
 
-1. Open the properties of the '`Count Rows`' node. The [specification for the underlying component looks as follows](https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-kubeflow-pipelines/components/count-rows.yaml):
+1. Open the properties of the '`Count Rows`' node. The [specification for the underlying component looks as follows](https://raw.githubusercontent.com/elyra-ai/examples/main/pipelines/run-pipelines-on-kubeflow-pipelines/components/count-rows.yaml):
    ```
    name: Count Rows
    description: Count the number of rows in the input file
@@ -305,6 +305,6 @@ This concludes the _Run pipelines on Kubeflow Pipelines_ tutorial. You've learne
 - [_Pipelines_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/pipelines.html)
 - [_Pipeline components_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html)
 - [_Requirements and best practices for custom pipeline components_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/best-practices-custom-pipeline-components.html)
-- [Example component catalog connectors](https://github.com/elyra-ai/examples/tree/master/component-catalog-connectors)
-- [Component catalog directory](https://github.com/elyra-ai/examples/blob/master/component-catalog-connectors/connector-directory.md)
+- [Example component catalog connectors](https://github.com/elyra-ai/examples/tree/main/component-catalog-connectors)
+- [Component catalog directory](https://github.com/elyra-ai/examples/blob/main/component-catalog-connectors/connector-directory.md)
 - [_Command line interface_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/command-line-interface.html)

@@ -1,6 +1,6 @@
 {
-  "$schema": "https://raw.githubusercontent.com/elyra-ai/elyra/master/elyra/metadata/schemas/meta-schema.json",
-  "$id": "https://raw.githubusercontent.com/elyra-ai/examples/master/component-catalog-connectors/kfp-example-components-connector/kfp_examples_connector/elyra-kfp-catalog.json",
+  "$schema": "https://raw.githubusercontent.com/elyra-ai/elyra/main/elyra/metadata/schemas/meta-schema.json",
+  "$id": "https://raw.githubusercontent.com/elyra-ai/examples/main/component-catalog-connectors/kfp-example-components-connector/kfp_examples_connector/elyra-kfp-catalog.json",
   "title": "Kubeflow Pipelines example components catalog",
   "name": "elyra-kfp-examples-catalog",
   "schemaspace": "component-catalogs",
@@ -9,7 +9,7 @@
   "uihints": {
     "title": "Kubeflow Pipelines example components catalog",
     "icon": "",
-    "reference_url": "https://github.com/elyra-ai/examples/tree/master/component-catalog-connectors/kfp-example-components-connector"
+    "reference_url": "https://github.com/elyra-ai/examples/tree/main/component-catalog-connectors/kfp-example-components-connector"
   },
   "properties": {
     "schema_name": {

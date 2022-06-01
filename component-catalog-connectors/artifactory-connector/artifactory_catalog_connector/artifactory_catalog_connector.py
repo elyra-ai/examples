@@ -23,7 +23,7 @@ from urllib.parse import urlparse
 
 import requests
 from artifactory_catalog_connector import packaging_ports
-from elyra.pipeline.catalog_connector import ComponentCatalogConnector
+from elyra.pipeline.catalog_connector import ComponentCatalogConnector, EntryData, KfpEntryData
 from requests.auth import HTTPBasicAuth, AuthBase
 
 
@@ -235,20 +235,19 @@ class ArtifactoryComponentCatalogConnector(ComponentCatalogConnector):
 
         return component_list
 
-    def read_catalog_entry(
+    def get_entry_data(
         self, catalog_entry_data: Dict[str, Any], catalog_metadata: Dict[str, Any]
-    ) -> Optional[str]:
+    ) -> Optional[EntryData]:
         """
-        Fetch the component that is identified by catalog_entry_data from
-        the Artifactory catalog.
+        Fetch the component that is identified by catalog_entry_data from the Artifactory catalog.
 
         :param catalog_entry_data: a dictionary that contains the information needed to read the content
                                    of the component definition
         :param catalog_metadata: the metadata associated with the catalog in which this catalog entry is
                                  stored; in addition to catalog_entry_data, catalog_metadata may also be
                                  needed to read the component definition for certain types of catalogs
-
-        :returns: the content of the given catalog entry's definition in string form
+        :returns: an EntryData object representing the definition (and other identifying info) for a single
+                  catalog entry; if None is returned, this catalog entry is skipped and a warning message logged
         """
         artifactory_username = catalog_metadata.get("artifactory_username")
         artifactory_password = catalog_metadata.get("artifactory_password")
@@ -280,11 +279,12 @@ class ArtifactoryComponentCatalogConnector(ComponentCatalogConnector):
             )
             return None
 
-        return resp.text
+        return KfpEntryData(definition=resp.text)
 
-    def get_hash_keys(self) -> List[Any]:
+    @classmethod
+    def get_hash_keys(cls) -> List[Any]:
         """
-        Identifies the unique Artifactory catalog key that method read_catalog_entry
+        Identifies the unique Artifactory catalog key that get_entry_data
         can use to fetch a component from the catalog. Method get_catalog_entries
         retrieves the list of available key values from the catalog.
 

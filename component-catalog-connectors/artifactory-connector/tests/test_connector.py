@@ -182,7 +182,7 @@ class TestArtifactoryComponentCatalogConnector:
         # the URL of the expected first API call given the above parameters
         _storage_api_url = (
             f"{_artifactory_url.rstrip('/')}"
-            f"/api/storage"
+            "/api/storage"
             f"/{_repository_name}"
             f"/{_repository_path.strip('/')}"
         )
@@ -277,7 +277,7 @@ class TestArtifactoryComponentCatalogConnector:
         """
         Test various invalid `get_entry_data()` scenarios
         """
-        _entry_url = f"https://invalid.example.com/my-repository/component.yaml"
+        _entry_url = "https://invalid.example.com/my-repository/component.yaml"
         _catalog_entry_data = {"url": _entry_url}
         _catalog_metadata = {}
 

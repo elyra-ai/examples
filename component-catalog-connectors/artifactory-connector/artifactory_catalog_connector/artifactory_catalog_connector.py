@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 import fnmatch
+import re
 from http import HTTPStatus
 from typing import Any
 from typing import Dict
@@ -23,7 +24,11 @@ from urllib.parse import urlparse
 
 import requests
 from artifactory_catalog_connector import packaging_ports
-from elyra.pipeline.catalog_connector import ComponentCatalogConnector, EntryData, KfpEntryData
+from elyra.pipeline.catalog_connector import (
+    ComponentCatalogConnector,
+    EntryData,
+    KfpEntryData,
+)
 from requests.auth import HTTPBasicAuth, AuthBase
 
 
@@ -62,19 +67,23 @@ def get_folder_info(
     req_url = f"{api_base_url}/api/storage/{repository_name}/{folder_path.strip('/')}"
     resp = requests.get(req_url, auth=api_auth)
 
+    # verify HTTP status code
     if resp.status_code != HTTPStatus.OK:
         raise RuntimeError(
             f"Failed to get FolderInfo from '{req_url}'... "
             f"Got unhandled HTTP Status {resp.status_code}, expected 200... "
             f"{resp.text}"
         )
+
+    # verify Content-Type
+    resp_content_type = resp.headers.get("Content-Type", "")
     expected_content_type = (
         "application/vnd.org.jfrog.artifactory.storage.FolderInfo+json"
     )
-    if resp.headers["Content-Type"] != expected_content_type:
+    if resp_content_type != expected_content_type:
         raise RuntimeError(
             f"Failed to get FolderInfo from '{req_url}'... "
-            f"Got unexpected Content-Type '{resp.headers['Content-Type']}', "
+            f"Got unexpected Content-Type '{resp_content_type}', "
             f"expected '{expected_content_type}'"
         )
 
@@ -192,19 +201,94 @@ class ArtifactoryComponentCatalogConnector(ComponentCatalogConnector):
         """
         component_list = []
 
-        artifactory_url = catalog_metadata["artifactory_url"]
+        ########################
+        # required metadata
+        ########################
+        artifactory_url = catalog_metadata.get("artifactory_url")
+        if artifactory_url is None:
+            self.log.error("Artifactory catalogs must specify `artifactory_url`")
+            return component_list
+
+        repository_name = catalog_metadata.get("repository_name")
+        if artifactory_url is None:
+            self.log.error("Artifactory catalogs must specify `repository_name`")
+            return component_list
+
+        repository_path = catalog_metadata.get("repository_path")
+        if repository_path is None:
+            self.log.error("Artifactory catalogs must specify `repository_path`")
+            return component_list
+
+        max_recursion_depth = catalog_metadata.get("max_recursion_depth")
+        if max_recursion_depth is None:
+            self.log.error("Artifactory catalogs must specify `max_recursion_depth`")
+            return component_list
+
+        max_files_per_folder = catalog_metadata.get("max_files_per_folder")
+        if max_files_per_folder is None:
+            self.log.error("Artifactory catalogs must specify `max_files_per_folder`")
+            return component_list
+
+        file_filter = catalog_metadata.get("file_filter")
+        if file_filter is None:
+            self.log.error("Artifactory catalogs must specify `file_filter`")
+            return component_list
+
+        file_ordering = catalog_metadata.get("file_ordering")
+        if file_ordering is None:
+            self.log.error("Artifactory catalogs must specify `file_ordering`")
+            return component_list
+
+        # parse `artifactory_url`
+        url_obj = urlparse(artifactory_url)
+        url_path = url_obj.path.strip("/")
+        if url_path:
+            api_base_url = f"{url_obj.scheme}://{url_obj.netloc}/{url_path}"
+        else:
+            api_base_url = f"{url_obj.scheme}://{url_obj.netloc}"
+
+        # parse `max_recursion_depth`
+        _max_recursion_depth_regex = re.compile(r"^[0-9]+$")
+        if _max_recursion_depth_regex.match(max_recursion_depth):
+            max_recursion_depth = int(max_recursion_depth)
+        else:
+            self.log.error(
+                f"`max_recursion_depth` in Artifactory catalogs must match regex: "
+                f"{_max_recursion_depth_regex.pattern}"
+            )
+            return component_list
+
+        # parse `max_files_per_folder`
+        _max_files_per_folder_regex = re.compile(r"^-1|[0-9]+$")
+        if _max_files_per_folder_regex.match(max_files_per_folder):
+            max_files_per_folder = int(max_files_per_folder)
+        else:
+            self.log.error(
+                f"`max_files_per_folder` in Artifactory catalogs must match regex: "
+                f"{_max_files_per_folder_regex.pattern}"
+            )
+            return component_list
+
+        # parse `file_ordering`
+        _file_ordering_options = [
+            "NAME_ASCENDING",
+            "NAME_DESCENDING",
+            "VERSION_ASCENDING",
+            "VERSION_DESCENDING",
+        ]
+        if file_ordering not in _file_ordering_options:
+            self.log.error(
+                f"`file_ordering` in Artifactory catalogs must be one of: {_file_ordering_options}"
+            )
+            return component_list
+
+        ########################
+        # optional metadata
+        ########################
         artifactory_username = catalog_metadata.get("artifactory_username")
         artifactory_password = catalog_metadata.get("artifactory_password")
-        repository_name = catalog_metadata["repository_name"]
-        repository_path = catalog_metadata["repository_path"]
-        max_recursion_depth = int(catalog_metadata["max_recursion_depth"])
-        max_files_per_folder = int(catalog_metadata["max_files_per_folder"])
-        file_filter = catalog_metadata["file_filter"]
-        file_ordering = catalog_metadata["file_ordering"]
 
-        url_obj = urlparse(artifactory_url)
-        api_base_url = f"{url_obj.scheme}://{url_obj.netloc}/{url_obj.path.strip('/')}"
-
+        # parse `artifactory_username` and `artifactory_password`
         api_auth = None
         if artifactory_username and artifactory_password:
             api_auth = HTTPBasicAuth(
@@ -213,9 +297,13 @@ class ArtifactoryComponentCatalogConnector(ComponentCatalogConnector):
         elif artifactory_password:
             api_auth = ArtifactoryApiKeyAuth(api_key=artifactory_password)
 
+        ########################
+        # get component list
+        ########################
         try:
-            self.log.debug("Retrieving component list from Artifactory catalog.")
-
+            self.log.debug(
+                f"Retrieving component list from Artifactory catalog '{artifactory_url}'"
+            )
             component_list += recursively_get_components(
                 api_base_url=api_base_url,
                 api_auth=api_auth,
@@ -227,10 +315,9 @@ class ArtifactoryComponentCatalogConnector(ComponentCatalogConnector):
                 current_folder_path=repository_path,
                 current_recursion_depth=0,
             )
-
         except Exception as ex:
             self.log.error(
-                f"Error retrieving component list from Artifactory catalog: {ex}"
+                f"Error retrieving component list from Artifactory catalog '{artifactory_url}': {ex}"
             )
 
         return component_list
@@ -249,14 +336,21 @@ class ArtifactoryComponentCatalogConnector(ComponentCatalogConnector):
         :returns: an EntryData object representing the definition (and other identifying info) for a single
                   catalog entry; if None is returned, this catalog entry is skipped and a warning message logged
         """
+        ########################
+        # required metadata
+        ########################
+        entry_url = catalog_entry_data.get("url")
+        if entry_url is None:
+            self.log.error("Artifactory component entries must specify `url`")
+            return None
+
+        ########################
+        # optional metadata
+        ########################
         artifactory_username = catalog_metadata.get("artifactory_username")
         artifactory_password = catalog_metadata.get("artifactory_password")
 
-        url = catalog_entry_data.get("url")
-        if url is None:
-            self.log.error("Artifactory component source must contain `url`.")
-            return None
-
+        # parse `artifactory_username` and `artifactory_password`
         api_auth = None
         if artifactory_username and artifactory_password:
             api_auth = HTTPBasicAuth(
@@ -265,17 +359,33 @@ class ArtifactoryComponentCatalogConnector(ComponentCatalogConnector):
         elif artifactory_password:
             api_auth = ArtifactoryApiKeyAuth(api_key=artifactory_password)
 
-        resp = requests.get(url, auth=api_auth)
-        if resp.status_code != HTTPStatus.OK:
-            self.log.error(
-                f"Failed to read component from '{url}'... "
-                f"Got unhandled HTTP Status {resp.status_code}, expected 200"
+        ########################
+        # get component
+        ########################
+        try:
+            self.log.debug(
+                f"Retrieving component from Artifactory catalog '{entry_url}'"
             )
-            return None
-        if resp.headers["Content-Type"] != "text/plain":
+            resp = requests.get(entry_url, auth=api_auth)
+
+            # verify HTTP status code
+            if resp.status_code != HTTPStatus.OK:
+                raise RuntimeError(
+                    f"Got unhandled HTTP Status {resp.status_code}, expected 200... "
+                    f"{resp.text}"
+                )
+
+            # verify Content-Type
+            resp_content_type = resp.headers.get("Content-Type", "")
+            expected_content_type = "text/plain"
+            if resp_content_type != expected_content_type:
+                raise RuntimeError(
+                    f"Got unexpected Content-Type '{resp_content_type}', "
+                    f"expected '{expected_content_type}'"
+                )
+        except Exception as ex:
             self.log.error(
-                f"Failed to read component from '{url}'... "
-                f"Got unexpected Content-Type '{resp.headers['Content-Type']}', expected 'text/plain'"
+                f"Error retrieving component specification from '{entry_url}': {ex}"
             )
             return None
 

@@ -315,7 +315,7 @@ class TestArtifactoryComponentCatalogConnector:
                 "url": (
                     f"{_artifactory_url.rstrip('/')}"
                     f"/{_repository_name}"
-                    f"/components/component_1/component-1.0.10.yaml"
+                    "/components/component_1/component-1.0.10.yaml"
                 )
             },
             # we don't use catalog_metadata when retrieving entries, so can be blank

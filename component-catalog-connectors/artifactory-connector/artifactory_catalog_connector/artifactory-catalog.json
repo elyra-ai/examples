@@ -66,7 +66,8 @@
           "format": "uri",
           "uihints": {
             "category": "Source",
-            "placeholder": "https://example.org/artifactory/"
+            "ui:placeholder": "https://example.com/artifactory/",
+            "placeholder": "https://example.com/artifactory/"
           }
         },
         "artifactory_username": {
@@ -82,8 +83,9 @@
           "description": "Password or API Key for the Artifactory server",
           "type": "string",
           "uihints": {
-            "secure": true,
-            "category": "Source"
+            "category": "Source",
+            "ui:field": "password",
+            "secure": true
           }
         },
         "repository_name": {
@@ -106,7 +108,7 @@
         },
         "max_recursion_depth": {
           "title": "Maximum Recursion Depth",
-          "description": "Maximum folder depth to recurse looking for '__COMPONENT__' files",
+          "description": "Maximum folder depth to recurse looking for '__COMPONENT__' marker files",
           "type": "string",
           "pattern": "^[0-9]+$",
           "default": "0",
@@ -126,7 +128,7 @@
         },
         "file_filter": {
           "title": "File Filter",
-          "description": "Unix-like file name filter. ('*' match everything; '?' any single character; '[seq]' character in seq; '[!seq]' character not in seq, '[0-9]' any number)",
+          "description": "Fnmatch file name filter: '*' match everything; '?' any single character; '[seq]' character in seq; '[!seq]' character not in seq; '[0-9]' any single number;",
           "default": "*.yaml",
           "type": "string",
           "uihints": {
@@ -135,7 +137,7 @@
         },
         "file_ordering": {
           "title": "File Ordering",
-          "description": "Order in which files are processed per folder",
+          "description": "Order in which files are processed per folder. 'NAME' alphanumeric; 'VERSION' packaging.version.LegacyVersion();",
           "type": "string",
           "enum": [
             "NAME_ASCENDING",

@@ -1,6 +1,6 @@
 {
-  "$schema": "https://raw.githubusercontent.com/elyra-ai/elyra/master/elyra/metadata/schemas/meta-schema.json",
-  "$id": "https://raw.githubusercontent.com/elyra-ai/examples/master/component-catalog-connectors/connector-template/todo_catalog_connector/todo-catalog.json",
+  "$schema": "https://raw.githubusercontent.com/elyra-ai/elyra/main/elyra/metadata/schemas/meta-schema.json",
+  "$id": "https://raw.githubusercontent.com/elyra-ai/examples/main/component-catalog-connectors/connector-template/todo_catalog_connector/todo-catalog.json",
   "title": "TODO Component Catalog",
   "name": "todo-catalog",
   "schemaspace": "component-catalogs",
@@ -9,7 +9,7 @@
   "uihints": {
     "title": "TODO Component Catalog",
     "icon": "",
-    "reference_url": "https://github.com/elyra-ai/examples/tree/master/component-catalog-connectors/connector-template"
+    "reference_url": "https://github.com/elyra-ai/examples/tree/main/component-catalog-connectors/connector-template"
   },
   "properties": {
     "schema_name": {

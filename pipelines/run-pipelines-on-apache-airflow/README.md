@@ -64,7 +64,7 @@ Collect the following information:
 
 #### Create a runtime configuration
 
-Create a runtime environment configuration for your Apache Airflow installation as described in [_Runtime configuration_ topic in the User Guide](https://elyra.readthedocs.io/en/stable/user_guide/runtime-conf.html) or the [_Run generic pipelines on Apache Airflow_ tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/run-generic-pipelines-on-apache-airflow).
+Create a runtime environment configuration for your Apache Airflow installation as described in [_Runtime configuration_ topic in the User Guide](https://elyra.readthedocs.io/en/stable/user_guide/runtime-conf.html) or the [_Run generic pipelines on Apache Airflow_ tutorial](https://github.com/elyra-ai/examples/tree/main/pipelines/run-generic-pipelines-on-apache-airflow).
 
 #### Create a new connection id
 One of the components used in this tutorial utilizes a pre-configured `http_conn_id`, which is set in the completed tutorial pipeline to `http_github`.
@@ -151,7 +151,7 @@ To add component specifications to the catalog that are stored remotely:
    - **Description**: `run a shell script`
    - **Runtime**: `APACHE_AIRFLOW`
    - **Category Names**: `scripting`
-   - **URLs**: `https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-apache-airflow/components/bash_operator.py`
+   - **URLs**: `https://raw.githubusercontent.com/elyra-ai/examples/main/pipelines/run-pipelines-on-apache-airflow/components/bash_operator.py`
 1. Save the component catalog entry.
 
 The catalog is now populated with the custom components you'll use in the tutorial pipeline.
@@ -183,7 +183,7 @@ The pipeline editor's palette is populated from the component catalog. To use th
    ![](doc/images/review-http-node-properties.png)
 
 
-1. Review the node properties. The properties are a combination of Elyra metadata and information that was extracted from the [component's specification](https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-apache-airflow/components/http_operator.py):
+1. Review the node properties. The properties are a combination of Elyra metadata and information that was extracted from the [component's specification](https://raw.githubusercontent.com/elyra-ai/examples/main/pipelines/run-pipelines-on-apache-airflow/components/http_operator.py):
    ```
    class SimpleHttpOperator(BaseOperator):
     """
@@ -237,7 +237,7 @@ The pipeline editor's palette is populated from the component catalog. To use th
    ![Configure request node](doc/images/configure-request-node.png)
 
 
-1. Open the properties of the '`BashOperator`' node. The [specification for the underlying component looks as follows](https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/run-pipelines-on-apache-airflow/components/bash_operator.py):
+1. Open the properties of the '`BashOperator`' node. The [specification for the underlying component looks as follows](https://raw.githubusercontent.com/elyra-ai/examples/main/pipelines/run-pipelines-on-apache-airflow/components/bash_operator.py):
    ```
    class BashOperator(BaseOperator):
     """
@@ -329,6 +329,6 @@ This concludes the _Run pipelines on Apache Airflow_ tutorial. You've learned ho
 - [_Creating a custom operator_ topic in the Apache Airflow documentation](https://airflow.apache.org/docs/apache-airflow/stable/howto/custom-operator.html)
 - [_Pipelines_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/pipelines.html)
 - [_Pipeline components_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html)
-- [_Component catalog connector marketplace_](https://github.com/elyra-ai/examples/tree/master/component-catalog-connectors)
+- [_Component catalog connector marketplace_](https://github.com/elyra-ai/examples/tree/main/component-catalog-connectors)
 - [_Requirements and best practices for custom pipeline components_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/best-practices-custom-pipeline-components.html)
 - [_Command line interface_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/command-line-interface.html)

@@ -31,7 +31,7 @@ setup_args = dict(
     name="mlx-component-catalog-connector",
     version=version_ns['__version__'],
     url="https://github.com/elyra-ai/examples/"
-        "tree/master/component-catalog-connectors/mlx-connector",
+        "tree/main/component-catalog-connectors/mlx-connector",
     description="Elyra component catalog connector for the Machine Learning Exchange",
     long_description=long_desc,
     author="Elyra Maintainers",

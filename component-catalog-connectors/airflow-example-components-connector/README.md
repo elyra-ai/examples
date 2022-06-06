@@ -6,8 +6,8 @@
 February 2022:
  - The example operators that this connector provides will no longer be updated. 
  - Please upgrade Elyra to version 3.7 (or above) and use the two built-in connectors instead. 
- - Use the built-in [catalog connector for Apache Airflow packages](https://github.com/elyra-ai/elyra/tree/master/elyra/pipeline/airflow/package_catalog_connector) to add Apache Airflow built-in operators to your visual pipeline editor.
- - Use the built-in [catalog connector for Apache Airflow provider packages](https://github.com/elyra-ai/elyra/tree/master/elyra/pipeline/airflow/provider_package_catalog_connector) to add Apache Airflow [community provider](https://airflow.apache.org/docs/apache-airflow-providers/) operators to your visual pipeline editor.
+ - Use the built-in [catalog connector for Apache Airflow packages](https://github.com/elyra-ai/elyra/tree/main/elyra/pipeline/airflow/package_catalog_connector) to add Apache Airflow built-in operators to your visual pipeline editor.
+ - Use the built-in [catalog connector for Apache Airflow provider packages](https://github.com/elyra-ai/elyra/tree/main/elyra/pipeline/airflow/provider_package_catalog_connector) to add Apache Airflow [community provider](https://airflow.apache.org/docs/apache-airflow-providers/) operators to your visual pipeline editor.
 
 ---
 

@@ -32,7 +32,7 @@ setup_args = dict(
     name="elyra-examples-airflow-catalog",
     version=version_ns['__version__'],
     url="https://github.com/elyra-ai/examples/"
-        "tree/master/component-catalog-connectors/airflow-example-components-connector",
+        "tree/main/component-catalog-connectors/airflow-example-components-connector",
     description="Curated Elyra component catalog for example Apache Airflow components.",
     long_description=long_desc,
     author="Elyra Maintainers",

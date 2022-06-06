@@ -1,6 +1,6 @@
 {
-  "$schema": "https://raw.githubusercontent.com/elyra-ai/elyra/master/elyra/metadata/schemas/meta-schema.json",
-  "$id": "https://raw.githubusercontent.com/elyra-ai/examples/master/component-catalog-connectors/mlx-connector/mlx_catalog_connector/mlx-catalog.json",
+  "$schema": "https://raw.githubusercontent.com/elyra-ai/elyra/main/elyra/metadata/schemas/meta-schema.json",
+  "$id": "https://raw.githubusercontent.com/elyra-ai/examples/main/component-catalog-connectors/mlx-connector/mlx_catalog_connector/mlx-catalog.json",
   "title": "Machine Learning Exchange Component Catalog",
   "name": "mlx-catalog",
   "schemaspace": "component-catalogs",
@@ -9,7 +9,7 @@
   "uihints": {
     "title": "Machine Learning Exchange Component Catalog",
     "icon": "",
-    "reference_url": "https://github.com/elyra-ai/examples/tree/master/component-catalog-connectors/mlx-connector"
+    "reference_url": "https://github.com/elyra-ai/examples/tree/main/component-catalog-connectors/mlx-connector"
   },
   "properties": {
     "schema_name": {

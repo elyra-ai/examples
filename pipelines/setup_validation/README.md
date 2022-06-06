@@ -21,7 +21,7 @@ Use the pipeline(s) in this directory to verify that your runtime environments a
 
 ### Validating the JupyterLab setup
 
-To validate that you can run pipelines in your JupyterLab environment complete the steps below. If you are new to Elyra, please [review the introductory tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world) before proceeding.
+To validate that you can run pipelines in your JupyterLab environment complete the steps below. If you are new to Elyra, please [review the introductory tutorial](https://github.com/elyra-ai/examples/tree/main/pipelines/hello_world) before proceeding.
 
 1. In the File Explorer open `validate_python.pipeline` in the Visual Pipeline editor. The pipeline runs a trivial notebook and Python script.
 1. In the Visual Pipeline editor click the "Run" button.
@@ -32,7 +32,7 @@ If the pipeline runs without any issues your basic setup is ok for Python script
 
 ### Validating a Kubeflow Pipelines setup
 
-To validate that you can run pipelines in your JupyterLab environment complete the steps below. If you are new to Elyra, please [review the introductory tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world_kubeflow_pipelines) before proceeding.
+To validate that you can run pipelines in your JupyterLab environment complete the steps below. If you are new to Elyra, please [review the introductory tutorial](https://github.com/elyra-ai/examples/tree/main/pipelines/hello_world_kubeflow_pipelines) before proceeding.
 
 Prerequisites:
 - Kubeflow v1.2 or v1.3 is deployed
@@ -44,11 +44,11 @@ Steps:
 1. In the Run dialog choose `Kubeflow Pipelines` as _Runtime Platform_, and select the runtime configuration you've created.
 1. Submit the pipeline. 
 1. If the submission dialog indicates that an error occurred, check your runtime configuration and try again. 
-1. If the submission succeeded open the Kubeflow Central dashboard link and [follow the monitoring steps outlined in the tutorial.](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world_kubeflow_pipelines#monitoring-a-pipeline-run)
+1. If the submission succeeded open the Kubeflow Central dashboard link and [follow the monitoring steps outlined in the tutorial.](https://github.com/elyra-ai/examples/tree/main/pipelines/hello_world_kubeflow_pipelines#monitoring-a-pipeline-run)
 
 ### Validating an Apache Airflow setup
 
-To validate that you can run pipelines in your Apache Airflow environment, follow the steps below. If you are new to Elyra, please [review the introductory tutorial](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world_apache_airflow) before proceeding.
+To validate that you can run pipelines in your Apache Airflow environment, follow the steps below. If you are new to Elyra, please [review the introductory tutorial](https://github.com/elyra-ai/examples/tree/main/pipelines/hello_world_apache_airflow) before proceeding.
 
 1. [Create an Apache Airflow runtime configuration.](https://elyra.readthedocs.io/en/stable/user_guide/runtime-conf.html)
 1. In the File Explorer open `validate_python.pipeline` in the Visual Pipeline editor. The pipeline runs a trivial notebook and Python script.
@@ -58,4 +58,4 @@ To validate that you can run pipelines in your Apache Airflow environment, follo
 1. If the submission dialog indicates that an error occurred, check your runtime configuration and try again. 
 1. If the submission succeeded: 
    - Open the GitHub repository link and verify that a DAG with the pipeline name exists.
-   - Open the Apache Airflow dashboard and [follow the monitoring steps outlined in the tutorial.](https://github.com/elyra-ai/examples/tree/master/pipelines/hello_world_apache_airflow#running-a-notebook-pipeline-on-apache-airflow)
+   - Open the Apache Airflow dashboard and [follow the monitoring steps outlined in the tutorial.](https://github.com/elyra-ai/examples/tree/main/pipelines/hello_world_apache_airflow#running-a-notebook-pipeline-on-apache-airflow)

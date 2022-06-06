@@ -1,6 +1,6 @@
 ### Filter text component
 
-Use the [_filter text_ example component](https://github.com/elyra-ai/elyra/blob/master/etc/config/components/kfp/filter_text_using_shell_and_grep.yaml) to find lines in a text file that contain the specified string pattern.
+Use the [_filter text_ example component](https://github.com/elyra-ai/elyra/blob/main/etc/config/components/kfp/filter_text_using_shell_and_grep.yaml) to find lines in a text file that contain the specified string pattern.
 
 ### Prerequisites
 Ensure that you have the (Text) data downloaded and available via a download step prior to using this component.

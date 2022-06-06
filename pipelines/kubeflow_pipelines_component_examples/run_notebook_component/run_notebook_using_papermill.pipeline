@@ -16,7 +16,7 @@
             "component_parameters": {
               "url": {
                 "activeControl": "StringControl",
-                "StringControl": "https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/kubeflow_pipelines_component_examples/run_notebook_component/a-notebook.ipynb"
+                "StringControl": "https://raw.githubusercontent.com/elyra-ai/examples/main/pipelines/kubeflow_pipelines_component_examples/run_notebook_component/a-notebook.ipynb"
               },
               "curl_options": {
                 "activeControl": "StringControl",
@@ -70,7 +70,7 @@
             "component_parameters": {
               "parameters": {
                 "activeControl": "StringControl",
-                "StringControl": "{'multiplier':2, 'data_url': 'https://raw.githubusercontent.com/elyra-ai/examples/master/pipelines/kubeflow_pipelines_component_examples/run_notebook_component/data/data-1.csv'}"
+                "StringControl": "{'multiplier':2, 'data_url': 'https://raw.githubusercontent.com/elyra-ai/examples/main/pipelines/kubeflow_pipelines_component_examples/run_notebook_component/data/data-1.csv'}"
               },
               "packages_to_install": {
                 "activeControl": "StringControl",

@@ -30,7 +30,7 @@ with open(os.path.join(here, "artifactory_catalog_connector", "_version.py")) as
 setup_args = dict(
     name="elyra-artifactory-catalog-connector",
     version=version_ns["__version__"],
-    url="https://github.com/elyra-ai/examples/tree/master/component-catalog-connectors/artifactory-connector",
+    url="https://github.com/elyra-ai/examples/tree/main/component-catalog-connectors/artifactory-connector",
     description="Elyra component catalog connector for Artifactory",
     long_description=long_desc,
     author="Elyra Maintainers",
@@ -58,10 +58,10 @@ setup_args = dict(
         "Topic :: Software Development",
         "Topic :: Software Development :: Libraries",
         "Topic :: Software Development :: Libraries :: Python Modules",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
     ],
 )
 

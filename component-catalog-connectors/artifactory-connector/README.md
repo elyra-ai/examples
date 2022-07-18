@@ -1,6 +1,11 @@
 ## Artifactory component catalog connector
 
-This catalog connector enables Elyra to load pipelines components from a generic-type Artifactory repo.
+This catalog connector enables Elyra to load Kubeflow Pipelines components from a generic-type Artifactory repo.
+
+> 🟨 __Note__ 🟨
+>
+> Currently, this connector only works with `--runtime_type=KUBEFLOW_PIPELINES`, 
+> we welcome contributions for other runtime types.
 
 ## Install the connector
 

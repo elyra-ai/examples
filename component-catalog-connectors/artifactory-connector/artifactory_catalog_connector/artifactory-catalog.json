@@ -1,6 +1,6 @@
 {
-  "$schema": "https://raw.githubusercontent.com/elyra-ai/elyra/master/elyra/metadata/schemas/meta-schema.json",
-  "$id": "https://raw.githubusercontent.com/elyra-ai/examples/master/component-catalog-connectors/artifactory-connector/artifactory_catalog_connector/artifactory-catalog.json",
+  "$schema": "https://raw.githubusercontent.com/elyra-ai/elyra/main/elyra/metadata/schemas/meta-schema.json",
+  "$id": "https://raw.githubusercontent.com/elyra-ai/examples/main/component-catalog-connectors/artifactory-connector/artifactory_catalog_connector/artifactory-catalog.json",
   "title": "Artifactory Component Catalog",
   "name": "artifactory-catalog",
   "schemaspace": "component-catalogs",
@@ -9,7 +9,7 @@
   "uihints": {
     "title": "Artifactory Component Catalog",
     "icon": "",
-    "reference_url": "https://github.com/elyra-ai/examples/tree/master/component-catalog-connectors/artifactory-connector"
+    "reference_url": "https://github.com/elyra-ai/examples/tree/main/component-catalog-connectors/artifactory-connector"
   },
   "properties": {
     "schema_name": {

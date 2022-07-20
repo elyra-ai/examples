@@ -193,9 +193,9 @@ component_group/
 
 ### Example 1
 
+**Connector configuration:**
+
 ```
-Configs:
-=========
 artifactory_url      = https://example.com/artifactory/
 repository_name      = elyra-components
 repository_path      = /
@@ -203,27 +203,30 @@ max_recursion_depth  = 3
 max_files_per_folder = -1
 file_filter          = *.yaml
 file_ordering        = VERSION_DESCENDING
+```
 
-Matched:
-=========
+**Matched components:**
+
+```
 /component_one/1.0.0.yaml
 /component_one/2.0.0.yaml
 /component_group/component_two/1.0.0.yaml
 /component_group/component_two/2.0.0.yaml
 /component_group/component_three/1.0.0.yaml
 /component_group/component_three/2.0.0.yaml
+```
 
-Notes:
-=========
+**Notes:**
+
 - the `/missing_marker` files are not matched as this folder does not contain a `__COMPONENT__` marker
 - the `/component_group/component_two/nested_component` files are not matched as recursion stops at the first `__COMPONENT__` marker
-```
+
 
 ### Example 2
 
+**Connector configuration:**
+
 ```
-Configs:
-=========
 artifactory_url      = https://example.com/artifactory/
 repository_name      = elyra-components
 repository_path      = /
@@ -231,28 +234,30 @@ max_recursion_depth  = 3
 max_files_per_folder = 1
 file_filter          = *.yaml
 file_ordering        = VERSION_DESCENDING
+```
 
-Matched:
-=========
+**Matched components:**
+
+```
 /component_one/2.0.0.yaml
 /component_group/component_two/2.0.0.yaml
 /component_group/component_three/2.0.0.yaml
+```
 
-Notes:
-=========
+**Notes:**
+
 - as `max_files_per_folder` is `1`, only ONE file from each folder is matched 
 - as `file_ordering` is `VERSION_DESCENDING`, the HIGHEST version file is returned
    - we use `packaging.version.LegacyVersion()` to preform the sort
    - the `file_ordering` is applied separately within each folder
    - the WHOLE file-name is treated as a version, so "aaaa-1.0.0.yaml" would be sorted before "bbbb-9.0.0.yaml"
      (to avoid this problem, don't include any prefix on file names, for example `1.0.0.yaml`, `1.1.0.yaml`)
-```
 
 ### Example 3
 
+**Connector configuration:**
+
 ```
-Configs:
-=========
 artifactory_url      = https://example.com/artifactory/
 repository_name      = elyra-components
 repository_path      = /
@@ -260,15 +265,11 @@ max_recursion_depth  = 0
 max_files_per_folder = -1
 file_filter          = *.yaml
 file_ordering        = VERSION_DESCENDING
-
-Matched:
-=========
-NONE
-
-Notes:
-=========
-- no files are matched, as `max_recursion_depth` is `0`, and there is no component at the root
 ```
+
+**Matched components:**
+
+None. No files are matched, as `max_recursion_depth` is `0`, and there is no component at the root.
 
 ## Uninstall the connector
 
@@ -282,4 +283,4 @@ Notes:
 ## Troubleshooting
 
 - __Problem:__ The palette does not display any components from the configured catalog.
-   - __Solution:__ If the Elyra GUI does not display any error message indicating that a problem was encountered, inspect the JupyterLab log file.
+- __Solution:__ If the Elyra GUI does not display any error message indicating that a problem was encountered, inspect the JupyterLab log file.

@@ -1,5 +1,7 @@
 ## Artifactory component catalog connector
 
+[![PyPI version](https://badge.fury.io/py/elyra-artifactory-catalog-connector.svg)](https://badge.fury.io/py/elyra-artifactory-catalog-connector)
+
 This catalog connector enables Elyra to load Kubeflow Pipelines components from a generic-type Artifactory repo.
 
 > 🟨 __Note__ 🟨

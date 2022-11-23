@@ -17,11 +17,11 @@ limitations under the License.
 -->
 ## Getting started with generic pipelines
 
-A [pipeline](https://elyra.readthedocs.io/en/latest/user_guide/pipelines.html) comprises one or more nodes that are (in many cases) connected with each other to define execution dependencies. Each node is implemented by a [component](https://elyra.readthedocs.io/en/latest/user_guide/pipeline-components.html) and typically performs only a single task, such as loading data, processing data, training a model, or sending an email.
+A [pipeline](https://elyra.readthedocs.io/en/stable/user_guide/pipelines.html) comprises one or more nodes that are (in many cases) connected with each other to define execution dependencies. Each node is implemented by a [component](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html) and typically performs only a single task, such as loading data, processing data, training a model, or sending an email.
 
 ![A basic pipeline](doc/images/pipelines-nodes.png)
 
-A _generic pipeline_ comprises nodes that are implemented using _generic components_. In the current release Elyra includes generic components that run Jupyter notebooks, Python scripts, and R scripts. Generic components have in common that they are supported in every Elyra pipelines runtime environment: local/JupyterLab, Kubeflow Pipelines, and Apache Airflow.
+A [_generic pipeline_](https://elyra.readthedocs.io/en/stable/user_guide/pipelines.html#generic-pipelines) comprises nodes that are implemented using _generic components_. In the current release Elyra includes generic components that run Jupyter notebooks, Python scripts, and R scripts. Generic components have in common that they are supported in every Elyra pipelines runtime environment: local/JupyterLab, Kubeflow Pipelines, and Apache Airflow.
 
 ![Generic pipelines and supported runtime environments](doc/images/pipeline-runtimes-environments.png)
 
@@ -35,9 +35,9 @@ In this introductory tutorial you will learn how to create a generic pipeline an
 
 ### Prerequisites
 
-- [JupyterLab 3.x with the Elyra extension v3.x (or newer) installed](https://elyra.readthedocs.io/en/latest/getting_started/installation.html).
+- [JupyterLab 3.x with the Elyra extension v3.x (or newer) installed](https://elyra.readthedocs.io/en/stable/getting_started/installation.html).
 
-> The tutorial instructions were last updated using Elyra version 3.0.
+> The tutorial instructions were last updated using Elyra version 3.13.
 
 ### Setup
 
@@ -77,7 +77,9 @@ You are ready to start the tutorial.
 
    ![Open the properties panel](doc/images/open-properties-panel.png)
 
-1. Select the _Pipeline properties_ tab and enter a pipeline description.
+1. Select the _Pipeline properties_ tab. Pipeline properties configure default property values that are applied to every applicable node and general metadata. Since generic pipelines may only include generic nodes, only the defaults in section _Generic Node Defaults_ are of interest in this tutorial. You'll learn more about these defaults in the next sections.
+
+1. Enter a pipeline description.
 
    ![Add pipeline description](doc/images/add-pipeline-description.png)
 
@@ -137,7 +139,7 @@ To add a notebook or script to the pipeline:
 
    If desired, you can customize additional inputs by defining environment variables.
 
-1. Click _refresh_ to scan the file for environment variable references. Refer to the [best practices for file-based pipeline nodes](https://elyra.readthedocs.io/en/latest/user_guide/best-practices-file-based-nodes.html#environment-variables) to learn more about how Elyra discovers environment variables in notebooks and scripts.
+1. Click _refresh_ to scan the file for environment variable references. Refer to the [best practices for file-based pipeline nodes](https://elyra.readthedocs.io/en/stable/user_guide/best-practices-file-based-nodes.html#environment-variables) to learn more about how Elyra discovers environment variables in notebooks and scripts.
 
    ![Scan file for environment variables](doc/images/scan-file.png)
 
@@ -229,9 +231,9 @@ You can access output artifacts from the _File Browser_. In the screen capture b
 
 ### Run a generic pipeline using the CLI
 
-Elyra provides a [command line interface](https://elyra.readthedocs.io/en/latest/user_guide/command-line-interface.html) that you can use to manage metadata and work with pipelines.
+Elyra provides a [command line interface](https://elyra.readthedocs.io/en/stable/user_guide/command-line-interface.html) that you can use to manage metadata and work with pipelines.
 
-To run a pipeline locally using the [`elyra-pipeline`](https://elyra.readthedocs.io/en/latest/user_guide/command-line-interface.html#working-with-pipelines) CLI:
+To run a pipeline locally using the [`elyra-pipeline`](https://elyra.readthedocs.io/en/stable/user_guide/command-line-interface.html#working-with-pipelines) CLI:
 
 1. Open a terminal window that has access to the Elyra installation.
 
@@ -269,7 +271,7 @@ Each of the notebooks can run in the `Pandas` container image and doesn't have a
 
 ### Resources
 
-- [_Pipelines_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/pipelines.html)
+- [_Creating pipelines using the Visual Pipeline Editor_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/pipelines.html#creating-pipelines-using-the-visual-pipeline-editor)
 - [_Pipeline components_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html)
 - [_Best practices for file-based pipeline nodes_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/best-practices-file-based-nodes.html)
 - [_Command line interface_ topic in the Elyra _User Guide_](https://elyra.readthedocs.io/en/stable/user_guide/command-line-interface.html)

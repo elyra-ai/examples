@@ -14,57 +14,24 @@
 # limitations under the License.
 #
 import os
-import tarfile
-from pathlib import Path
-from urllib.parse import urlparse
-
 import requests
 
+data_file_url = os.getenv(
+    "DATASET_URL",
+    "https://raw.githubusercontent.com/elyra-ai/examples/"
+    "main/pipelines/introduction-to-generic-pipelines/data/iris.data",
+)
 
-def download_from_public_url(url):
+# Download the dataset
+print(f"Downloading data file {data_file_url} ...")
+r = requests.get(data_file_url)
+if r.status_code != 200:
+    raise RuntimeError(
+        f"Error downloading {data_file_url}: HTTP status code {r.status_code}"
+    )
 
-    data_dir_name = 'data'
-
-    print('Downloading data file {} ...'.format(url))
-    r = requests.get(url)
-    if r.status_code != 200:
-        raise RuntimeError('Could not fetch {}: HTTP status code {}'
-                           .format(url, r.status_code))
-    else:
-        # extract data set file name from URL
-        data_file_name = Path((urlparse(url).path)).name
-        # create the directory where the downloaded file will be stored
-        data_dir = Path(data_dir_name)
-        data_dir.mkdir(parents=True, exist_ok=True)
-        downloaded_data_file = data_dir / data_file_name
-
-        print('Saving downloaded file "{}" as ...'.format(data_file_name))
-        with open(downloaded_data_file, 'wb') as downloaded_file:
-            downloaded_file.write(r.content)
-
-        if r.headers['content-type'] == 'application/x-tar':
-            print('Extracting downloaded file in directory "{}" ...'
-                  .format(data_dir))
-            with tarfile.open(downloaded_data_file, 'r') as tar:
-                tar.extractall(data_dir)
-            print('Removing downloaded file ...')
-            downloaded_data_file.unlink()
-
-
-if __name__ == "__main__":
-
-    # This script downloads a compressed data set archive from a public
-    # location e.g. http://server/path/to/archive and extracts it.
-    # The archive location can be specified using the DATASET_URL environment
-    # variable DATASET_URL=http://server/path/to/archive.
-
-    # initialize download URL from environment variable
-    dataset_url = os.environ.get('DATASET_URL')
-
-    # No data set URL was provided.
-    if dataset_url is None:
-        raise RuntimeError(
-            'Cannot run script. A data set URL must be provided as input.')
-
-    # Try to process the URL
-    download_from_public_url(dataset_url)
+# Save the dataset
+datafile_name = "iris.data"
+with open(datafile_name, "w") as downloaded_file:
+    downloaded_file.write(r.text)
+print(f"Saved data file as {datafile_name}.")

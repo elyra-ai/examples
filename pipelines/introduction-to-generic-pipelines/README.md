@@ -21,7 +21,7 @@ A [pipeline](https://elyra.readthedocs.io/en/stable/user_guide/pipelines.html) c
 
 ![A basic pipeline](doc/images/pipelines-nodes.png)
 
-A [_generic pipeline_](https://elyra.readthedocs.io/en/stable/user_guide/pipelines.html#generic-pipelines) comprises nodes that are implemented using _generic components_. In the current release Elyra includes generic components that run Jupyter notebooks, Python scripts, and R scripts. Generic components have in common that they are supported in every Elyra pipelines runtime environment: local/JupyterLab, Kubeflow Pipelines, and Apache Airflow.
+A [_generic pipeline_](https://elyra.readthedocs.io/en/stable/user_guide/pipelines.html#generic-pipelines) comprises nodes that are implemented using [_generic components_](https://elyra.readthedocs.io/en/stable/user_guide/pipeline-components.html#generic-components). In the current release Elyra includes generic components that run Jupyter notebooks, Python scripts, and R scripts. Generic components have in common that they are supported in every Elyra pipelines runtime environment: local/JupyterLab, Kubeflow Pipelines, and Apache Airflow.
 
 ![Generic pipelines and supported runtime environments](doc/images/pipeline-runtimes-environments.png)
 
@@ -35,7 +35,7 @@ In this introductory tutorial you will learn how to create a generic pipeline an
 
 ### Prerequisites
 
-- [JupyterLab 3.x with the Elyra extension v3.x (or newer) installed](https://elyra.readthedocs.io/en/stable/getting_started/installation.html).
+- [JupyterLab 3.x with the Elyra extension v3.13 (or newer) installed](https://elyra.readthedocs.io/en/stable/getting_started/installation.html).
 
 > The tutorial instructions were last updated using Elyra version 3.13.
 
@@ -51,7 +51,7 @@ This tutorial uses the `introduction to generic pipelines` sample from the https
 
    ![Tutorial assets in File Browser](doc/images/tutorial-directory.png)
    
-   The cloned repository includes a set of files that download an open [weather data set from the Data Asset Exchange](https://developer.ibm.com/exchanges/data/all/jfk-weather-data/), cleanse the data, analyze the data, and perform time-series predictions.
+   The tutorial directory includes a set of Jupyter notebooks and Python scripts that download, process, and analyze the [Iris flower dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set). 
 
 You are ready to start the tutorial.
 
@@ -65,7 +65,9 @@ You are ready to start the tutorial.
 
    ![Visual pipeline editor](doc/images/vpe.png)
 
-1. In the JupyterLab _File Browser_ panel, right click on the untitled pipeline, and select &#x270E; _Rename_.
+1. Click the _settings_ link on the canvas and review the pipeline editor configuration options that your Elyra installation supports.
+
+1. In the JupyterLab _File Browser_ panel, right click on the `untitled.pipeline` file, and select &#x270E; _Rename_.
 
    ![Rename pipeline](doc/images/rename-pipeline.png)  
 
@@ -85,13 +87,13 @@ You are ready to start the tutorial.
 
 1. Close the properties panel.
 
-Next, you'll add a file to the pipeline that downloads an open data set archive from public cloud storage.
+Next, you'll add a file to the pipeline that downloads the Iris flower data file from the web.
 
 ### Add a notebook or script to the pipeline
 
-This tutorial includes a Jupyter notebook `load_data.ipynb` and a Python script `load_data.py` that perform the same data loading task. 
+This tutorial includes a Jupyter notebook `load_data.ipynb` and a Python script `load_data.py`. 
 
-> For illustrative purposes the instructions use the notebook, but feel free to use the Python script. (The key takeaway is that you can mix and match notebooks and scripts, as desired.)
+> For illustrative purposes the instructions use the Jupyter notebook, but feel free to use the Python script. (The key takeaway is that you can mix and match notebooks and scripts, as desired.)
 
 To add a notebook or script to the pipeline:
 
@@ -103,9 +105,15 @@ To add a notebook or script to the pipeline:
 
    ![Component configuration error](doc/images/component-configuration-error.png)
 
-1. Select the newly added node on the canvas, right click, and select _Open Properties_ from the context menu.
+1. Select the newly added node on the canvas, right click, and select _Open Properties_ from the context menu. If you've customized the pipeline editor configuration, you can also double-click on the node.
 
    ![Open node properties](doc/images/open-node-properties.png)
+
+Properties for generic nodes are divided into four sections:
+ - The _metadata_ section includes the component name, the component description, and the node label.
+ - The _inputs_ section defines component inputs, such as the Jupyter notebook or Python script name and local file dependencies.
+ - The _outputs_ section defines files that the Jupyter notebook or Python script produces and intends to make available to other pipeline nodes.
+ - The _additional properties_ section defines resources that modify the generic component.
 
 1. Configure the node properties.
 

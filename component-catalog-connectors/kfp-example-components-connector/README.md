@@ -19,7 +19,7 @@ limitations under the License.
 
 ## Kubeflow Pipelines component examples catalog
 
-This catalog connector provides access to example pipeline components for Kubeflow Pipelines.
+This catalog connector provides access to example pipeline components for Kubeflow Pipelines. **This connector is no longer maintained.**
 
 ### Install the component examples
 
@@ -27,7 +27,7 @@ You can install the component examples from PyPI or source code. Note that a **r
 
 **Prerequisites**
 
-- [Install Elyra](https://elyra.readthedocs.io/en/stable/getting_started/installation.html) (version 3.7 and above). This connector version does not support Elyra versions below 3.7. 
+- [Install Elyra](https://elyra.readthedocs.io/en/stable/getting_started/installation.html) (version 3.7 and above). **This connector does not support Elyra < v3.7 and >= v4.0.** 
 
 **Install from PyPI**
 

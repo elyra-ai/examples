@@ -53,7 +53,24 @@ Elyra currently supports Apache Airflow deployments that utilize GitHub or GitHu
 - Branch in named repository, e.g. `test-dags`. This branch must exist.
 - [Personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) that Elyra can use to push DAGs to the repository, e.g. `4d79206e616d6520697320426f6e642e204a616d657320426f6e64`
 
-Elyra utilizes S3-compatible cloud storage to make data available to notebooks and Python scripts while they are executed. Any kind of cloud storage should work (e.g. IBM Cloud Object Storage or Minio) as long as it can be accessed from the machine where JupyterLab is running and the Apache Airflow cluster. Collect the following information:
+Elyra utilizes S3-compatible cloud storage to make data available to Jupyter notebooks and R or Python scripts while they are executed. Any kind of cloud storage should work (e.g. IBM Cloud Object Storage or Minio) as long as it can be accessed from the machine where JupyterLab is running and the Apache Airflow cluster.
+
+Elyra also puts the STDOUT (including STDERR) run output into a file when env var `ELYRA_GENERIC_NODES_ENABLE_SCRIPT_OUTPUT_TO_S3` is set to `true` or not present in the runtime container, which is the default.
+This happens in addition to logging and writing to STDOUT and STDERR at runtime.
+
+`ipynb` file execution run/STDOUT output is written to S3-compatible object storage in the following files:
+- `<notebook name>-output.ipynb`
+- `<notebook name>.html`
+
+.r and .py file execution run/STDOUT output is written to to S3-compatible object storage in the following files:
+- `<r or python filename>.log`
+
+Note: If you prefer to use S3-compatible storage for transfer of files between pipeline steps only and **not for logging information / run output of R, Python and Jupyter Notebook files**,
+either set env var **`ELYRA_GENERIC_NODES_ENABLE_SCRIPT_OUTPUT_TO_S3`** to **`false`** in runtime container builds or pass that env value explicitely in the env section of the pipeline editor, 
+either at Pipeline Properties - Generic Node Defaults - Environment Variables or at
+Node Properties - Additional Properties - Environment Variables.
+
+Collect the following information:
 - S3 compatible object storage endpoint, e.g. `http://minio-service.kubernetes:9000`
 - S3 object storage username, e.g. `minio`
 - S3 object storage password, e.g. `minio123`
